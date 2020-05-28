@@ -1,6 +1,6 @@
 package io.rot.labs.projectconf.utils.common
 
-data class Resource<out T> internal constructor(private val data: T?, private val status: Status) {
+data class Resource<out T> internal constructor(val data: T?, val status: Status) {
     companion object {
         fun <T> success(data: T? = null) = Resource(data, Status.SUCCESS)
 
