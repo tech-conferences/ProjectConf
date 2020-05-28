@@ -8,6 +8,8 @@ import io.rot.labs.projectconf.BuildConfig
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.remote.ConfApi
+import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkHelperImpl
 import javax.inject.Singleton
 
 @Module
@@ -30,5 +32,9 @@ class ApplicationModule(private val confApplication: ConfApplication) {
     fun provideDatabaseService(): DatabaseService =
         Room.databaseBuilder(confApplication, DatabaseService::class.java, "events.db")
             .build()
+
+    @Provides
+    @Singleton
+    fun provideNetworkHelper(): NetworkHelper = NetworkHelperImpl(confApplication)
 
 }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">ProjectConf</string>
+
+    // Networking
+    <string name="network_could_not_connect">Could not able to connect, Please try again</string>
+    <string name="network_time_out_occurred">Timeout occurred</string>
+    <string name="network_internet_not_connected">Not Connected to Internet, Please try again</string>
 </resources>

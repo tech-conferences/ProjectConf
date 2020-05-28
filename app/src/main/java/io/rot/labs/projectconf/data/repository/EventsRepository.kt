@@ -6,6 +6,7 @@ import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.model.Event
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
+import io.rot.labs.projectconf.utils.common.Topics
 import javax.inject.Inject
 
 class EventsRepository @Inject constructor(
@@ -158,13 +159,13 @@ class EventsRepository @Inject constructor(
                 networkService.getUXEventsByYear(year)
             )
 
-            else -> emptyList()
+            else -> listOf(networkService.getAndroidEventsByYear(year))
         }
     }
 
     fun getEventsOfYear(year: Int): Flowable<List<Event>> {
         val allIn = getConfSourcesList(year)
-        return Single.merge(allIn)
+        return Single.merge(allIn).onBackpressureBuffer()
     }
 
     fun getUpComingEvents(): Single<List<Event>> {
@@ -173,6 +174,44 @@ class EventsRepository @Inject constructor(
 
     fun insertEventsToLocal(list: List<Event>): Single<List<Long>> {
         return databaseService.eventsDao().insertEvents(list)
+    }
+
+    
+
+    fun getEventsForTech(tech: String, year:Int) : Single<List<Event>>{
+        return when(tech){
+            Topics.ANDROID -> networkService.getAndroidEventsByYear(year)
+            Topics.CLOJURE -> networkService.getClojureEventsByYear(year)
+            Topics.CPP -> networkService.getCppEventsByYear(year)
+            Topics.CSS -> networkService.getCssEventsByYear(year)
+            Topics.DATA -> networkService.getDataEventsByYear(year)
+            Topics.DEVOPS -> networkService.getDevOpsEventsByYear(year)
+            Topics.DOTNET -> networkService.getDotNetEventsByYear(year)
+            Topics.ELIXIR -> networkService.getElixirEventsByYear(year)
+            Topics.ELM -> networkService.getElmEventsByYear(year)
+            Topics.GENERAL -> networkService.getGeneralEventsByYear(year)
+            Topics.GOLANG -> networkService.getGoLangEventsByYear(year)
+            Topics.GRAPHQL -> networkService.getGraphqlEventsByYear(year)
+            Topics.GROOVY -> networkService.getGraphqlEventsByYear(year)
+            Topics.IOS -> networkService.getIosEventsByYear(year)
+            Topics.IOT -> networkService.getIotEventsByYear(year)
+            Topics.JAVA -> networkService.getJavaEventsByYear(year)
+            Topics.JAVASCRIPT -> networkService.getJavaScriptEventsByYear(year)
+            Topics.KOTLIN -> networkService.getKotlinEventsByYear(year)
+            Topics.LEADERSHIP -> networkService.getLeadershipEventsByYear(year)
+            Topics.NETWORKING -> networkService.getNetworkingEventsByYear(year)
+            Topics.PHP -> networkService.getPHPEventsByYear(year)
+            Topics.PRODUCT -> networkService.getProductEventsByYear(year)
+            Topics.PYTHON -> networkService.getPythonEventsByYear(year)
+            Topics.RUBY -> networkService.getRubyEventsByYear(year)
+            Topics.RUST -> networkService.getRustEventsByYear(year)
+            Topics.SCALA -> networkService.getScalaEventsByYear(year)
+            Topics.SECURITY -> networkService.getSecurityEventsByYear(year)
+            Topics.TECH_COMM -> networkService.getTechCommEventsByYear(year)
+            Topics.TYPESCRIPT -> networkService.getTypeScriptEventsByYear(year)
+            Topics.UX -> networkService.getUXEventsByYear(year)
+            else -> Single.just(emptyList())
+        }
     }
 
 
