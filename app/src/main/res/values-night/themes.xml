@@ -6,10 +6,8 @@
         <item name="colorPrimaryDark">@color/grey700</item>
         <item name="colorAccent">@color/teal200</item>
 
-
         <item name="fontFamily">@font/nova_round</item>
         <item name="baseComplimentColor">@android:color/white</item>
-
         <item name="android:textColor">?attr/baseComplimentColor</item>
 
     </style>
