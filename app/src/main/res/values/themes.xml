@@ -1,10 +1,16 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="Theme.ProjectConf" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.ProjectConf" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/purple500</item>
-        <item name="colorPrimaryDark">@color/purple700</item>
+        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimaryDark">@android:color/white</item>
         <item name="colorAccent">@color/teal200</item>
+
+
+        <item name="fontFamily">@font/nova_round</item>
+        <item name="baseComplimentColor">@android:color/black</item>
+        <item name="android:textColor">?attr/baseComplimentColor</item>
+
     </style>
 
 </resources>

@@ -10,6 +10,7 @@ import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.di.component.DaggerActivityComponent
 import io.rot.labs.projectconf.di.module.ActivityModule
+import io.rot.labs.projectconf.utils.display.ScreenUtils
 import javax.inject.Inject
 
 abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
@@ -21,6 +22,7 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
         injectDependencies(getBuildComponent())
         super.onCreate(savedInstanceState)
         setContentView(provideLayoutId())
+        ScreenUtils.setStatusBarColorAccordingToSystem(this)
         setupObservables()
         setupView(savedInstanceState)
         viewModel.onCreate()

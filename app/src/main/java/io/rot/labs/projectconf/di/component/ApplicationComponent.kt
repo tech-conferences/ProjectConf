@@ -2,11 +2,13 @@ package io.rot.labs.projectconf.di.component
 
 import androidx.room.Database
 import dagger.Component
+import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.di.module.ApplicationModule
 import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import javax.inject.Singleton
 
 @Singleton
@@ -20,5 +22,9 @@ interface ApplicationComponent {
     fun getDatabaseService(): DatabaseService
 
     fun getNetworkHelper(): NetworkHelper
+
+    fun getCompositeDisposable() : CompositeDisposable
+
+    fun getSchedulerProvider() : SchedulerProvider
 
 }

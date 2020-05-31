@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:id="@+id/group_main"
+        android:checkableBehavior="single">
+        <item
+            android:checked="true"
+            android:icon="@drawable/ic_code"
+            android:id="@+id/nav_upcomimg"
+            android:title="@string/nav_up_coming"/>
+
+    </group>
+    <group
+        android:id="@+id/group_option"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tweets"
+            android:icon="@drawable/ic_twitter"
+            android:title="@string/nav_tweets" />
+
+        <item
+            android:id="@+id/nav_archive"
+            android:icon="@drawable/ic_archive"
+            android:title="@string/nav_archive" />
+
+        <item
+            android:id="@+id/nav_bookmarks"
+            android:icon="@drawable/ic_bookmarks"
+            android:title="@string/nav_bookmarks" />
+
+        <item
+            android:id="@+id/nav_alerts"
+            android:icon="@drawable/ic_alert"
+            android:title="@string/nav_alerts" />
+    </group>
+
+    <group
+        android:id="@+id/group_setting"
+        android:checkableBehavior="single"
+        android:menuCategory="secondary">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_settings"
+            android:title="@string/nav_settings" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info"
+            android:title="@string/nav_about" />
+    </group>
+</menu>
