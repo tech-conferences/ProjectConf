@@ -7,10 +7,13 @@
         <item name="colorAccent">@color/teal200</item>
 
         <item name="fontFamily">@font/nova_round</item>
-        <item name="baseComplimentColor">@android:color/white</item>
-        <item name="android:textColor">?attr/baseComplimentColor</item>
-
         <item name="homeAsUpIndicator">@drawable/ic_close</item>
+
+        <item name="baseThemeColor">@color/grey700</item>
+        <item name="baseThemeComplimentColor">@android:color/white</item>
+        <item name="android:textColor">?attr/baseThemeComplimentColor</item>
+
+
     </style>
 
 </resources>

@@ -10,6 +10,7 @@
     <color name="yellow700">#FFA000</color>
     <color name="grey500">#DD323232</color>
     <color name="grey700">#CE222222</color>
+    <color name="blue500">#195BE0</color>
 
     <color name="transYellow">#4DFFC107</color>
 </resources>

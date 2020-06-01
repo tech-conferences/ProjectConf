@@ -39,9 +39,9 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/nova_round"
                         android:gravity="center_vertical"
-                        tools:text="@string/upcoming_events"
                         android:textSize="21sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="@string/upcoming_events" />
 
                     <ImageView
                         android:id="@+id/ivSearch"
@@ -66,7 +66,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
