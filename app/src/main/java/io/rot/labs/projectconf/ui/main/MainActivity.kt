@@ -1,5 +1,6 @@
 package io.rot.labs.projectconf.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Gravity
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -9,10 +10,11 @@ import androidx.lifecycle.Observer
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.alerts.AlertsFragment
-import io.rot.labs.projectconf.ui.archive.ArchiveFragment
+import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksFragment
-import io.rot.labs.projectconf.ui.settings.SettingsFragment
+import io.rot.labs.projectconf.ui.search.SearchActivity
+import io.rot.labs.projectconf.ui.settings.SettingsActivity
 import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -30,7 +32,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
     override fun setupView(savedInstanceState: Bundle?) {
         setUpNavigationDrawer()
         ivSearch.setOnClickListener {
-
+            startActivity(Intent(this, SearchActivity::class.java))
         }
     }
 
@@ -64,9 +66,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
         viewModel.archiveNavigation.observe(this, Observer {
             it.getIfNotHandled()?.let {
-                showArchiveFragment()
-                tvScreenTitle.text = getString(R.string.nav_archive)
-                ivSearch.isVisible = false
+                val archiveIntent = Intent(this, ArchiveActivity::class.java)
+                startActivity(archiveIntent)
             }
         })
 
@@ -80,9 +81,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
         viewModel.settingsNavigation.observe(this, Observer {
             it.getIfNotHandled()?.let {
-                showSettingsFragment()
-                tvScreenTitle.text = getString(R.string.nav_settings)
-                ivSearch.isVisible = false
+                val settingsIntent = Intent(this, SettingsActivity::class.java)
+                startActivity(settingsIntent)
             }
         })
     }
@@ -106,39 +106,33 @@ class MainActivity : BaseActivity<MainViewModel>() {
             when (it.itemId) {
                 R.id.nav_upcomimg -> {
                     viewModel.onUpComingRedirection()
-                    navView.setCheckedItem(it.itemId)
                     drawerLayout.closeDrawer(Gravity.LEFT)
                     true
                 }
                 R.id.nav_tweets -> {
                     viewModel.onTweetRedirection()
-                    navView.setCheckedItem(it.itemId)
                     drawerLayout.closeDrawer(Gravity.LEFT)
                     true
                 }
                 R.id.nav_alerts -> {
                     viewModel.onAlertsRedirection()
-                    navView.setCheckedItem(it.itemId)
                     drawerLayout.closeDrawer(Gravity.LEFT)
                     true
                 }
                 R.id.nav_archive -> {
                     viewModel.onArchiveRedirection()
-                    navView.setCheckedItem(it.itemId)
                     drawerLayout.closeDrawer(Gravity.LEFT)
-                    true
+                    false
                 }
                 R.id.nav_bookmarks -> {
                     viewModel.onBookmarksRedirection()
-                    navView.setCheckedItem(it.itemId)
                     drawerLayout.closeDrawer(Gravity.LEFT)
                     true
                 }
                 R.id.nav_settings -> {
                     viewModel.onSettingsRedirection()
-                    navView.setCheckedItem(it.itemId)
                     drawerLayout.closeDrawer(Gravity.LEFT)
-                    true
+                    false
                 }
                 else -> false
             }
@@ -198,32 +192,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
         activeFragment = fragment
     }
 
-    private fun showArchiveFragment() {
-        if (activeFragment is ArchiveFragment) {
-            return
-        }
-
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-
-        var fragment =
-            supportFragmentManager.findFragmentByTag(ArchiveFragment.TAG) as ArchiveFragment?
-
-        if (fragment == null) {
-            fragment = ArchiveFragment.newInstance()
-            fragmentTransaction.add(R.id.container, fragment, ArchiveFragment.TAG)
-        } else {
-            fragmentTransaction.show(fragment)
-        }
-
-        if (activeFragment != null) {
-            fragmentTransaction.hide(activeFragment as Fragment)
-        }
-
-        fragmentTransaction.commit()
-
-        activeFragment = fragment
-    }
-
     private fun showAlertsFragment() {
         if (activeFragment is AlertsFragment) {
             return
@@ -263,32 +231,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
         if (fragment == null) {
             fragment = BookmarksFragment.newInstance()
             fragmentTransaction.add(R.id.container, fragment, BookmarksFragment.TAG)
-        } else {
-            fragmentTransaction.show(fragment)
-        }
-
-        if (activeFragment != null) {
-            fragmentTransaction.hide(activeFragment as Fragment)
-        }
-
-        fragmentTransaction.commit()
-
-        activeFragment = fragment
-    }
-
-    private fun showSettingsFragment() {
-        if (activeFragment is SettingsFragment) {
-            return
-        }
-
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-
-        var fragment =
-            supportFragmentManager.findFragmentByTag(SettingsFragment.TAG) as SettingsFragment?
-
-        if (fragment == null) {
-            fragment = SettingsFragment.newInstance()
-            fragmentTransaction.add(R.id.container, fragment, SettingsFragment.TAG)
         } else {
             fragmentTransaction.show(fragment)
         }

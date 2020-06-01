@@ -10,7 +10,7 @@
     <string name="open_drawer">Open</string>
     <string name="close_drawer">Close</string>
     <string name="nav_tweets">Tweets</string>
-    <string name="nav_archive">Archive</string>
+    <string name="nav_archive">Archives</string>
     <string name="nav_bookmarks">Bookmarks</string>
     <string name="nav_alerts">Alerts</string>
     <string name="nav_settings">Settings</string>

@@ -10,6 +10,7 @@
         <item name="baseComplimentColor">@android:color/white</item>
         <item name="android:textColor">?attr/baseComplimentColor</item>
 
+        <item name="homeAsUpIndicator">@drawable/ic_close</item>
     </style>
 
 </resources>

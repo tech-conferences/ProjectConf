@@ -19,11 +19,6 @@
             android:title="@string/nav_tweets" />
 
         <item
-            android:id="@+id/nav_archive"
-            android:icon="@drawable/ic_archive"
-            android:title="@string/nav_archive" />
-
-        <item
             android:id="@+id/nav_bookmarks"
             android:icon="@drawable/ic_bookmarks"
             android:title="@string/nav_bookmarks" />
@@ -32,6 +27,11 @@
             android:id="@+id/nav_alerts"
             android:icon="@drawable/ic_alert"
             android:title="@string/nav_alerts" />
+
+        <item
+            android:id="@+id/nav_archive"
+            android:icon="@drawable/ic_archive"
+            android:title="@string/nav_archive" />
     </group>
 
     <group

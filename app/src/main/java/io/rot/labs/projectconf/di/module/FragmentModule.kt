@@ -44,17 +44,6 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
     }
 
     @Provides
-    fun provideArchiveViewModel(
-        schedulerProvider: SchedulerProvider,
-        compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
-    ): ArchiveViewModel {
-        return ViewModelProvider(fragment, ViewModelProviderFactory(ArchiveViewModel::class) {
-            ArchiveViewModel(schedulerProvider, compositeDisposable, networkHelper)
-        }).get(ArchiveViewModel::class.java)
-    }
-
-    @Provides
     fun provideAlertsViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
@@ -63,17 +52,6 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         return ViewModelProvider(fragment, ViewModelProviderFactory(AlertsViewModel::class) {
             AlertsViewModel(schedulerProvider, compositeDisposable, networkHelper)
         }).get(AlertsViewModel::class.java)
-    }
-
-    @Provides
-    fun provideSettingsViewModel(
-        schedulerProvider: SchedulerProvider,
-        compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
-    ): SettingsViewModel {
-        return ViewModelProvider(fragment, ViewModelProviderFactory(SettingsViewModel::class) {
-            SettingsViewModel(schedulerProvider, compositeDisposable, networkHelper)
-        }).get(SettingsViewModel::class.java)
     }
 
     @Provides
