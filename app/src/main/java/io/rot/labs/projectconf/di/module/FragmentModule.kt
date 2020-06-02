@@ -1,16 +1,12 @@
 package io.rot.labs.projectconf.di.module
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.ui.alerts.AlertsViewModel
-import io.rot.labs.projectconf.ui.archive.ArchiveViewModel
 import io.rot.labs.projectconf.ui.base.BaseFragment
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
-import io.rot.labs.projectconf.ui.main.MainViewModel
-import io.rot.labs.projectconf.ui.settings.SettingsViewModel
 import io.rot.labs.projectconf.ui.twitter.TwitterViewModel
 import io.rot.labs.projectconf.ui.upcoming.UpComingViewModel
 import io.rot.labs.projectconf.utils.ViewModelProviderFactory

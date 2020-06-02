@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.archive.ArchiveActivity" />
+        <activity android:name="io.rot.labs.projectconf.ui.archive.ArchiveActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.search.SearchActivity"/>
     </application>
