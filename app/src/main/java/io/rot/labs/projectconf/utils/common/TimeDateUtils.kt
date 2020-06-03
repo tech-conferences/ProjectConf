@@ -14,14 +14,12 @@ object TimeDateUtils {
 
     private val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
 
-    fun getFirstDayOfCurrentYear(): Date {
-        val currYear = calendar.get(Calendar.YEAR)
-        return sdf.parse("$currYear-01-01")!!
+    fun getFirstDayOfYear(year: Int): Date {
+        return sdf.parse("$year-01-01")!!
     }
 
-    fun getLastDayOfCurrentYear(): Date {
-        val currYear = calendar.get(Calendar.YEAR)
-        return sdf.parse("$currYear-12-31")!!
+    fun getLastDayOfYear(year: Int): Date {
+        return sdf.parse("$year-12-31")!!
     }
 
     fun getCurrentDate(): Date {

@@ -4,10 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import java.util.*
 
-@Entity(
-    tableName = "events",
-    primaryKeys = ["name","startDate"]
-)
+
 data class Event(
 
     @ColumnInfo(name="name")

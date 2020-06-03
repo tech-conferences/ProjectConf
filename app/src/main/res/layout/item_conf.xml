@@ -36,6 +36,7 @@
                 android:textColor="@color/blue500"
                 android:textSize="16dp"
                 android:textStyle="bold"
+                android:textAllCaps="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Android" />

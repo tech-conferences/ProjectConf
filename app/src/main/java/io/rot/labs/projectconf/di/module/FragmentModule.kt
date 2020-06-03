@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.alerts.AlertsViewModel
 import io.rot.labs.projectconf.ui.base.BaseFragment
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
@@ -20,10 +21,16 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
     fun provideUpComingViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
+        networkHelper: NetworkHelper,
+        eventsRepository: EventsRepository
     ): UpComingViewModel {
         return ViewModelProvider(fragment, ViewModelProviderFactory(UpComingViewModel::class) {
-            UpComingViewModel(schedulerProvider, compositeDisposable, networkHelper)
+            UpComingViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkHelper,
+                eventsRepository
+            )
         }).get(UpComingViewModel::class.java)
     }
 

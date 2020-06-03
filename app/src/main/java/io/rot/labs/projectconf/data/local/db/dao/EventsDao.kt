@@ -4,7 +4,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import io.reactivex.Completable
 import io.reactivex.Single
+import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.data.model.Event
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import java.util.*
@@ -13,14 +15,11 @@ import java.util.*
 interface EventsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertEvents(events: List<Event>): Single<List<Long>>
+    fun insertEvents(events: List<EventEntity>): Completable
 
     @Query("SELECT * FROM events WHERE startDate >= :date")
-    fun getUpComingEventsFromCurrentYear(date: Date = TimeDateUtils.getCurrentDate()): Single<List<Event>>
+    fun getUpComingEventsFromCurrentYear(date: Date = TimeDateUtils.getCurrentDate()): Single<List<EventEntity>>
 
     @Query("SELECT * FROM events WHERE startDate >= :firstDay AND startDate <= :lastDay")
-    fun getEventsByYear(
-        firstDay: Date = TimeDateUtils.getFirstDayOfCurrentYear(),
-        lastDay: Date = TimeDateUtils.getLastDayOfCurrentYear()
-    ): Single<List<Event>>
+    fun getEventsByYear(firstDay: Date, lastDay: Date): Single<List<EventEntity>>
 }
