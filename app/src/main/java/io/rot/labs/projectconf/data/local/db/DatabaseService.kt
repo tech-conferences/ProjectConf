@@ -17,7 +17,7 @@ class DatabaseService @Inject constructor (database: ConfDatabase) {
     }
 
     fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
-        return dao.getUpComingEventsFromCurrentYear()
+        return dao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
     }
 
     fun getEventsForYear(year: Int): Single<List<EventEntity>> {

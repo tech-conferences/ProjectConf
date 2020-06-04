@@ -17,8 +17,8 @@ interface EventsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertEvents(events: List<EventEntity>): Completable
 
-    @Query("SELECT * FROM events WHERE startDate >= :date")
-    fun getUpComingEventsFromCurrentYear(date: Date = TimeDateUtils.getCurrentDate()): Single<List<EventEntity>>
+    @Query("SELECT * FROM events WHERE startDate >= :date ORDER BY startDate")
+    fun getUpComingEventsFromCurrentYear(date: Date): Single<List<EventEntity>>
 
     @Query("SELECT * FROM events WHERE startDate >= :firstDay AND startDate <= :lastDay")
     fun getEventsByYear(firstDay: Date, lastDay: Date): Single<List<EventEntity>>

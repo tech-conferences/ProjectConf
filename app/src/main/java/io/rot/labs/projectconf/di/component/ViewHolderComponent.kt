@@ -3,7 +3,7 @@ package io.rot.labs.projectconf.di.component
 import dagger.Component
 import io.rot.labs.projectconf.di.ViewModelScope
 import io.rot.labs.projectconf.di.module.ViewHolderModule
-import io.rot.labs.projectconf.ui.events.EventItemViewHolder
+import io.rot.labs.projectconf.ui.events.EventBaseViewHolder
 
 @ViewModelScope
 @Component(
@@ -12,6 +12,6 @@ import io.rot.labs.projectconf.ui.events.EventItemViewHolder
 )
 interface ViewHolderComponent {
 
-    fun inject(viewHolder: EventItemViewHolder)
+    fun inject(viewHolder: EventBaseViewHolder)
 
 }

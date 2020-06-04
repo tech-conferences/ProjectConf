@@ -51,10 +51,6 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
         lifecycleRegistry.markState(Lifecycle.State.CREATED)
         setUpObservables()
         setupView(itemView)
-
-        itemView.doOnLayout {
-
-        }
     }
 
     /**
@@ -87,7 +83,7 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
         viewModel.updateData(data)
     }
 
-    protected fun setUpObservables() {
+    protected open fun setUpObservables() {
         viewModel.messageString.observe(this, Observer {
             it.data?.let { showMessage(it) }
         })
