@@ -42,4 +42,12 @@ object TimeDateUtils {
 
     }
 
+    fun getEventPeriod(date: Date): String {
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = date.time
+        }
+        val sdf = SimpleDateFormat("MMMM, yyyy")
+        return sdf.format(calendar.time)
+    }
+
 }

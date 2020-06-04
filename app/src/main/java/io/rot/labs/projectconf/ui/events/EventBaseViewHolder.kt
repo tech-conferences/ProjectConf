@@ -27,7 +27,9 @@ class EventBaseViewHolder(
     }
 
     override fun setupView(view: View) {
-
+        itemView.ivSave.setOnClickListener {
+            // save to SavedItem Db
+        }
     }
 
     override fun setUpObservables() {
