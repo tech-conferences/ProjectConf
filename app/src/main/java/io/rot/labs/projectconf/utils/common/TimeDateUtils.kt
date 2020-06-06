@@ -27,6 +27,15 @@ object TimeDateUtils {
         return date!!
     }
 
+
+    fun getLastDateOfCurrentMonth(): Date {
+        val currYear = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH) + 1
+        val day = calendar.getActualMaximum(Calendar.DATE)
+        val date = sdf.parse("$currYear-${month.toString().padStart(2, '0')}-$day")
+        return date!!
+    }
+
     fun getConfYearsList(): List<Int> {
         val baseYear = 2014
         val currYear = calendar.get(Calendar.YEAR)

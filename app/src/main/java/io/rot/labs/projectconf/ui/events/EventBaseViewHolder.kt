@@ -2,6 +2,7 @@ package io.rot.labs.projectconf.ui.events
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
@@ -27,8 +28,12 @@ class EventBaseViewHolder(
     }
 
     override fun setupView(view: View) {
-        itemView.ivSave.setOnClickListener {
+        itemView.ivSave?.setOnClickListener {
             // save to SavedItem Db
+        }
+
+        itemView.eventCardContainer?.setOnClickListener {
+            // go to events details
         }
     }
 
@@ -72,7 +77,6 @@ class EventBaseViewHolder(
         Glide.with(itemView.context)
             .load(drawableRes)
             .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-            .apply(RequestOptions().downsample(DownsampleStrategy.CENTER_INSIDE))
             .into(itemView.ivTopic)
     }
 

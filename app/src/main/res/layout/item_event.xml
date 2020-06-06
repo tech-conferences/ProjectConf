@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="?attr/selectableItemBackground"
         android:padding="8dp"
         app:cardBackgroundColor="?attr/baseThemeColor"
         app:cardCornerRadius="8dp"
@@ -22,8 +21,10 @@
         app:strokeWidth="3dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/eventCardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
             android:background="?attr/baseThemeColor">
 
             <TextView
@@ -33,10 +34,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
+                android:textAllCaps="true"
                 android:textColor="@color/blue500"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:textAllCaps="true"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Android" />
@@ -83,12 +84,12 @@
                 android:id="@+id/ivTopic"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:scaleType="centerCrop"
-                app:layout_constraintEnd_toEndOf="@+id/tvTopicTitle"
-                app:layout_constraintStart_toStartOf="@+id/tvTopicTitle"
+                android:padding="4dp"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvTopicTitle"
-                tools:src="@drawable/android_logo" />
+                tools:src="@drawable/ux_logo" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
@@ -101,10 +102,11 @@
                 android:id="@+id/ivSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_bookmark_border"
-                android:padding="8dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/circle_border_blue"
+                android:foreground="@drawable/circle_border_blue"
+                android:padding="8dp"
+                android:src="@drawable/ic_bookmark_border"
+                android:background="?selectableItemBackgroundBorderless"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/guideline"

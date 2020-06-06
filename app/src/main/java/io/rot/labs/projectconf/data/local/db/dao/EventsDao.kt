@@ -22,4 +22,7 @@ interface EventsDao {
 
     @Query("SELECT * FROM events WHERE startDate >= :firstDay AND startDate <= :lastDay")
     fun getEventsByYear(firstDay: Date, lastDay: Date): Single<List<EventEntity>>
+
+    @Query("SELECT * from events WHERE startDate >= :date AND startDate <= :monthEnd ORDER BY startDate")
+    fun getUpComingEventsForCurrentMonth(date: Date, monthEnd: Date): Single<List<EventEntity>>
 }

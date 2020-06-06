@@ -12,5 +12,8 @@
     <color name="grey700">#CE222222</color>
     <color name="blue500">#195BE0</color>
 
+    <color name="red500">#ED2828</color>
+    <color name="orange500">#FA4C16</color>
+
     <color name="transYellow">#4DFFC107</color>
 </resources>

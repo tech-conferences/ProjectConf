@@ -221,6 +221,32 @@ class EventsRepository @Inject constructor(
             }
     }
 
+    fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
+        val yearList = TimeDateUtils.getConfYearsList()
+        val currYear = yearList.last() - 1
+
+        val upcomingEventSources = getConfSourcesList(currYear)
+
+        return databaseService.getUpComingEventsForCurrentMonth()
+            .flatMap {
+                if (it.isEmpty()) {
+                    Single.merge(upcomingEventSources).collect(
+                        { mutableListOf<EventEntity>() },
+                        { collector, value ->
+                            value.forEach { event -> collector.add(event) }
+                        }
+                    ).flatMap { list ->
+                        databaseService.insertEvents(list).toSingle { "Complete" }
+                    }.flatMap {
+                        databaseService.getUpComingEventsForCurrentMonth()
+                    }
+                } else {
+                    Single.just(it)
+                }
+            }
+
+    }
+
     fun insertEvents(list: List<EventEntity>): Completable {
         return databaseService.insertEvents(list)
     }

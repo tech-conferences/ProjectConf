@@ -21,11 +21,11 @@ class UpComingViewModel(
     val upcomingEvents = MutableLiveData<List<EventBase>>()
 
     override fun onCreate() {
-
+        getUpComingEventsForCurrentMonth()
     }
 
-    fun getUpComingEvents() {
-        eventsRepository.getUpComingEvents()
+    fun getUpComingEventsForCurrentMonth() {
+        eventsRepository.getUpComingEventsForCurrentMonth()
             .subscribeOn(schedulerProvider.io())
             .subscribe({
                 upcomingEvents.postValue(transformToInterleavedList(it))

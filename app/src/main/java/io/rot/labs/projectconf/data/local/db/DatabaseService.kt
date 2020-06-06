@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DatabaseService @Inject constructor (database: ConfDatabase) {
+class DatabaseService @Inject constructor(database: ConfDatabase) {
 
     private val dao = database.eventsDao()
 
@@ -24,6 +24,13 @@ class DatabaseService @Inject constructor (database: ConfDatabase) {
         return dao.getEventsByYear(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getLastDayOfYear(year)
+        )
+    }
+
+    fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
+        return dao.getUpComingEventsForCurrentMonth(
+            TimeDateUtils.getCurrentDate(),
+            TimeDateUtils.getLastDateOfCurrentMonth()
         )
     }
 
