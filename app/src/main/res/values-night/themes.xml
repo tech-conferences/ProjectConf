@@ -13,7 +13,6 @@
         <item name="baseThemeComplimentColor">@android:color/white</item>
         <item name="android:textColor">?attr/baseThemeComplimentColor</item>
 
-
     </style>
 
 </resources>

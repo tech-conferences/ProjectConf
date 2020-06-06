@@ -1,7 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/splash_screen">
+    android:background="?attr/baseThemeColor"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvAppTitle"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Project Conf"
+        android:textColor="?attr/baseThemeComplimentColor"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/splashBorder"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <TextView
+        android:id="@+id/tvSubTitle"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:text="global conferences information at one place"
+        android:textAllCaps="true"
+        android:textColor="@color/blue500"
+        android:textSize="21sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/splashBorder"
+        app:layout_constraintHorizontal_bias="0.20"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvAppTitle"
+        app:layout_constraintVertical_bias="0.1" />
+
+
+    <View
+        android:id="@+id/splashBorder"
+        android:layout_width="80dp"
+        android:layout_height="0dp"
+        android:background="@color/yellow500"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_splash_circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/splashBorder" />
+
+    <ImageView
+        android:id="@+id/ivSplashPyramid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_pyramid"
+        app:layout_constraintBottom_toTopOf="@+id/tvAppTitle"
+        app:layout_constraintEnd_toStartOf="@+id/splashBorder"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSplashSquare" />
+
+    <ImageView
+        android:id="@+id/ivSplashSquare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_square"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintBottom_toTopOf="@+id/ivSplashPyramid"
+        app:layout_constraintEnd_toStartOf="@+id/splashBorder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivSplashRect" />
+
+    <ImageView
+        android:id="@+id/ivSplashRect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_rect"
+        app:layout_constraintHorizontal_bias="0.15"
+        app:layout_constraintBottom_toTopOf="@+id/ivSplashSquare"
+        app:layout_constraintEnd_toStartOf="@+id/splashBorder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
