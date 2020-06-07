@@ -20,17 +20,22 @@ class UpComingViewModel(
 
     val upcomingEvents = MutableLiveData<List<EventBase>>()
 
+    val progress = MutableLiveData<Boolean>()
+
     override fun onCreate() {
         getUpComingEventsForCurrentMonth()
     }
 
     fun getUpComingEventsForCurrentMonth() {
+        progress.postValue(true)
         eventsRepository.getUpComingEventsForCurrentMonth()
             .subscribeOn(schedulerProvider.io())
             .subscribe({
                 upcomingEvents.postValue(transformToInterleavedList(it))
+                progress.postValue(false)
             }, {
                 handleNetworkError(it)
+                progress.postValue(false)
             })
     }
 

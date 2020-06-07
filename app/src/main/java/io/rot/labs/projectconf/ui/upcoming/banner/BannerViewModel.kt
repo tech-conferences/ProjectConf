@@ -16,9 +16,10 @@ class BannerViewModel : ViewModel() {
 
     var iterator = 0
 
-    private val timer = Timer()
+    private lateinit var timer: Timer
 
     fun startAutoIterator() {
+        timer = Timer()
         timer.schedule(object : TimerTask() {
             override fun run() {
                 bannerPosition.postValue(iterator++)
@@ -26,8 +27,7 @@ class BannerViewModel : ViewModel() {
         }, 3000, 3000)
     }
 
-    override fun onCleared() {
+    fun cancelAutoIterator() {
         timer.cancel()
-        super.onCleared()
     }
 }

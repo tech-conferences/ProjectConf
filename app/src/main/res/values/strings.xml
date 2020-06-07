@@ -19,4 +19,8 @@
 
     <string name="upcoming_events">Up Coming Events</string>
 
+    <string-array name="quotes">
+        <item>The object-oriented version of spaghetti code is, of course, ‘lasagna code’. Too many layers.</item>
+    </string-array>
+
 </resources>

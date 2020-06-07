@@ -5,7 +5,9 @@ import android.os.Handler
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import io.rot.labs.projectconf.R
@@ -15,6 +17,7 @@ import io.rot.labs.projectconf.ui.events.EventAdapter
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
 import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
+import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 import kotlinx.android.synthetic.main.layout_distinct_languages.*
 import java.util.*
@@ -27,6 +30,9 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     lateinit var linearLayoutManager: LinearLayoutManager
 
     @Inject
+    lateinit var gridLayoutManager: GridLayoutManager
+
+    @Inject
     lateinit var eventAdapter: EventAdapter
 
     @Inject
@@ -37,6 +43,9 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
     @Inject
     lateinit var bannerViewModel: BannerViewModel
+
+    @Inject
+    lateinit var screenUtils: ScreenResourcesHelper
 
     companion object {
         const val TAG = "UpComingFragment"
@@ -60,10 +69,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         setUpDistinctLanguages()
 
-        rvEvents.apply {
-            adapter = eventAdapter
-            layoutManager = linearLayoutManager
-        }
+        setupRecyclerView()
     }
 
     override fun setupObservables() {
@@ -76,7 +82,50 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             techBannerPager.setCurrentItem(it, true)
         })
 
+        viewModel.progress.observe(this, Observer {
+            if (it) {
+                upComingEventsContainer.isVisible = false
+                shimmerUpComing.apply {
+                    isVisible = true
+                    startShimmer()
+                }
+                aviLoader.apply {
+                    isVisible = true
+                    smoothToShow()
+                }
+            } else {
+                shimmerUpComing.apply {
+                    isVisible = false
+                    stopShimmer()
+                }
+                aviLoader.apply {
+                    isVisible = false
+                    smoothToHide()
+                }
+                upComingEventsContainer.isVisible = true
+            }
+        })
+    }
 
+
+    fun setupRecyclerView() {
+        rvEvents.apply {
+            adapter = eventAdapter
+            layoutManager = if (screenUtils.isPortrait()) {
+                linearLayoutManager
+            } else {
+
+                gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (eventAdapter.getItemViewType(position)) {
+                            EventAdapter.HEADER -> 2
+                            else -> 1
+                        }
+                    }
+                }
+                gridLayoutManager
+            }
+        }
     }
 
     private fun setUpBanner() {
@@ -98,7 +147,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             sliderDotsContainer.addView(slidingDots[i], params)
         }
 
-        slidingDots[0].setImageDrawable(
+        slidingDots[bannerViewModel.iterator % TechBannerAdapter.NUM_BANNERS].setImageDrawable(
             ContextCompat.getDrawable(
                 context!!,
                 R.drawable.active_indicator
@@ -108,6 +157,8 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         techBannerPager.apply {
             adapter = techBannerAdapter
             setPageTransformer(zoomOutPageTransformer)
+
+            currentItem = bannerViewModel.iterator
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -132,10 +183,9 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
                 }
             })
         }
-        bannerViewModel.startAutoIterator()
     }
 
-    private fun setUpDistinctLanguages(){
+    private fun setUpDistinctLanguages() {
 
         ivPython.setOnClickListener {
 
@@ -157,5 +207,15 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         }
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        bannerViewModel.startAutoIterator()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        bannerViewModel.cancelAutoIterator()
     }
 }

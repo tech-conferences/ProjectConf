@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_margin="24dp"
+        app:cardBackgroundColor="?attr/shimmerColor"
+        app:cardCornerRadius="16dp" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardBackgroundColor="?attr/shimmerColor"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/materialCardView"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardBackgroundColor="?attr/shimmerColor"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/materialCardView3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView2"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView3"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardBackgroundColor="?attr/shimmerColor"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/materialCardView4"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView4"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardBackgroundColor="?attr/shimmerColor"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toStartOf="@+id/materialCardView5"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView3"
+            tools:layout_editor_absoluteY="8dp" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/materialCardView5"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardBackgroundColor="?attr/shimmerColor"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/materialCardView4"
+            tools:layout_editor_absoluteY="8dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/tvQuote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="The object-oriented version of spaghetti code is, of course, ‘lasagna code’. Too many layers."
+        android:textColor="?attr/shimmerColor"
+        android:textSize="18sp" />
+
+</LinearLayout>

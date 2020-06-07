@@ -97,6 +97,12 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
+    // shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmer_version"
+
+    // Progress Loader Lib
+    implementation "com.wang.avi:library:$avi_version"
+
     // Logger
     implementation "com.jakewharton.timber:timber:$timber_version"
 

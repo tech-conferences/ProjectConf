@@ -8,7 +8,7 @@ import android.graphics.Color
 import android.provider.CalendarContract
 import android.view.View
 
-object ScreenUtils {
+object ScreenUtils : ScreenResourcesHelper {
 
     fun setStatusBarColorAccordingToSystem(activity: Activity) {
         var flags = activity.window.decorView.systemUiVisibility
@@ -21,8 +21,12 @@ object ScreenUtils {
 
     }
 
-    fun isDarkThemeOn(): Boolean {
+    override fun isDarkThemeOn(): Boolean {
         return (Resources.getSystem().configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+    }
+
+    override fun isPortrait(): Boolean {
+        return Resources.getSystem().configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }
 
 

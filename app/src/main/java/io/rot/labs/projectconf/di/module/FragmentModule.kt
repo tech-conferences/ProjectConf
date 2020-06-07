@@ -27,7 +27,7 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
     fun provideLinearLayoutManager() = LinearLayoutManager(fragment.context)
 
     @Provides
-    fun provideGridLayoutManager(): GridLayoutManager = GridLayoutManager(fragment.context, 3)
+    fun provideGridLayoutManager(): GridLayoutManager = GridLayoutManager(fragment.context, 2)
 
     @Provides
     fun provideEventAdapter(): EventAdapter = EventAdapter(fragment.lifecycle, ArrayList())

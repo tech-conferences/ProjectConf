@@ -8,6 +8,8 @@ import io.rot.labs.projectconf.BuildConfig
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
 import io.rot.labs.projectconf.data.remote.ConfApi
+import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
+import io.rot.labs.projectconf.utils.display.ScreenUtils
 import io.rot.labs.projectconf.utils.network.NetworkHelper
 import io.rot.labs.projectconf.utils.network.NetworkHelperImpl
 import io.rot.labs.projectconf.utils.rx.RxSchedulerProvider
@@ -44,5 +46,8 @@ class ApplicationModule(private val confApplication: ConfApplication) {
 
     @Provides
     fun provideSchedulerProvider() : SchedulerProvider = RxSchedulerProvider()
+
+    @Provides
+    fun provideScreenResourceHelper() : ScreenResourcesHelper = ScreenUtils
 
 }

@@ -12,8 +12,10 @@ class EventAdapter(
     private val dataList: ArrayList<EventBase>
 ) : BaseAdapter<EventBase, EventBaseViewHolder>(parentLifecycle, dataList) {
 
-    private val DETAIL = 0
-    private val HEADER = 1
+    companion object {
+        const val DETAIL = 0
+        const val HEADER = 1
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventBaseViewHolder {
         return if (viewType == DETAIL) {

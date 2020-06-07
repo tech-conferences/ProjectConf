@@ -7,6 +7,7 @@ import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.di.module.ApplicationModule
+import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.network.NetworkHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import javax.inject.Singleton
@@ -28,5 +29,7 @@ interface ApplicationComponent {
     fun getSchedulerProvider() : SchedulerProvider
 
     fun getEventRepository() : EventsRepository
+
+    fun getScreenResourceHelper() : ScreenResourcesHelper
 
 }

@@ -20,8 +20,9 @@ class SplashActivity : AppCompatActivity() {
         )
         setContentView(R.layout.activity_splash)
 
-        Handler().postDelayed(Runnable {
+        Handler().postDelayed({
             startActivity(Intent(this, MainActivity::class.java))
+            finish()
         }, 2500)
     }
 }

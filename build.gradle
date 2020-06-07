@@ -66,6 +66,12 @@ ext{
     // DB
     room_version = '2.2.5'
 
+    // Shimmer
+    shimmer_version= '0.4.0'
+
+    // Progress Loader
+    avi_version = '2.1.3'
+
     // Tests
     junit_version = '4.12'
     espresso_version = '3.2.0'
