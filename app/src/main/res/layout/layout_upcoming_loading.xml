@@ -82,7 +82,7 @@
         android:layout_gravity="center"
         android:layout_margin="24dp"
         android:gravity="center"
-        android:text="The object-oriented version of spaghetti code is, of course, ‘lasagna code’. Too many layers."
+        tools:text="The object-oriented version of spaghetti code is, of course, ‘lasagna code’. Too many layers."
         android:textColor="?attr/shimmerColor"
         android:textSize="18sp" />
 

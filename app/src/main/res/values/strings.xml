@@ -18,9 +18,19 @@
     <string name="nav_up_coming">Up Coming</string>
 
     <string name="upcoming_events">Up Coming Events</string>
+    <string name="retry">Retry</string>
 
     <string-array name="quotes">
-        <item>The object-oriented version of spaghetti code is, of course, ‘lasagna code’. Too many layers.</item>
+        <item>"The best thing about a boolean is even if you are wrong, you are only off by a bit"</item>
+        <item>"There are two ways to write error-free programs; only the third one works" - Alan J. Perlis</item>
+        <item>"It’s not a bug – it’s an undocumented feature."</item>
+        <item>"Deleted code is debugged code." - Jeff Sickel</item>
+        <item>"If debugging is the process of removing software bugs, then programming must be the process of putting them in." - Edsger Dijkstra</item>
+        <item>Software undergoes beta testing shortly before it’s released. Beta is Latin for "still doesn’t work". </item>
+        <item>In order to understand recursion, one must first understand recursion. </item>
+        <item>“Truth can only be found in one place: the code.” - Robert C. Martin</item>
+        <item>“What one programmer can do in one month, two programmers can do in two months.” - Fred Brooks</item>
+        <item>“Every great developer you know got there by solving problems they were unqualified to solve until they actually did it.” - Patrick McKenzie</item>
     </string-array>
 
 </resources>

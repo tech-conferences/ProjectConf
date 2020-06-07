@@ -1,5 +1,6 @@
 package io.rot.labs.projectconf.ui.base
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -34,8 +35,10 @@ abstract class BaseViewModel(
     fun handleNetworkError(throwable: Throwable) {
         networkHelper.castToNetworkError(throwable).run {
             when (this.code) {
+                0 -> messageString.postValue(Resource.error(this.message))
                 1 -> messageStringId.postValue(Resource.error(R.string.network_could_not_connect))
                 2 -> messageStringId.postValue(Resource.error(R.string.network_time_out_occurred))
+                3 -> messageStringId.postValue(Resource.error(R.string.network_could_not_connect))
                 HttpURLConnection.HTTP_NOT_FOUND -> messageString.postValue(
                     Resource.error(
                         ErrorMessage.NOT_FOUND

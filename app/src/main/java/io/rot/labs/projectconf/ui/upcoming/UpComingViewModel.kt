@@ -1,5 +1,6 @@
 package io.rot.labs.projectconf.ui.upcoming
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
@@ -26,17 +27,19 @@ class UpComingViewModel(
         getUpComingEventsForCurrentMonth()
     }
 
-    fun getUpComingEventsForCurrentMonth() {
+    fun getUpComingEventsForCurrentMonth(isRefresh: Boolean = false) {
+
         progress.postValue(true)
-        eventsRepository.getUpComingEventsForCurrentMonth()
+        eventsRepository.getUpComingEventsForCurrentMonth(isRefresh)
             .subscribeOn(schedulerProvider.io())
             .subscribe({
                 upcomingEvents.postValue(transformToInterleavedList(it))
                 progress.postValue(false)
             }, {
-                handleNetworkError(it)
                 progress.postValue(false)
+                handleNetworkError(it)
             })
+
     }
 
     private fun transformToInterleavedList(list: List<EventEntity>): List<EventBase> {

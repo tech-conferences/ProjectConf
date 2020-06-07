@@ -221,7 +221,7 @@ class EventsRepository @Inject constructor(
             }
     }
 
-    fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
+    fun getUpComingEventsForCurrentMonth(isRefresh: Boolean): Single<List<EventEntity>> {
         val yearList = TimeDateUtils.getConfYearsList()
         val currYear = yearList.last() - 1
 
@@ -229,7 +229,7 @@ class EventsRepository @Inject constructor(
 
         return databaseService.getUpComingEventsForCurrentMonth()
             .flatMap {
-                if (it.isEmpty()) {
+                if (it.isEmpty() || isRefresh) {
                     Single.merge(upcomingEventSources).collect(
                         { mutableListOf<EventEntity>() },
                         { collector, value ->

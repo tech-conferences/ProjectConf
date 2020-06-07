@@ -3,6 +3,7 @@ package io.rot.labs.projectconf.utils.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.utils.network.ErrorMessage.BAD_REQUEST
@@ -52,7 +53,13 @@ class NetworkHelperImpl(private val context: Context) : NetworkHelper {
                     else -> NetworkError()
                 }
             }
-            else -> NetworkError()
+            else -> {
+                if (throwable.message?.contains("Unable to resolve host") == true) {
+                    NetworkError(3, ErrorMessage.NOT_ABLE_TO_CONNECT)
+                } else {
+                    NetworkError()
+                }
+            }
         }
     }
 }

@@ -65,6 +65,8 @@ dependencies {
     // CardView
     implementation "androidx.cardview:cardview:$support_lib_version"
 
+    // SwipeRefreshLayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$support_lib_version"
 
     // Constraint Layout
     implementation "androidx.constraintlayout:constraintlayout:$constraint_version"

@@ -19,7 +19,11 @@ import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 import kotlinx.android.synthetic.main.layout_distinct_languages.*
+import kotlinx.android.synthetic.main.layout_error.*
+import kotlinx.android.synthetic.main.layout_no_connection.*
+import kotlinx.android.synthetic.main.layout_upcoming_loading.view.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
@@ -55,6 +59,16 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        bannerViewModel.startAutoIterator()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        bannerViewModel.cancelAutoIterator()
+    }
+
     override fun provideLayoutId(): Int = R.layout.fragment_upcoming
 
     override fun injectDependencies(buildComponent: FragmentComponent) {
@@ -64,14 +78,45 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     override fun setupView(savedInstanceState: Bundle?) {
 
         setUpBanner()
-
         setUpDistinctLanguages()
-
         setupRecyclerView()
+        setupErrorLayouts()
+        setupSwipeRefreshLayout()
     }
 
     override fun setupObservables() {
-        super.setupObservables()
+
+        viewModel.messageStringId.observe(this, Observer {
+            if (it.data == R.string.network_internet_not_connected || it.data == R.string.network_could_not_connect) {
+                layoutNoConnection.isVisible = true
+                layoutError.isVisible = false
+                upComingEventsContainer.isVisible = false
+                shimmerUpComing.isVisible = false
+                aviLoader.isVisible = false
+                tvNoInternet.text = getString(it.data)
+            } else {
+                layoutError.isVisible = true
+                layoutNoConnection.isVisible = false
+                upComingEventsContainer.isVisible = false
+                shimmerUpComing.isVisible = false
+                aviLoader.isVisible = false
+                it.data?.run {
+                    tvFatalError.text = getString(this)
+                }
+
+            }
+        })
+
+        viewModel.messageString.observe(this, Observer {
+            layoutError.isVisible = true
+            layoutNoConnection.isVisible = false
+            upComingEventsContainer.isVisible = false
+            shimmerUpComing.isVisible = false
+            aviLoader.isVisible = false
+
+            tvFatalError.text = it.data
+        })
+
         viewModel.upcomingEvents.observe(this, Observer {
             eventAdapter.updateData(it)
         })
@@ -83,8 +128,11 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         viewModel.progress.observe(this, Observer {
             if (it) {
                 upComingEventsContainer.isVisible = false
+                layoutError.isVisible = false
+                layoutNoConnection.isVisible = false
                 shimmerUpComing.apply {
                     isVisible = true
+                    tvQuote.text = getRandomQuote()
                     startShimmer()
                 }
                 aviLoader.apply {
@@ -93,6 +141,8 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
                 }
             } else {
                 upComingEventsContainer.isVisible = true
+                layoutError.isVisible = false
+                layoutNoConnection.isVisible = false
                 shimmerUpComing.apply {
                     isVisible = false
                     stopShimmer()
@@ -207,13 +257,27 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        bannerViewModel.startAutoIterator()
+    private fun setupErrorLayouts() {
+        btnErrorRetry.setOnClickListener {
+            viewModel.getUpComingEventsForCurrentMonth(true)
+        }
+
+        btnNoConnectionRetry.setOnClickListener {
+            viewModel.getUpComingEventsForCurrentMonth(true)
+        }
     }
 
-    override fun onStop() {
-        super.onStop()
-        bannerViewModel.cancelAutoIterator()
+    private fun setupSwipeRefreshLayout() {
+        swipeRefreshLayout.setOnRefreshListener {
+            viewModel.getUpComingEventsForCurrentMonth(true)
+            swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
+
+    private fun getRandomQuote(): String {
+        val quotes = resources.getStringArray(R.array.quotes)
+        val i = Random.nextInt(0, quotes.size)
+        return quotes[i]
     }
 }
