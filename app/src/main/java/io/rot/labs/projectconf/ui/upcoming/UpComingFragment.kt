@@ -1,7 +1,6 @@
 package io.rot.labs.projectconf.ui.upcoming
 
 import android.os.Bundle
-import android.os.Handler
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -20,7 +19,6 @@ import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 import kotlinx.android.synthetic.main.layout_distinct_languages.*
-import java.util.*
 import javax.inject.Inject
 
 class UpComingFragment : BaseFragment<UpComingViewModel>() {
@@ -94,6 +92,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
                     smoothToShow()
                 }
             } else {
+                upComingEventsContainer.isVisible = true
                 shimmerUpComing.apply {
                     isVisible = false
                     stopShimmer()
@@ -102,7 +101,6 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
                     isVisible = false
                     smoothToHide()
                 }
-                upComingEventsContainer.isVisible = true
             }
         })
     }

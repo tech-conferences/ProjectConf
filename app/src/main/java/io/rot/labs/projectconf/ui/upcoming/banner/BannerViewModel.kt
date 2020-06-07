@@ -16,11 +16,11 @@ class BannerViewModel : ViewModel() {
 
     var iterator = 0
 
-    private lateinit var timer: Timer
+    private var timer: Timer? = null
 
     fun startAutoIterator() {
         timer = Timer()
-        timer.schedule(object : TimerTask() {
+        timer?.schedule(object : TimerTask() {
             override fun run() {
                 bannerPosition.postValue(iterator++)
             }
@@ -28,6 +28,6 @@ class BannerViewModel : ViewModel() {
     }
 
     fun cancelAutoIterator() {
-        timer.cancel()
+        timer?.cancel()
     }
 }

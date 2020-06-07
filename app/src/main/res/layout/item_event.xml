@@ -24,8 +24,8 @@
             android:id="@+id/eventCardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:foreground="?attr/selectableItemBackground"
-            android:background="?attr/baseThemeColor">
+            android:background="?attr/baseThemeColor"
+            android:foreground="?attr/selectableItemBackground">
 
             <TextView
                 android:id="@+id/tvTopicTitle"
@@ -50,7 +50,7 @@
                 android:textColor="@color/blue500"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/tvCityCountry"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintEnd_toStartOf="@+id/barrier"
                 app:layout_constraintStart_toEndOf="@+id/ivTopic"
                 app:layout_constraintTop_toTopOf="@+id/ivTopic"
                 tools:text="droidcon NYC" />
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 app:layout_constraintBottom_toBottomOf="@+id/ivTopic"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintEnd_toStartOf="@+id/barrier"
                 app:layout_constraintStart_toEndOf="@+id/ivTopic"
                 app:layout_constraintTop_toBottomOf="@+id/tvConfName"
                 tools:text="Paris, France" />
@@ -74,7 +74,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintEnd_toStartOf="@+id/barrier"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ivTopic"
                 app:layout_constraintVertical_bias="0.0"
@@ -98,18 +98,25 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="300dp" />
 
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="start"
+                app:constraint_referenced_ids="ivSave,guideline" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/ivSave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="?selectableItemBackgroundBorderless"
                 android:foreground="@drawable/circle_border_blue"
                 android:padding="8dp"
                 android:src="@drawable/ic_bookmark_border"
-                android:background="?selectableItemBackgroundBorderless"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintStart_toStartOf="@+id/barrier"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

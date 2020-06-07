@@ -18,7 +18,8 @@
             android:id="@+id/shimmerUpComing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:shimmer_auto_start="true">
 
             <include
                 layout="@layout/layout_upcoming_loading"
@@ -73,6 +74,7 @@
                 android:orientation="horizontal" />
 
             <include
+                android:id="@+id/distinctLangContainer"
                 layout="@layout/layout_distinct_languages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

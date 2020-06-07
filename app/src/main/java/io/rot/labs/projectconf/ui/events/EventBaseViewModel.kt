@@ -37,7 +37,12 @@ class EventBaseViewModel @Inject constructor(
 
     val place: LiveData<String?> = Transformations.map(data) {
         if (it is EventEntity) {
-            "${it.event.city}, ${it.event.country}"
+            if (it.event.country == "Online") {
+                it.event.country
+            } else {
+                "${it.event.city}, ${it.event.country}"
+            }
+
         } else {
             null
         }
