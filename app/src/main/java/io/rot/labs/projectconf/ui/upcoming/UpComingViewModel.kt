@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.ui.upcoming
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity

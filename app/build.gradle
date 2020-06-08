@@ -28,13 +28,13 @@ android {
     }
 
     buildTypes {
-        debug{
+        debug {
             testCoverageEnabled = true
-            buildConfigField("String", "BASE_URL","\"https://raw.githubusercontent.com/tech-conferences/conference-data/master/conferences/\"")
+            buildConfigField("String", "BASE_URL", "\"https://raw.githubusercontent.com/tech-conferences/conference-data/master/conferences/\"")
         }
         release {
             minifyEnabled false
-            buildConfigField("String", "BASE_URL","\"https://raw.githubusercontent.com/tech-conferences/conference-data/master/conferences/\"")
+            buildConfigField("String", "BASE_URL", "\"https://raw.githubusercontent.com/tech-conferences/conference-data/master/conferences/\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -111,8 +111,21 @@ dependencies {
     // Parser
     implementation "com.google.code.gson:gson:$gson_version"
 
-    // Tests
+    // Local Unit tests
     testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "androidx.test.ext:junit:$test_runner_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
+    kaptTest "com.google.dagger:dagger-compiler:$dagger_version"
+    testImplementation "android.arch.core:core-testing:$core_testing_version"
+    testImplementation "org.hamcrest:hamcrest-library:$hamcrest_version"
+
+    // UI Testing
+    androidTestImplementation "androidx.test:runner:$test_runner_version"
+    androidTestImplementation "androidx.test.ext:junit:$test_ext_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$espresso_version"
+    androidTestImplementation "org.mockito:mockito-core:$mockito_version"
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
+
 }
