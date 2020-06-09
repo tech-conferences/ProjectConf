@@ -7,10 +7,9 @@ import io.rot.labs.projectconf.di.ViewModelScope
 import io.rot.labs.projectconf.ui.base.BaseItemViewHolder
 
 @Module
-class ViewHolderModule(private val viewHolder:BaseItemViewHolder<*,*>) {
+class ViewHolderModule(private val viewHolder: BaseItemViewHolder<*, *>) {
 
     @Provides
     @ViewModelScope
     fun provideLifecycleRegistry() = LifecycleRegistry(viewHolder)
-
 }

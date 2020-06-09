@@ -11,6 +11,5 @@ class AlertsViewModel(
     networkHelper: NetworkHelper
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
     override fun onCreate() {
-
     }
 }

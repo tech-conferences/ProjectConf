@@ -11,6 +11,5 @@ class BookmarksViewModel(
     networkHelper: NetworkHelper
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
     override fun onCreate() {
-
     }
 }

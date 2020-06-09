@@ -9,7 +9,6 @@ import io.rot.labs.projectconf.data.model.EventBase
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.utils.TestHelper
 import io.rot.labs.projectconf.utils.TestSchedulerProvider
-import io.rot.labs.projectconf.utils.network.NetworkHelper
 import io.rot.labs.projectconf.utils.network.NetworkHelperImpl
 import org.junit.After
 import org.junit.Before
@@ -17,7 +16,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
-import org.mockito.Mockito.*
+import org.mockito.Mockito.doReturn
+import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -73,7 +73,7 @@ class UpComingViewModelTest {
             .`when`(eventsRepository)
             .getUpComingEventsForCurrentMonth(isRefresh)
 
-        upComingViewModel.getUpComingEventsForCurrentMonth(isRefresh)
+        upComingViewModel.onCreate()
 
         testScheduler.triggerActions()
 

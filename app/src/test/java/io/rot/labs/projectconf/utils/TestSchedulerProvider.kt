@@ -11,5 +11,4 @@ class TestSchedulerProvider(private val testScheduler: TestScheduler) : Schedule
     override fun io(): Scheduler = testScheduler
 
     override fun ui(): Scheduler = testScheduler
-
 }

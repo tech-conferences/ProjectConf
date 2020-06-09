@@ -60,13 +60,10 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
         .fragmentModule(FragmentModule(this))
         .build()
 
-
     abstract fun injectDependencies(buildComponent: FragmentComponent)
 
     abstract fun setupView(savedInstanceState: Bundle?)
 
     @LayoutRes
     abstract fun provideLayoutId(): Int
-
-
 }

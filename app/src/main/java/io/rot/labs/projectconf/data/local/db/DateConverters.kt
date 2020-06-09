@@ -1,7 +1,7 @@
 package io.rot.labs.projectconf.data.local.db
 
 import androidx.room.TypeConverter
-import java.util.*
+import java.util.Date
 
 class DateConverters {
 

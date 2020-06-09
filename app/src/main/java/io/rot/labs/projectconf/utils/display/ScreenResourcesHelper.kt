@@ -5,5 +5,4 @@ interface ScreenResourcesHelper {
     fun isDarkThemeOn(): Boolean
 
     fun isPortrait(): Boolean
-
 }

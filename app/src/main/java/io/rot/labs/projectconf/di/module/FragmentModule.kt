@@ -59,7 +59,6 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         }).get(UpComingViewModel::class.java)
     }
 
-
     @Provides
     fun provideTwitterViewModel(
         schedulerProvider: SchedulerProvider,

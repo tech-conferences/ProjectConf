@@ -12,6 +12,5 @@ class SettingsViewModel(
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
     override fun onCreate() {
-
     }
 }

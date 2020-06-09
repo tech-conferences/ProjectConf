@@ -7,6 +7,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.BuildConfig
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
+import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.remote.ConfApi
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
@@ -39,15 +40,18 @@ class ApplicationModule(private val confApplication: ConfApplication) {
 
     @Provides
     @Singleton
+    fun provideDataBaseService(): DatabaseService = DatabaseService(provideConfDatabase())
+
+    @Provides
+    @Singleton
     fun provideNetworkHelper(): NetworkHelper = NetworkHelperImpl(confApplication)
 
     @Provides
     fun provideCompositeDisposable() = CompositeDisposable()
 
     @Provides
-    fun provideSchedulerProvider() : SchedulerProvider = RxSchedulerProvider()
+    fun provideSchedulerProvider(): SchedulerProvider = RxSchedulerProvider()
 
     @Provides
-    fun provideScreenResourceHelper() : ScreenResourcesHelper = ScreenUtils
-
+    fun provideScreenResourceHelper(): ScreenResourcesHelper = ScreenUtils
 }

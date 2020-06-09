@@ -4,11 +4,10 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
-import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class DatabaseService @Inject constructor(database: ConfDatabase) {
+class DatabaseService(database: ConfDatabase) {
 
     private val dao = database.eventsDao()
 
@@ -33,5 +32,4 @@ class DatabaseService @Inject constructor(database: ConfDatabase) {
             TimeDateUtils.getLastDateOfCurrentMonth()
         )
     }
-
 }

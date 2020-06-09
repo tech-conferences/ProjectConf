@@ -3,8 +3,6 @@ package io.rot.labs.projectconf.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.view.Window
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.ui.main.MainActivity

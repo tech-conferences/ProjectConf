@@ -8,7 +8,6 @@ import io.rot.labs.projectconf.ui.bookmarks.BookmarksFragment
 import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 
-
 @FragmentScope
 @Component(
     dependencies = [ApplicationComponent::class],

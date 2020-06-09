@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.ui.base
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable

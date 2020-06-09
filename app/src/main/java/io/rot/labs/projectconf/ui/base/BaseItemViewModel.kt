@@ -18,5 +18,4 @@ abstract class BaseItemViewModel<T : Any>(
     }
 
     fun onManualCleared() = onCleared()
-
 }

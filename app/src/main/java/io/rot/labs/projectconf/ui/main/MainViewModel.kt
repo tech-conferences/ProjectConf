@@ -5,7 +5,6 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.ui.base.BaseViewModel
 import io.rot.labs.projectconf.utils.common.Event
 import io.rot.labs.projectconf.utils.network.NetworkHelper
-import io.rot.labs.projectconf.utils.rx.RxSchedulerProvider
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 class MainViewModel(
@@ -13,7 +12,6 @@ class MainViewModel(
     compositeDisposable: CompositeDisposable,
     networkHelper: NetworkHelper
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
-
 
     val upComingNavigation = MutableLiveData<Event<Boolean>>()
     val tweetNavigation = MutableLiveData<Event<Boolean>>()

@@ -13,8 +13,5 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
     override fun provideLayoutId(): Int = R.layout.activity_search
 
     override fun setupView(savedInstanceState: Bundle?) {
-
     }
-
-
 }

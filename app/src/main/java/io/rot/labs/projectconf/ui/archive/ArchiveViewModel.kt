@@ -11,6 +11,5 @@ class ArchiveViewModel(
     networkHelper: NetworkHelper
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
     override fun onCreate() {
-
     }
 }

@@ -38,7 +38,6 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         }).get(ArchiveViewModel::class.java)
     }
 
-
     @Provides
     fun provideSettingsViewModel(
         schedulerProvider: SchedulerProvider,
@@ -60,5 +59,4 @@ class ActivityModule(private val activity: BaseActivity<*>) {
             SearchViewModel(schedulerProvider, compositeDisposable, networkHelper)
         }).get(SearchViewModel::class.java)
     }
-
 }

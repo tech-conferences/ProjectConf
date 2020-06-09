@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
-import androidx.core.view.doOnLayout
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
@@ -18,7 +17,6 @@ import io.rot.labs.projectconf.di.component.ViewHolderComponent
 import io.rot.labs.projectconf.di.module.ViewHolderModule
 import javax.inject.Inject
 
-
 /**
  * LifeCycle aware ViewHolder
  * This class provides convenient methods to handle its lifecycle
@@ -26,7 +24,8 @@ import javax.inject.Inject
  * If viewholder is in Paused state, data won't be updated in this viewholder
  */
 abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
-    @LayoutRes layoutId: Int, parent: ViewGroup
+    @LayoutRes layoutId: Int,
+    parent: ViewGroup
 ) : RecyclerView.ViewHolder(LayoutInflater.from(parent.context).inflate(layoutId, parent, false)),
     LifecycleOwner {
 

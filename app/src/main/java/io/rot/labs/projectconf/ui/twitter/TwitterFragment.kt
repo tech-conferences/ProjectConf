@@ -26,6 +26,4 @@ class TwitterFragment : BaseFragment<TwitterViewModel>() {
     }
 
     override fun provideLayoutId(): Int = R.layout.fragment_twitter
-
-
 }

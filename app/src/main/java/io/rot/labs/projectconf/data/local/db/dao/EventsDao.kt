@@ -7,9 +7,7 @@ import androidx.room.Query
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
-import io.rot.labs.projectconf.data.model.Event
-import io.rot.labs.projectconf.utils.common.TimeDateUtils
-import java.util.*
+import java.util.Date
 
 @Dao
 interface EventsDao {

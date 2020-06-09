@@ -1,7 +1,9 @@
 package io.rot.labs.projectconf.utils.common
 
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 object TimeDateUtils {
 
@@ -27,7 +29,6 @@ object TimeDateUtils {
         return date!!
     }
 
-
     fun getLastDateOfCurrentMonth(): Date {
         val currYear = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH) + 1
@@ -48,7 +49,6 @@ object TimeDateUtils {
         }
         val sdf = SimpleDateFormat("EEE, dd MMM yyyy")
         return sdf.format(calendar.time)
-
     }
 
     fun getEventPeriod(date: Date): String {
@@ -58,5 +58,4 @@ object TimeDateUtils {
         val sdf = SimpleDateFormat("MMMM, yyyy")
         return sdf.format(calendar.time)
     }
-
 }

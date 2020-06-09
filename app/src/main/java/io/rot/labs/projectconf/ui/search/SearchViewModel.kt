@@ -11,8 +11,5 @@ class SearchViewModel(
     networkHelper: NetworkHelper
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
     override fun onCreate() {
-
     }
-
-
 }

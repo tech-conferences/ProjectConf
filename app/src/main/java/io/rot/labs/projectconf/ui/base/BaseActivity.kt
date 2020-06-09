@@ -62,5 +62,4 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
 
     fun showMessageToast(@StringRes resId: Int) =
         showMessageToast(getString(resId))
-
 }

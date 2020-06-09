@@ -12,6 +12,5 @@ class TwitterViewModel(
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
     override fun onCreate() {
-
     }
 }

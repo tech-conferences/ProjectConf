@@ -20,16 +20,15 @@ interface ApplicationComponent {
 
     fun getNetworkService(): NetworkService
 
-    fun getDatabaseService() : DatabaseService
+    fun getDatabaseService(): DatabaseService
 
     fun getNetworkHelper(): NetworkHelper
 
-    fun getCompositeDisposable() : CompositeDisposable
+    fun getCompositeDisposable(): CompositeDisposable
 
-    fun getSchedulerProvider() : SchedulerProvider
+    fun getSchedulerProvider(): SchedulerProvider
 
-    fun getEventRepository() : EventsRepository
+    fun getEventRepository(): EventsRepository
 
-    fun getScreenResourceHelper() : ScreenResourcesHelper
-
+    fun getScreenResourceHelper(): ScreenResourcesHelper
 }

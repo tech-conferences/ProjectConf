@@ -22,10 +22,7 @@ class BookmarksFragment : BaseFragment<BookmarksViewModel>() {
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
-
     }
 
     override fun provideLayoutId(): Int = R.layout.fragment_bookmarks
-
-
 }

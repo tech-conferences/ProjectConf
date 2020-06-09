@@ -11,5 +11,4 @@ interface SchedulerProvider {
     fun io(): Scheduler
 
     fun ui(): Scheduler
-
 }

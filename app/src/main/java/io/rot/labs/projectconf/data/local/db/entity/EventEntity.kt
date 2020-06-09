@@ -3,11 +3,9 @@ package io.rot.labs.projectconf.data.local.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
-import androidx.room.Ignore
 import io.rot.labs.projectconf.data.model.EVENT_BASE_TYPE
 import io.rot.labs.projectconf.data.model.Event
 import io.rot.labs.projectconf.data.model.EventBase
-
 
 @Entity(
     tableName = "events",

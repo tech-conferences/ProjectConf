@@ -1,11 +1,9 @@
 package io.rot.labs.projectconf.utils.display
 
 import android.app.Activity
-import android.content.Context
 import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.Color
-import android.provider.CalendarContract
 import android.view.View
 
 object ScreenUtils : ScreenResourcesHelper {
@@ -18,7 +16,6 @@ object ScreenUtils : ScreenResourcesHelper {
             activity.window.statusBarColor = Color.WHITE
         }
         activity.window.decorView.systemUiVisibility = flags
-
     }
 
     override fun isDarkThemeOn(): Boolean {
@@ -28,6 +25,4 @@ object ScreenUtils : ScreenResourcesHelper {
     override fun isPortrait(): Boolean {
         return Resources.getSystem().configuration.orientation == Configuration.ORIENTATION_PORTRAIT
     }
-
-
 }

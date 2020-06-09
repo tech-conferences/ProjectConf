@@ -17,16 +17,15 @@ import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
 import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
+import javax.inject.Inject
+import kotlin.random.Random
 import kotlinx.android.synthetic.main.fragment_upcoming.*
 import kotlinx.android.synthetic.main.layout_distinct_languages.*
 import kotlinx.android.synthetic.main.layout_error.*
 import kotlinx.android.synthetic.main.layout_no_connection.*
 import kotlinx.android.synthetic.main.layout_upcoming_loading.view.*
-import javax.inject.Inject
-import kotlin.random.Random
 
 class UpComingFragment : BaseFragment<UpComingViewModel>() {
-
 
     @Inject
     lateinit var linearLayoutManager: LinearLayoutManager
@@ -103,7 +102,6 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
                 it.data?.run {
                     tvFatalError.text = getString(this)
                 }
-
             }
         })
 
@@ -154,7 +152,6 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             }
         })
     }
-
 
     fun setupRecyclerView() {
         rvEvents.apply {
@@ -236,25 +233,19 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     private fun setUpDistinctLanguages() {
 
         ivPython.setOnClickListener {
-
         }
 
         ivGolang.setOnClickListener {
-
         }
 
         ivRust.setOnClickListener {
-
         }
 
         ivGraphql.setOnClickListener {
-
         }
 
         ivShowAll.setOnClickListener {
-
         }
-
     }
 
     private fun setupErrorLayouts() {
@@ -273,7 +264,6 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             swipeRefreshLayout.isRefreshing = false
         }
     }
-
 
     private fun getRandomQuote(): String {
         val quotes = resources.getStringArray(R.array.quotes)

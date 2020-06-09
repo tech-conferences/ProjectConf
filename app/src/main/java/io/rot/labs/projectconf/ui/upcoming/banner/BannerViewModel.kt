@@ -2,8 +2,8 @@ package io.rot.labs.projectconf.ui.upcoming.banner
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.util.*
-
+import java.util.Timer
+import java.util.TimerTask
 
 /**
  *  BannerViewModel

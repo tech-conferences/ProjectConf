@@ -47,7 +47,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
             }
         })
 
-
         viewModel.tweetNavigation.observe(this, Observer {
             it.getIfNotHandled()?.let {
                 showTwitterFragment()
@@ -137,7 +136,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 else -> false
             }
         }
-
     }
 
     private fun showUpComingFragment() {
@@ -243,6 +241,4 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
         activeFragment = fragment
     }
-
-
 }

@@ -7,7 +7,6 @@ import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_archive.*
 
-
 class ArchiveActivity : BaseActivity<ArchiveViewModel>() {
     override fun injectDependencies(buildComponent: ActivityComponent) {
         buildComponent.inject(this)

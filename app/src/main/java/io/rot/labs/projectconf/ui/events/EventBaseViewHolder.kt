@@ -2,13 +2,11 @@ package io.rot.labs.projectconf.ui.events
 
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.DrawableRes
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.RequestOptions
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.data.model.EventBase
@@ -70,7 +68,6 @@ class EventBaseViewHolder(
                 itemView.tvStartDate.text = it
             }
         })
-
     }
 
     private fun loadTopicDrawable(@DrawableRes drawableRes: Int) {
@@ -111,6 +108,4 @@ class EventBaseViewHolder(
             else -> R.drawable.general_logo
         }
     }
-
-
 }

@@ -38,7 +38,6 @@ class UpComingViewModel(
                 progress.postValue(false)
                 handleNetworkError(it)
             })
-
     }
 
     private fun transformToInterleavedList(list: List<EventEntity>): List<EventBase> {

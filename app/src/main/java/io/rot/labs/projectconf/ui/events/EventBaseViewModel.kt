@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.ui.events
 
-import android.graphics.drawable.Drawable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import io.reactivex.disposables.CompositeDisposable
@@ -42,7 +41,6 @@ class EventBaseViewModel @Inject constructor(
             } else {
                 "${it.event.city}, ${it.event.country}"
             }
-
         } else {
             null
         }
@@ -65,8 +63,5 @@ class EventBaseViewModel @Inject constructor(
     }
 
     override fun onCreate() {
-
     }
-
-
 }

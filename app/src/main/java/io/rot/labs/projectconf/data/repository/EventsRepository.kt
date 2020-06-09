@@ -244,13 +244,11 @@ class EventsRepository @Inject constructor(
                     Single.just(it)
                 }
             }
-
     }
 
     fun insertEvents(list: List<EventEntity>): Completable {
         return databaseService.insertEvents(list)
     }
-
 
     private fun Single<List<Event>>.mapToListOfEventEntity(topic: String): Single<List<EventEntity>> {
         return this.map {
@@ -259,5 +257,4 @@ class EventsRepository @Inject constructor(
             }
         }
     }
-
 }

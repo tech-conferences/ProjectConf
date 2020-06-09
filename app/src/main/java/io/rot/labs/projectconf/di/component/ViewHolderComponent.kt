@@ -13,5 +13,4 @@ import io.rot.labs.projectconf.ui.events.EventBaseViewHolder
 interface ViewHolderComponent {
 
     fun inject(viewHolder: EventBaseViewHolder)
-
 }

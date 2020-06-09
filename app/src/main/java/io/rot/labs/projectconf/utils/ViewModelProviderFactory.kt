@@ -18,6 +18,5 @@ class ViewModelProviderFactory<T : ViewModel>(
         } else {
             throw IllegalArgumentException("Unknown Class Name : ${kClass.qualifiedName}")
         }
-
     }
 }

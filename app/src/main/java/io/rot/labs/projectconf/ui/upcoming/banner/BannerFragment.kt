@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.ui.upcoming.banner
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,6 @@ class BannerFragment : Fragment() {
             return fragment
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,20 +43,14 @@ class BannerFragment : Fragment() {
         view.setOnClickListener {
             when (arguments?.get(POSITION)) {
                 0 -> {
-
                 }
                 1 -> {
-
                 }
                 2 -> {
-
                 }
                 3 -> {
-
                 }
             }
         }
-
-
     }
 }

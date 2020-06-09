@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class TechBannerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activity) {
 
-    companion object{
+    companion object {
         const val NUM_BANNERS = 5
     }
 
@@ -14,5 +14,4 @@ class TechBannerAdapter(activity: FragmentActivity) : FragmentStateAdapter(activ
 
     override fun createFragment(position: Int): Fragment =
         BannerFragment.newInstance(position % NUM_BANNERS)
-
 }

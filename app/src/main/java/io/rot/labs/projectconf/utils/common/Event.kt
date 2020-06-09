@@ -9,5 +9,4 @@ data class Event<out T>(private val content: T) {
     fun getIfNotHandled(): T? = if (hasBeenHandled.getAndSet(false)) null else content
 
     fun peek() = content
-
 }

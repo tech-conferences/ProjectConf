@@ -3,9 +3,7 @@ package io.rot.labs.projectconf.utils.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import android.util.Log
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
-import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.utils.network.ErrorMessage.BAD_REQUEST
 import io.rot.labs.projectconf.utils.network.ErrorMessage.INTERNAL_SERVER_ERROR
 import io.rot.labs.projectconf.utils.network.ErrorMessage.NOT_FOUND
@@ -29,7 +27,6 @@ class NetworkHelperImpl(private val context: Context) : NetworkHelper {
             )
         }
         return isConnected ?: false
-
     }
 
     override fun castToNetworkError(throwable: Throwable): NetworkError {
