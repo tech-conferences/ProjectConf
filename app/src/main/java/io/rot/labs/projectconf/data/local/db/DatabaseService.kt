@@ -7,26 +7,26 @@ import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import javax.inject.Singleton
 
 @Singleton
-class DatabaseService(database: ConfDatabase) {
+open class DatabaseService(database: ConfDatabase) {
 
     private val dao = database.eventsDao()
 
-    fun insertEvents(list: List<EventEntity>): Completable {
+    open fun insertEvents(list: List<EventEntity>): Completable {
         return dao.insertEvents(list)
     }
 
-    fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
+    open fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
         return dao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
     }
 
-    fun getEventsForYear(year: Int): Single<List<EventEntity>> {
+    open fun getEventsForYear(year: Int): Single<List<EventEntity>> {
         return dao.getEventsByYear(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getLastDayOfYear(year)
         )
     }
 
-    fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
+    open fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
         return dao.getUpComingEventsForCurrentMonth(
             TimeDateUtils.getCurrentDate(),
             TimeDateUtils.getLastDateOfCurrentMonth()

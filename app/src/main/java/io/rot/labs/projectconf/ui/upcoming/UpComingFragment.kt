@@ -75,7 +75,6 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
-
         setUpBanner()
         setUpDistinctLanguages()
         setupRecyclerView()
@@ -153,7 +152,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         })
     }
 
-    fun setupRecyclerView() {
+    private fun setupRecyclerView() {
         rvEvents.apply {
             adapter = eventAdapter
             layoutManager = if (screenUtils.isPortrait()) {

@@ -54,6 +54,10 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     fun showMessageToast(@StringRes resId: Int) = showMessageToast(getString(resId))
 
+    fun goBack() {
+        if (activity is BaseActivity<*>) (activity as BaseActivity<*>).goBack()
+    }
+
     private fun getBuildComponent() = DaggerFragmentComponent
         .builder()
         .applicationComponent((context!!.applicationContext as ConfApplication).appComponent)
