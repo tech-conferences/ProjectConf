@@ -3,8 +3,6 @@ package io.rot.labs.projectconf.data.remote
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.model.Event
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
-import java.util.Date
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Singleton

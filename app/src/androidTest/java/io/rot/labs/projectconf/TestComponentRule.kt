@@ -1,7 +1,6 @@
 package io.rot.labs.projectconf
 
 import android.content.Context
-import io.rot.labs.projectconf.di.component.DaggerActivityComponent
 import io.rot.labs.projectconf.di.component.DaggerTestComponent
 import io.rot.labs.projectconf.di.component.TestComponent
 import io.rot.labs.projectconf.di.module.ApplicationTestModule
@@ -21,7 +20,6 @@ class TestComponentRule(private val context: Context) : TestRule {
             .applicationTestModule(ApplicationTestModule(application))
             .build()
         application.setComponent(testComponent!!)
-
     }
 
     override fun apply(base: Statement, description: Description): Statement {
@@ -37,6 +35,4 @@ class TestComponentRule(private val context: Context) : TestRule {
             }
         }
     }
-
-
 }

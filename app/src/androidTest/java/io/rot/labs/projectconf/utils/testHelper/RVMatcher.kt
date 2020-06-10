@@ -26,7 +26,6 @@ object RVMatcher {
                 println("view  $targetView")
                 return itemMatcher.matches(targetView)
             }
-
         }
     }
 }

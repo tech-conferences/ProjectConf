@@ -4,7 +4,6 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.testHelper.AndroidTestHelper
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Singleton

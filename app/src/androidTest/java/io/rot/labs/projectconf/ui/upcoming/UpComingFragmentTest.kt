@@ -3,18 +3,15 @@ package io.rot.labs.projectconf.ui.upcoming
 import android.os.Bundle
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.TestComponentRule
-import io.rot.labs.projectconf.utils.testHelper.ActionHelper.waitFor
 import io.rot.labs.projectconf.utils.testHelper.RVMatcher.atPositionOnView
 import org.junit.Rule
 import org.junit.Test
@@ -54,7 +51,6 @@ class UpComingFragmentTest {
             )
         )
     }
-
 
     @Test
     fun bannersAvailable_shouldScroll() {
