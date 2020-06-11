@@ -17,7 +17,11 @@ import io.rot.labs.projectconf.ui.search.SearchActivity
 import io.rot.labs.projectconf.ui.settings.SettingsActivity
 import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.activity_main.drawerLayout
+import kotlinx.android.synthetic.main.activity_main.ivSearch
+import kotlinx.android.synthetic.main.activity_main.materialToolBar
+import kotlinx.android.synthetic.main.activity_main.navView
+import kotlinx.android.synthetic.main.activity_main.tvScreenTitle
 
 class MainActivity : BaseActivity<MainViewModel>() {
 

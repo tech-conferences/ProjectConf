@@ -6,7 +6,7 @@ data class Event<out T>(private val content: T) {
 
     private var hasBeenHandled = AtomicBoolean(false)
 
-    fun getIfNotHandled(): T? = if (hasBeenHandled.getAndSet(false)) null else content
+    fun getIfNotHandled(): T? = if (hasBeenHandled.getAndSet(true)) null else content
 
     fun peek() = content
 }

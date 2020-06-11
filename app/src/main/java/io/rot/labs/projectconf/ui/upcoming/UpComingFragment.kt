@@ -237,7 +237,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             EventsItemHelper.navigateToEventsListActivity(
                 context!!,
                 Topics.PYTHON,
-                "${Topics.PYTHON} +devs",
+                "${Topics.PYTHON} devs",
                 arrayListOf(Topics.PYTHON)
             )
         }
@@ -246,7 +246,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             EventsItemHelper.navigateToEventsListActivity(
                 context!!,
                 Topics.GOLANG,
-                "${Topics.GOLANG} +devs",
+                "${Topics.GOLANG} devs",
                 arrayListOf(Topics.GOLANG)
             )
         }
@@ -255,7 +255,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             EventsItemHelper.navigateToEventsListActivity(
                 context!!,
                 Topics.RUST,
-                "${Topics.RUST} +devs",
+                "${Topics.RUST} devs",
                 arrayListOf(Topics.RUST)
             )
         }
@@ -264,7 +264,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
             EventsItemHelper.navigateToEventsListActivity(
                 context!!,
                 Topics.GRAPHQL,
-                "${Topics.GRAPHQL} +devs",
+                "${Topics.GRAPHQL} devs",
                 arrayListOf(Topics.GRAPHQL)
             )
         }

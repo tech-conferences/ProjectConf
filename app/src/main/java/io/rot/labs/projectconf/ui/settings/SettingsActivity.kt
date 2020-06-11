@@ -5,7 +5,7 @@ import android.view.MenuItem
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_settings.*
+import kotlinx.android.synthetic.main.activity_settings.materialToolBar
 
 class SettingsActivity : BaseActivity<SettingsViewModel>() {
     override fun injectDependencies(buildComponent: ActivityComponent) {

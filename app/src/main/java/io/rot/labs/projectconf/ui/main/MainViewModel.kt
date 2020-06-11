@@ -13,6 +13,13 @@ class MainViewModel(
     networkHelper: NetworkHelper
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
+    companion object {
+        private const val UPCOMING = "upcoming"
+        private const val TWEETS = "tweets"
+        private const val ALERTS = "alerts"
+        private const val BOOKMARKS = "bookmarks"
+    }
+
     val upComingNavigation = MutableLiveData<Event<Boolean>>()
     val tweetNavigation = MutableLiveData<Event<Boolean>>()
     val archiveNavigation = MutableLiveData<Event<Boolean>>()
@@ -21,16 +28,20 @@ class MainViewModel(
     val settingsNavigation = MutableLiveData<Event<Boolean>>()
     val aboutNavigation = MutableLiveData<Event<Boolean>>()
 
+    private val activeFragmentNavigation = MutableLiveData(UPCOMING)
+
     override fun onCreate() {
-        onUpComingRedirection()
+        onActiveFragmentRedirection()
     }
 
     fun onUpComingRedirection() {
         upComingNavigation.postValue(Event(true))
+        activeFragmentNavigation.postValue(UPCOMING)
     }
 
     fun onTweetRedirection() {
         tweetNavigation.postValue(Event(true))
+        activeFragmentNavigation.postValue(TWEETS)
     }
 
     fun onArchiveRedirection() {
@@ -39,10 +50,12 @@ class MainViewModel(
 
     fun onBookmarksRedirection() {
         bookmarksNavigation.postValue(Event(true))
+        activeFragmentNavigation.postValue(BOOKMARKS)
     }
 
     fun onAlertsRedirection() {
         alertsNavigation.postValue(Event(true))
+        activeFragmentNavigation.postValue(ALERTS)
     }
 
     fun onSettingsRedirection() {
@@ -51,5 +64,14 @@ class MainViewModel(
 
     fun onAboutRedirection() {
         aboutNavigation.postValue(Event(true))
+    }
+
+    private fun onActiveFragmentRedirection() {
+        when (activeFragmentNavigation.value) {
+            UPCOMING -> onUpComingRedirection()
+            TWEETS -> onTweetRedirection()
+            BOOKMARKS -> onBookmarksRedirection()
+            ALERTS -> onAlertsRedirection()
+        }
     }
 }
