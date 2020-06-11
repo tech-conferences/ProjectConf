@@ -28,7 +28,7 @@
                 android:padding="8dp"
                 android:textSize="21sp"
                 android:textStyle="bold"
-                android:text="Mobile Development"
+                android:text="@string/mobile_dev_label"
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

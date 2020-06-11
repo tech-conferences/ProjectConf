@@ -1,11 +1,16 @@
 package io.rot.labs.projectconf.di.module
 
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.archive.ArchiveViewModel
 import io.rot.labs.projectconf.ui.base.BaseActivity
+import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
+import io.rot.labs.projectconf.ui.eventsList.EventsListViewModel
 import io.rot.labs.projectconf.ui.main.MainViewModel
 import io.rot.labs.projectconf.ui.search.SearchViewModel
 import io.rot.labs.projectconf.ui.settings.SettingsViewModel
@@ -15,6 +20,16 @@ import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 @Module
 class ActivityModule(private val activity: BaseActivity<*>) {
+
+    @Provides
+    fun provideLinearLayoutManager() = LinearLayoutManager(activity)
+
+    @Provides
+    fun provideGridLayoutManager(): GridLayoutManager = GridLayoutManager(activity, 2)
+
+    @Provides
+    fun provideEventAdapter(): EventsItemAdapter =
+        EventsItemAdapter(activity.lifecycle, ArrayList())
 
     @Provides
     fun provideMainViewModel(
@@ -58,5 +73,22 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         return ViewModelProvider(activity, ViewModelProviderFactory(SearchViewModel::class) {
             SearchViewModel(schedulerProvider, compositeDisposable, networkHelper)
         }).get(SearchViewModel::class.java)
+    }
+
+    @Provides
+    fun provideEventsListViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper,
+        eventsRepository: EventsRepository
+    ): EventsListViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(EventsListViewModel::class) {
+            EventsListViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkHelper,
+                eventsRepository
+            )
+        }).get(EventsListViewModel::class.java)
     }
 }

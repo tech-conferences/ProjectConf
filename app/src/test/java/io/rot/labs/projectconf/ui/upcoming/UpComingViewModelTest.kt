@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.TestScheduler
-import io.rot.labs.projectconf.data.model.EventBase
+import io.rot.labs.projectconf.data.model.EventItem
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.utils.TestHelper
 import io.rot.labs.projectconf.utils.TestSchedulerProvider
@@ -33,7 +33,7 @@ class UpComingViewModelTest {
     lateinit var eventsRepository: EventsRepository
 
     @Mock
-    lateinit var upComingEventsObserver: Observer<List<EventBase>>
+    lateinit var upComingEventsObserver: Observer<List<EventItem>>
 
     @Mock
     lateinit var progressObserver: Observer<Boolean>

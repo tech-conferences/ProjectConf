@@ -3,9 +3,9 @@ package io.rot.labs.projectconf.data.local.db.entity
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
-import io.rot.labs.projectconf.data.model.EVENT_BASE_TYPE
+import io.rot.labs.projectconf.data.model.EVENT_ITEM_TYPE
 import io.rot.labs.projectconf.data.model.Event
-import io.rot.labs.projectconf.data.model.EventBase
+import io.rot.labs.projectconf.data.model.EventItem
 
 @Entity(
     tableName = "events",
@@ -19,4 +19,4 @@ data class EventEntity(
     @ColumnInfo(name = "topic")
     val topic: String
 
-) : EventBase(EVENT_BASE_TYPE.DETAIL)
+) : EventItem(EVENT_ITEM_TYPE.DETAIL)

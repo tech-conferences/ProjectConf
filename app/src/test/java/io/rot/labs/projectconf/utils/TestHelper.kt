@@ -2,8 +2,8 @@ package io.rot.labs.projectconf.utils
 
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.data.model.Event
-import io.rot.labs.projectconf.data.model.EventBase
 import io.rot.labs.projectconf.data.model.EventHeader
+import io.rot.labs.projectconf.data.model.EventItem
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import java.util.Date
 
@@ -34,7 +34,7 @@ object TestHelper {
         )
     )
 
-    val fakeEventBaseList = listOf<EventBase>(
+    val fakeEventBaseList = listOf<EventItem>(
         EventHeader(TimeDateUtils.getEventPeriod(Date(System.currentTimeMillis() - milliSecondsIn1Day))),
         fakeEventEntityList[0],
         fakeEventEntityList[1]

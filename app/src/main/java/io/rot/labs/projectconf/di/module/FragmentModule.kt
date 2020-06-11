@@ -10,7 +10,7 @@ import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.alerts.AlertsViewModel
 import io.rot.labs.projectconf.ui.base.BaseFragment
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
-import io.rot.labs.projectconf.ui.events.EventAdapter
+import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.twitter.TwitterViewModel
 import io.rot.labs.projectconf.ui.upcoming.UpComingViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
@@ -30,7 +30,7 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
     fun provideGridLayoutManager(): GridLayoutManager = GridLayoutManager(fragment.context, 2)
 
     @Provides
-    fun provideEventAdapter(): EventAdapter = EventAdapter(fragment.lifecycle, ArrayList())
+    fun provideEventAdapter(): EventsItemAdapter = EventsItemAdapter(fragment.lifecycle, ArrayList())
 
     @Provides
     fun provideTechBannerAdapter(): TechBannerAdapter = TechBannerAdapter(fragment.activity!!)

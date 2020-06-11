@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import io.rot.labs.projectconf.R
+import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper.navigateToEventsListActivity
+import io.rot.labs.projectconf.utils.common.Topics
 
 class BannerFragment : Fragment() {
 
@@ -42,14 +44,36 @@ class BannerFragment : Fragment() {
 
         view.setOnClickListener {
             when (arguments?.get(POSITION)) {
-                0 -> {
-                }
-                1 -> {
-                }
-                2 -> {
-                }
-                3 -> {
-                }
+                0 -> navigateToEventsListActivity(
+                    context!!,
+                    getString(R.string.cloud_devops_label),
+                    getString(R.string.devops_devs),
+                    arrayListOf(Topics.DEVOPS)
+                )
+                1 -> navigateToEventsListActivity(
+                    context!!,
+                    getString(R.string.mobile_dev_label),
+                    getString(R.string.mobile_devs),
+                    arrayListOf(Topics.ANDROID, Topics.IOS, Topics.KOTLIN)
+                )
+                2 -> navigateToEventsListActivity(
+                    context!!,
+                    getString(R.string.design_label),
+                    getString(R.string.design_folks),
+                    arrayListOf(Topics.UX)
+                )
+                3 -> navigateToEventsListActivity(
+                    context!!,
+                    getString(R.string.jvm_universe_label),
+                    getString(R.string.jvm_folks),
+                    arrayListOf(Topics.JAVA, Topics.SCALA, Topics.KOTLIN, Topics.GROOVY)
+                )
+                4 -> navigateToEventsListActivity(
+                    context!!,
+                    getString(R.string.js_land_label),
+                    getString(R.string.js_devs),
+                    arrayListOf(Topics.TYPESCRIPT, Topics.JAVASCRIPT)
+                )
             }
         }
     }

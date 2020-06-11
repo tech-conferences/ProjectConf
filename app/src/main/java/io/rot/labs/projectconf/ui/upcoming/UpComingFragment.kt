@@ -12,10 +12,12 @@ import androidx.viewpager2.widget.ViewPager2
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.FragmentComponent
 import io.rot.labs.projectconf.ui.base.BaseFragment
-import io.rot.labs.projectconf.ui.events.EventAdapter
+import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
+import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
 import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
+import io.rot.labs.projectconf.utils.common.Topics
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
 import kotlin.random.Random
@@ -34,7 +36,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     lateinit var gridLayoutManager: GridLayoutManager
 
     @Inject
-    lateinit var eventAdapter: EventAdapter
+    lateinit var eventsItemAdapter: EventsItemAdapter
 
     @Inject
     lateinit var techBannerAdapter: TechBannerAdapter
@@ -115,7 +117,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         })
 
         viewModel.upcomingEvents.observe(this, Observer {
-            eventAdapter.updateData(it)
+            eventsItemAdapter.updateData(it)
         })
 
         bannerViewModel.bannerPosition.observe(this, Observer {
@@ -154,15 +156,15 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
     private fun setupRecyclerView() {
         rvEvents.apply {
-            adapter = eventAdapter
+            adapter = eventsItemAdapter
             layoutManager = if (screenUtils.isPortrait()) {
                 linearLayoutManager
             } else {
 
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                     override fun getSpanSize(position: Int): Int {
-                        return when (eventAdapter.getItemViewType(position)) {
-                            EventAdapter.HEADER -> 2
+                        return when (eventsItemAdapter.getItemViewType(position)) {
+                            EventsItemAdapter.HEADER -> 2
                             else -> 1
                         }
                     }
@@ -232,18 +234,43 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     private fun setUpDistinctLanguages() {
 
         ivPython.setOnClickListener {
+            EventsItemHelper.navigateToEventsListActivity(
+                context!!,
+                Topics.PYTHON,
+                "${Topics.PYTHON} +devs",
+                arrayListOf(Topics.PYTHON)
+            )
         }
 
         ivGolang.setOnClickListener {
+            EventsItemHelper.navigateToEventsListActivity(
+                context!!,
+                Topics.GOLANG,
+                "${Topics.GOLANG} +devs",
+                arrayListOf(Topics.GOLANG)
+            )
         }
 
         ivRust.setOnClickListener {
+            EventsItemHelper.navigateToEventsListActivity(
+                context!!,
+                Topics.RUST,
+                "${Topics.RUST} +devs",
+                arrayListOf(Topics.RUST)
+            )
         }
 
         ivGraphql.setOnClickListener {
+            EventsItemHelper.navigateToEventsListActivity(
+                context!!,
+                Topics.GRAPHQL,
+                "${Topics.GRAPHQL} +devs",
+                arrayListOf(Topics.GRAPHQL)
+            )
         }
 
         ivShowAll.setOnClickListener {
+            // show tech categoryies activitity
         }
     }
 

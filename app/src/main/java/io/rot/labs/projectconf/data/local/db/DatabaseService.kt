@@ -15,14 +15,18 @@ open class DatabaseService(database: ConfDatabase) {
         return dao.insertEvents(list)
     }
 
-    open fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
-        return dao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
-    }
-
     open fun getEventsForYear(year: Int): Single<List<EventEntity>> {
         return dao.getEventsByYear(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getLastDayOfYear(year)
+        )
+    }
+
+    open fun getEventsForYearAndTech(tech: String, year: Int): Single<List<EventEntity>> {
+        return dao.getEventsByYearAndTech(
+            TimeDateUtils.getFirstDayOfYear(year),
+            TimeDateUtils.getLastDayOfYear(year),
+            tech
         )
     }
 
@@ -31,5 +35,13 @@ open class DatabaseService(database: ConfDatabase) {
             TimeDateUtils.getCurrentDate(),
             TimeDateUtils.getLastDateOfCurrentMonth()
         )
+    }
+
+    open fun getUpComingEventsForTech(topics: List<String>): Single<List<EventEntity>> {
+        return dao.getUpComingEventsForTech(topics, TimeDateUtils.getCurrentDate())
+    }
+
+    open fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
+        return dao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
     }
 }

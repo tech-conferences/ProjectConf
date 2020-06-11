@@ -1,7 +1,6 @@
 package io.rot.labs.projectconf.data.repository
 
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
@@ -191,36 +190,6 @@ class EventsRepository @Inject constructor(
         }
     }
 
-    fun getEventsOfYear(year: Int): Flowable<List<EventEntity>> {
-        val allIn = getConfSourcesList(year)
-        return Single.merge(allIn).onBackpressureBuffer()
-    }
-
-    fun getUpComingEvents(): Single<List<EventEntity>> {
-        val yearList = TimeDateUtils.getConfYearsList()
-        val currYear = yearList.last() - 1
-        val nextYear = yearList.last()
-        val upcomingEventSources = getConfSourcesList(currYear) + getConfSourcesList(nextYear)
-
-        return databaseService.getUpComingEventsFromCurrentYear()
-            .flatMap {
-                if (it.isEmpty()) {
-                    Single.merge(upcomingEventSources).collect(
-                        { mutableListOf<EventEntity>() },
-                        { collector, value ->
-                            value.forEach { event -> collector.add(event) }
-                        }
-                    ).flatMap { list ->
-                        databaseService.insertEvents(list).toSingle { "Complete" }
-                    }.flatMap {
-                        databaseService.getUpComingEventsFromCurrentYear()
-                    }
-                } else {
-                    Single.just(it)
-                }
-            }
-    }
-
     fun getUpComingEventsForCurrentMonth(isRefresh: Boolean): Single<List<EventEntity>> {
         val yearList = TimeDateUtils.getConfYearsList()
         val currYear = yearList.last() - 1
@@ -242,6 +211,59 @@ class EventsRepository @Inject constructor(
                     }
                 } else {
                     Single.just(it)
+                }
+            }
+    }
+
+    fun getUpComingEventsForTech(
+        topics: List<String>,
+        isRefresh: Boolean
+    ): Single<List<EventEntity>> {
+        val yearList = TimeDateUtils.getConfYearsList()
+        val nextYear = yearList.last()
+        val currYear = nextYear - 1
+        return databaseService.getEventsForYear(nextYear)
+            .flatMap {
+                if (it.isEmpty() || isRefresh) {
+                    val upcomingSources =
+                        getConfSourcesList(nextYear) + getConfSourcesList(currYear)
+                    Single.merge(upcomingSources).collect(
+                        { mutableListOf<EventEntity>() },
+                        { collector, value ->
+                            value.forEach { event -> collector.add(event) }
+                        }
+                    ).flatMap { list ->
+                        databaseService.insertEvents(list).toSingle { "Completable" }
+                    }.flatMap {
+                        databaseService.getUpComingEventsForTech(topics)
+                    }
+                } else {
+                    databaseService.getUpComingEventsForTech(topics)
+                }
+            }
+    }
+
+    fun getEventsForYearAndTech(
+        tech: String,
+        year: Int,
+        isRefresh: Boolean
+    ): Single<List<EventEntity>> {
+        return databaseService.getEventsForYear(year)
+            .flatMap {
+                if (it.isEmpty() || isRefresh) {
+                    val source = getConfSourcesList(year)
+                    Single.merge(source).collect(
+                        { mutableListOf<EventEntity>() },
+                        { collector, value ->
+                            value.forEach { event -> collector.add(event) }
+                        }
+                    ).flatMap { list ->
+                        databaseService.insertEvents(list).toSingle { "Complete" }
+                    }.flatMap {
+                        databaseService.getEventsForYearAndTech(tech, year)
+                    }
+                } else {
+                    databaseService.getEventsForYearAndTech(tech, year)
                 }
             }
     }

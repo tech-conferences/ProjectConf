@@ -1,27 +1,27 @@
-package io.rot.labs.projectconf.ui.events
+package io.rot.labs.projectconf.ui.eventsItem
 
 import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
-import io.rot.labs.projectconf.data.model.EventBase
+import io.rot.labs.projectconf.data.model.EventItem
 import io.rot.labs.projectconf.ui.base.BaseAdapter
 
-class EventAdapter(
+class EventsItemAdapter(
     parentLifecycle: Lifecycle,
-    private val dataList: ArrayList<EventBase>
-) : BaseAdapter<EventBase, EventBaseViewHolder>(parentLifecycle, dataList) {
+    private val dataList: ArrayList<EventItem>
+) : BaseAdapter<EventItem, EventsItemViewHolder>(parentLifecycle, dataList) {
 
     companion object {
         const val DETAIL = 0
         const val HEADER = 1
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventBaseViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsItemViewHolder {
         return if (viewType == DETAIL) {
-            EventBaseViewHolder(R.layout.item_event, parent)
+            EventsItemViewHolder(R.layout.item_event, parent)
         } else {
-            EventBaseViewHolder(R.layout.item_event_header, parent)
+            EventsItemViewHolder(R.layout.item_event_header, parent)
         }
     }
 

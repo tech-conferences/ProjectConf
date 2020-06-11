@@ -17,6 +17,24 @@
     <string name="nav_about">About</string>
     <string name="nav_up_coming">Up Coming</string>
 
+
+    // banner topic titles
+    <string name="jvm_universe_label">JVM Universe</string>
+    <string name="js_land_label">JS Land</string>
+    <string name="cloud_devops_label">Cloud and DevOps</string>
+    <string name="design_label">Design</string>
+    <string name="mobile_dev_label">Mobile Development</string>
+
+
+    <string name="tech_conf_sub">Tech conferences for %1$s around the world</string>
+
+    // tech conf sub values
+    <string name="devops_devs">cloud and devops devs</string>
+    <string name="mobile_devs">mobile devs</string>
+    <string name="design_folks">UX/UI folks</string>
+    <string name="jvm_folks">java folks</string>
+    <string name="js_devs">JS devs</string>
+
     <string name="upcoming_events">Up Coming Events</string>
     <string name="retry">Retry</string>
 
