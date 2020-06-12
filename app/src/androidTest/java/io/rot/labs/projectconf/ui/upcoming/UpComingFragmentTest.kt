@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.TestComponentRule
-import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.local.db.FakeDatabaseService
 import io.rot.labs.projectconf.utils.testHelper.RVMatcher.atPositionOnView
 import org.junit.Before
@@ -224,5 +223,4 @@ class UpComingFragmentTest {
 
         onView(withId(R.id.tvJSLand)).check(matches(withText("JS Land")))
     }
-
 }

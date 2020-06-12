@@ -5,12 +5,12 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.testHelper.AndroidTestHelper
-import okhttp3.ResponseBody
-import retrofit2.Response
 import java.net.ConnectException
 import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import javax.inject.Singleton
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 @Singleton
 class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
@@ -24,7 +24,6 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
 
         private const val TIMEOUT = "timeout"
     }
-
 
     override fun insertEvents(list: List<EventEntity>): Completable {
         return Completable.complete()
@@ -41,7 +40,7 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                     throw SocketTimeoutException(TIMEOUT)
                 }
                 toThrowHttpException -> {
-                    throw  HttpException(
+                    throw HttpException(
                         Response.error<Any>(
                             HttpURLConnection.HTTP_NOT_FOUND,
                             ResponseBody.create(null, "")
@@ -65,7 +64,7 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                     throw SocketTimeoutException(TIMEOUT)
                 }
                 toThrowHttpException -> {
-                    throw  HttpException(
+                    throw HttpException(
                         Response.error<Any>(
                             HttpURLConnection.HTTP_NOT_FOUND,
                             ResponseBody.create(null, "")
@@ -89,7 +88,7 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                     throw SocketTimeoutException(TIMEOUT)
                 }
                 toThrowHttpException -> {
-                    throw  HttpException(
+                    throw HttpException(
                         Response.error<Any>(
                             HttpURLConnection.HTTP_NOT_FOUND,
                             ResponseBody.create(null, "")
