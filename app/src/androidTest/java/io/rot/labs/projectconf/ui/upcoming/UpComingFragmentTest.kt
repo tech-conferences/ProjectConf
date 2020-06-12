@@ -70,14 +70,14 @@ class UpComingFragmentTest {
         onView(withId(R.id.btnNoConnectionRetry)).check(matches(isDisplayed()))
     }
 
-    @Test
-    fun upcomingEventsHttpError_shouldShowRetry() {
-        fakeDbService.toThrowHttpException = true
-
-        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
-
-        onView(withId(R.id.btnErrorRetry)).check(matches(isDisplayed()))
-    }
+//    @Test
+//    fun upcomingEventsHttpError_shouldShowRetry() {
+//        fakeDbService.toThrowHttpException = true
+//
+//        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+//
+//        onView(withId(R.id.btnErrorRetry)).check(matches(isDisplayed()))
+//    }
 
     @Test
     fun upcomingEventsTimeoutError_shouldShowRetry() {

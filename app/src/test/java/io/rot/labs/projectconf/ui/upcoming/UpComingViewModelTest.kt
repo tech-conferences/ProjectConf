@@ -65,7 +65,7 @@ class UpComingViewModelTest {
     fun getUpComingEventsForMonthTest() {
 
         val fakeList = TestHelper.fakeEventEntityList
-        val fakeResponse = TestHelper.fakeEventBaseList
+        val fakeResponse = TestHelper.fakeEventItemList
 
         val isRefresh = false
 
