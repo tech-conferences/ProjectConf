@@ -26,6 +26,8 @@ jobs:
         with:
           api: 29
           cmd: ./gradlew connectedCheck
+          tag: default
+          abi: x86
 
   lintcheck:
     name: ktLint check
@@ -56,6 +58,8 @@ jobs:
         with:
           api: 29
           cmd: ./gradlew clean jacocoReport
+          tag: default
+          abi: x86
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
