@@ -1,16 +1,12 @@
 package io.rot.labs.projectconf.data.local.db
 
-import com.jakewharton.retrofit2.adapter.rxjava2.HttpException
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.testHelper.AndroidTestHelper
 import java.net.ConnectException
-import java.net.HttpURLConnection
 import java.net.SocketTimeoutException
 import javax.inject.Singleton
-import okhttp3.ResponseBody
-import retrofit2.Response
 
 @Singleton
 class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
