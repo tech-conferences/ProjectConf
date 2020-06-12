@@ -1,5 +1,6 @@
 package io.rot.labs.projectconf.ui.eventsList
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.model.EventItem
@@ -16,9 +17,11 @@ class EventsListViewModel(
     private val eventsRepository: EventsRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
-    val upcomingEvents = MutableLiveData<List<EventItem>>()
+    private val upcomingEventsHolder = MutableLiveData<List<EventItem>>()
+    val upcomingEvents: LiveData<List<EventItem>> = upcomingEventsHolder
 
-    val archiveEvents = MutableLiveData<List<EventItem>>()
+    private val archiveEventsHolder = MutableLiveData<List<EventItem>>()
+    val archiveEvents: LiveData<List<EventItem>> = archiveEventsHolder
 
     val progress = MutableLiveData<Boolean>()
 
@@ -26,10 +29,14 @@ class EventsListViewModel(
 
     fun getUpComingEventsForTech(topics: List<String>, isRefresh: Boolean = false) {
         progress.postValue(true)
+        if (upcomingEventsHolder.value?.isNotEmpty() == true && !isRefresh) {
+            progress.postValue(false)
+            return
+        }
         eventsRepository.getUpComingEventsForTech(topics, isRefresh)
             .subscribeOn(schedulerProvider.io())
             .subscribe({
-                upcomingEvents.postValue(EventsItemHelper.transformToInterleavedList(it))
+                upcomingEventsHolder.postValue(EventsItemHelper.transformToInterleavedList(it))
                 progress.postValue(false)
             }, {
                 progress.postValue(false)
@@ -39,10 +46,14 @@ class EventsListViewModel(
 
     fun getEventsForYearAndTech(year: Int, tech: String, isRefresh: Boolean = false) {
         progress.postValue(true)
+        if (archiveEventsHolder.value?.isNotEmpty() == true && !isRefresh) {
+            progress.postValue(false)
+            return
+        }
         eventsRepository.getEventsForYearAndTech(tech, year, isRefresh)
             .subscribeOn(schedulerProvider.io())
             .subscribe({
-                archiveEvents.postValue(EventsItemHelper.transformToInterleavedList(it))
+                archiveEventsHolder.postValue(EventsItemHelper.transformToInterleavedList(it))
                 progress.postValue(false)
             }, {
                 progress.postValue(false)

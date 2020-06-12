@@ -1,5 +1,6 @@
 package io.rot.labs.projectconf.ui.upcoming
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.model.EventItem
@@ -16,7 +17,8 @@ class UpComingViewModel(
     private val eventsRepository: EventsRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
 
-    val upcomingEvents = MutableLiveData<List<EventItem>>()
+    private val upcomingEventsHolder = MutableLiveData<List<EventItem>>()
+    val upcomingEvents: LiveData<List<EventItem>> = upcomingEventsHolder
 
     val progress = MutableLiveData<Boolean>()
 
@@ -25,12 +27,15 @@ class UpComingViewModel(
     }
 
     fun getUpComingEventsForCurrentMonth(isRefresh: Boolean = false) {
-
         progress.postValue(true)
+        if (upcomingEventsHolder.value?.isNotEmpty() == true && !isRefresh) {
+            progress.postValue(false)
+            return
+        }
         eventsRepository.getUpComingEventsForCurrentMonth(isRefresh)
             .subscribeOn(schedulerProvider.io())
             .subscribe({
-                upcomingEvents.postValue(transformToInterleavedList(it))
+                upcomingEventsHolder.postValue(transformToInterleavedList(it))
                 progress.postValue(false)
             }, {
                 progress.postValue(false)

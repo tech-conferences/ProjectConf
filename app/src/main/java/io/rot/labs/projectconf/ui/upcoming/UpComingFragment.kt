@@ -3,6 +3,7 @@ package io.rot.labs.projectconf.ui.upcoming
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -17,6 +18,8 @@ import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
 import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
+import io.rot.labs.projectconf.utils.common.Resource
+import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
@@ -87,33 +90,49 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
     override fun setupObservables() {
 
         viewModel.messageStringId.observe(this, Observer {
-            if (it.data == R.string.network_internet_not_connected || it.data == R.string.network_could_not_connect) {
-                layoutNoConnection.isVisible = true
-                layoutError.isVisible = false
-                upComingEventsContainer.isVisible = false
-                shimmerUpComing.isVisible = false
-                aviLoader.isVisible = false
-                tvNoInternet.text = getString(it.data)
-            } else {
-                layoutError.isVisible = true
-                layoutNoConnection.isVisible = false
-                upComingEventsContainer.isVisible = false
-                shimmerUpComing.isVisible = false
-                aviLoader.isVisible = false
-                it.data?.run {
-                    tvFatalError.text = getString(this)
+            it.data?.let { data ->
+                if (data == R.string.network_internet_not_connected || data == R.string.network_could_not_connect) {
+                    if (viewModel.upcomingEvents.value?.isNotEmpty() == true) {
+                        Toaster.show(context, getString(R.string.could_not_refresh))
+                    } else {
+                        layoutNoConnection.isVisible = true
+                        layoutError.isVisible = false
+                        upComingEventsContainer.isVisible = false
+                        shimmerUpComing.isVisible = false
+                        aviLoader.isVisible = false
+                        tvNoInternet.text = getString(it.data)
+                    }
+                } else {
+                    if (viewModel.upcomingEvents.value?.isNotEmpty() == true) {
+                        Toast.makeText(context, "Could not refresh", Toast.LENGTH_LONG).show()
+                    } else {
+                        layoutError.isVisible = true
+                        layoutNoConnection.isVisible = false
+                        upComingEventsContainer.isVisible = false
+                        shimmerUpComing.isVisible = false
+                        aviLoader.isVisible = false
+                        tvFatalError.text = getString(data)
+                    }
                 }
+                viewModel.messageStringId.postValue(Resource.error(null))
             }
         })
 
         viewModel.messageString.observe(this, Observer {
-            layoutError.isVisible = true
-            layoutNoConnection.isVisible = false
-            upComingEventsContainer.isVisible = false
-            shimmerUpComing.isVisible = false
-            aviLoader.isVisible = false
+            it.data?.let { data ->
+                if (viewModel.upcomingEvents.value?.isNotEmpty() == true) {
+                    Toaster.show(context, getString(R.string.could_not_refresh))
+                } else {
+                    layoutError.isVisible = true
+                    layoutNoConnection.isVisible = false
+                    upComingEventsContainer.isVisible = false
+                    shimmerUpComing.isVisible = false
+                    aviLoader.isVisible = false
 
-            tvFatalError.text = it.data
+                    tvFatalError.text = data
+                }
+                viewModel.messageString.postValue(Resource.error(null))
+            }
         })
 
         viewModel.upcomingEvents.observe(this, Observer {

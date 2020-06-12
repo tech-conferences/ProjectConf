@@ -18,6 +18,8 @@ import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
+import io.rot.labs.projectconf.utils.common.Resource
+import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
@@ -88,30 +90,44 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
     override fun setupObservables() {
 
         viewModel.messageStringId.observe(this, Observer {
-            if (it.data == R.string.network_internet_not_connected || it.data == R.string.network_could_not_connect) {
-                layoutNoConnection.isVisible = true
-                layoutError.isVisible = false
-                shimmerEventsList.isVisible = false
-                swipeRefreshList.isVisible = false
-                tvNoInternet.text = getString(it.data)
-            } else {
-                layoutError.isVisible = true
-                swipeRefreshList.isVisible = false
-                layoutNoConnection.isVisible = false
-                shimmerEventsList.isVisible = false
-                it.data?.run {
-                    tvFatalError.text = getString(this)
+            it.data?.let { data ->
+                if (data == R.string.network_internet_not_connected || data == R.string.network_could_not_connect) {
+                    if (viewModel.upcomingEvents.value?.isNotEmpty() == true) {
+                        Toaster.show(this, getString(R.string.could_not_refresh))
+                    } else {
+                        layoutNoConnection.isVisible = true
+                        layoutError.isVisible = false
+                        shimmerEventsList.isVisible = false
+                        swipeRefreshList.isVisible = false
+                        tvNoInternet.text = getString(it.data)
+                    }
+                } else {
+                    if (viewModel.upcomingEvents.value?.isNotEmpty() == true) {
+                        Toaster.show(this, getString(R.string.could_not_refresh))
+                    } else {
+                        layoutError.isVisible = true
+                        swipeRefreshList.isVisible = false
+                        layoutNoConnection.isVisible = false
+                        shimmerEventsList.isVisible = false
+
+                        tvFatalError.text = getString(data)
+                    }
                 }
+                viewModel.messageStringId.postValue(Resource.error(null))
             }
         })
 
         viewModel.messageString.observe(this, Observer {
-            layoutError.isVisible = true
-            layoutNoConnection.isVisible = false
-            shimmerEventsList.isVisible = false
-            swipeRefreshList.isVisible = false
+            it.data?.let { data ->
+                layoutError.isVisible = true
+                layoutNoConnection.isVisible = false
+                shimmerEventsList.isVisible = false
+                swipeRefreshList.isVisible = false
 
-            tvFatalError.text = it.data
+                tvFatalError.text = data
+
+                viewModel.messageString.postValue(Resource.error(null))
+            }
         })
 
         viewModel.upcomingEvents.observe(this, Observer {
