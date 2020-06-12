@@ -22,10 +22,10 @@ jobs:
       - name: Run Unit tests
         run: bash ./gradlew test --stacktrace
       - name: Run UI Tests
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          api-level: 29
-          script: ./gradlew connectedCheck
+          api: 29
+          cmd: ./gradlew connectedCheck
 
   lintcheck:
     name: ktLint check
@@ -52,10 +52,10 @@ jobs:
         with:
           java-version: 1.8
       - name: jacoco unified coverage
-        uses: reactivecircus/android-emulator-runner@v2
+        uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          api-level: 29
-          script: ./gradlew clean createDebugCoverageReport jacocoReport
+          api: 29
+          cmd: ./gradlew clean jacocoReport
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v1
         with:
