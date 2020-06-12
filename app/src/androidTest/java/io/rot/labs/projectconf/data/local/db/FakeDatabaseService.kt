@@ -17,7 +17,6 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
 
     var toThrowConnectException = false
     var toThrowTimeOutException = false
-    var toThrowHttpException = false
 
     companion object {
         private const val COULD_NOT_CONNECT = "Could not connect"
@@ -39,14 +38,6 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                 toThrowTimeOutException -> {
                     throw SocketTimeoutException(TIMEOUT)
                 }
-                toThrowHttpException -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            HttpURLConnection.HTTP_NOT_FOUND,
-                            ResponseBody.create(null, "")
-                        )
-                    )
-                }
                 else -> {
                     Single.just(it)
                 }
@@ -63,14 +54,6 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                 toThrowTimeOutException -> {
                     throw SocketTimeoutException(TIMEOUT)
                 }
-                toThrowHttpException -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            HttpURLConnection.HTTP_NOT_FOUND,
-                            ResponseBody.create(null, "")
-                        )
-                    )
-                }
                 else -> {
                     Single.just(it)
                 }
@@ -86,14 +69,6 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                 }
                 toThrowTimeOutException -> {
                     throw SocketTimeoutException(TIMEOUT)
-                }
-                toThrowHttpException -> {
-                    throw HttpException(
-                        Response.error<Any>(
-                            HttpURLConnection.HTTP_NOT_FOUND,
-                            ResponseBody.create(null, "")
-                        )
-                    )
                 }
                 else -> {
                     Single.just(it)
