@@ -12,7 +12,7 @@ import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 class UpComingViewModel(
     private val schedulerProvider: SchedulerProvider,
-    compositeDisposable: CompositeDisposable,
+    private val compositeDisposable: CompositeDisposable,
     networkHelper: NetworkHelper,
     private val eventsRepository: EventsRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
@@ -32,14 +32,16 @@ class UpComingViewModel(
             progress.postValue(false)
             return
         }
-        eventsRepository.getUpComingEventsForCurrentMonth(isRefresh)
-            .subscribeOn(schedulerProvider.io())
-            .subscribe({
-                upcomingEventsHolder.postValue(transformToInterleavedList(it))
-                progress.postValue(false)
-            }, {
-                progress.postValue(false)
-                handleNetworkError(it)
-            })
+        compositeDisposable.add(
+            eventsRepository.getUpComingEventsForCurrentMonth(isRefresh)
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    upcomingEventsHolder.postValue(transformToInterleavedList(it))
+                    progress.postValue(false)
+                }, {
+                    progress.postValue(false)
+                    handleNetworkError(it)
+                })
+        )
     }
 }

@@ -12,7 +12,7 @@ import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 class EventsListViewModel(
     private val schedulerProvider: SchedulerProvider,
-    compositeDisposable: CompositeDisposable,
+    private val compositeDisposable: CompositeDisposable,
     networkHelper: NetworkHelper,
     private val eventsRepository: EventsRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
@@ -33,15 +33,17 @@ class EventsListViewModel(
             progress.postValue(false)
             return
         }
-        eventsRepository.getUpComingEventsForTech(topics, isRefresh)
-            .subscribeOn(schedulerProvider.io())
-            .subscribe({
-                upcomingEventsHolder.postValue(EventsItemHelper.transformToInterleavedList(it))
-                progress.postValue(false)
-            }, {
-                progress.postValue(false)
-                handleNetworkError(it)
-            })
+        compositeDisposable.add(
+            eventsRepository.getUpComingEventsForTech(topics, isRefresh)
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    upcomingEventsHolder.postValue(EventsItemHelper.transformToInterleavedList(it))
+                    progress.postValue(false)
+                }, {
+                    progress.postValue(false)
+                    handleNetworkError(it)
+                })
+        )
     }
 
     fun getEventsForYearAndTech(year: Int, tech: String, isRefresh: Boolean = false) {
@@ -50,14 +52,16 @@ class EventsListViewModel(
             progress.postValue(false)
             return
         }
-        eventsRepository.getEventsForYearAndTech(tech, year, isRefresh)
-            .subscribeOn(schedulerProvider.io())
-            .subscribe({
-                archiveEventsHolder.postValue(EventsItemHelper.transformToInterleavedList(it))
-                progress.postValue(false)
-            }, {
-                progress.postValue(false)
-                handleNetworkError(it)
-            })
+        compositeDisposable.add(
+            eventsRepository.getEventsForYearAndTech(tech, year, isRefresh)
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    archiveEventsHolder.postValue(EventsItemHelper.transformToInterleavedList(it))
+                    progress.postValue(false)
+                }, {
+                    progress.postValue(false)
+                    handleNetworkError(it)
+                })
+        )
     }
 }
