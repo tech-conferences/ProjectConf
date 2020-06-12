@@ -12,7 +12,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.TestComponentRule
+import io.rot.labs.projectconf.data.local.db.DatabaseService
+import io.rot.labs.projectconf.data.local.db.FakeDatabaseService
 import io.rot.labs.projectconf.utils.testHelper.RVMatcher.atPositionOnView
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
@@ -25,6 +28,13 @@ class UpComingFragmentTest {
 
     @get:Rule
     val rule = RuleChain.outerRule(component)
+
+    lateinit var fakeDbService: FakeDatabaseService
+
+    @Before
+    fun setup() {
+        fakeDbService = component.testComponent!!.getDatabaseService() as FakeDatabaseService
+    }
 
     @Test
     fun upcomingEventsAvailable_shouldDisplay() {
@@ -53,11 +63,87 @@ class UpComingFragmentTest {
     }
 
     @Test
-    fun bannersAvailable_shouldScroll() {
+    fun upcomingEventsConnectError_shouldShowRetry() {
+        fakeDbService.toThrowConnectException = true
+
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.btnNoConnectionRetry)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun upcomingEventsHttpError_shouldShowRetry() {
+        fakeDbService.toThrowHttpException = true
+
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.btnErrorRetry)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun upcomingEventsTimeoutError_shouldShowRetry() {
+        fakeDbService.toThrowTimeOutException = true
+
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.btnErrorRetry)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun upcomingEventsPython_shouldNavigate_To_Python_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.ivPython)).perform(ViewActions.click())
+
+        onView(withId(R.id.tvTech)).check(matches(withText("PYTHON")))
+    }
+
+    @Test
+    fun upcomingEventsRust_shouldNavigate_To_Rust_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.ivRust)).perform(ViewActions.click())
+
+        onView(withId(R.id.tvTech)).check(matches(withText("RUST")))
+    }
+
+    @Test
+    fun upcomingEventsGoLang_shouldNavigate_To_Golang_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.ivGolang)).perform(ViewActions.click())
+
+        onView(withId(R.id.tvTech)).check(matches(withText("GOLANG")))
+    }
+
+    @Test
+    fun upcomingEventsGraphQl_shouldNavigate_To_GraphQl_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.ivGraphql)).perform(ViewActions.click())
+
+        onView(withId(R.id.tvTech)).check(matches(withText("GRAPHQL")))
+    }
+
+    @Test
+    fun upcomingEventsCloudDevOps_shouldNavigate_To_CloudDevOps_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
         onView(withId(R.id.tvCloudDevOps)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.tvCloudDevOps)).check(matches(withText("Cloud and DevOps")))
+    }
+
+    @Test
+    fun upcomingEventsMobileDev_shouldNavigate_To_MobileDev_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
@@ -65,9 +151,42 @@ class UpComingFragmentTest {
         onView(withId(R.id.tvMobileDev)).check(matches(isDisplayed()))
 
         onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.tvMobileDev)).check(matches(withText("Mobile Development")))
+    }
+
+    @Test
+    fun upcomingEventsDesign_shouldNavigate_To_Design_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.swipeLeft())
+
+        onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
 
         onView(withId(R.id.tvDesign)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.tvDesign)).check(matches(withText("Design")))
+    }
+
+    @Test
+    fun upcomingEventsJVM_Universe_shouldNavigate_To_JVM_Universe_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.swipeLeft())
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.swipeLeft())
 
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
@@ -75,8 +194,35 @@ class UpComingFragmentTest {
         onView(withId(R.id.tvJvmUniverse)).check(matches(isDisplayed()))
 
         onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.tvJvmUniverse)).check(matches(withText("JVM Universe")))
+    }
+
+    @Test
+    fun upcomingEventsJS_Land_shouldNavigate_To_JS_Land_EventsList() {
+        launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.swipeLeft())
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.swipeLeft())
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.swipeLeft())
+
+        onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
 
         onView(withId(R.id.tvJSLand)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.techBannerPager))
+            .perform(ViewActions.click())
+
+        onView(withId(R.id.tvJSLand)).check(matches(withText("JS Land")))
     }
+
 }
