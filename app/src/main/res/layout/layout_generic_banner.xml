@@ -12,7 +12,7 @@
         android:background="?attr/baseThemeColor">
 
         <TextView
-            android:id="@+id/tvTech"
+            android:id="@+id/tvGenericTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -20,7 +20,7 @@
             android:padding="4dp"
             android:textAllCaps="true"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/tvTechSub"
+            app:layout_constraintBottom_toTopOf="@+id/tvGenericSub"
             app:layout_constraintEnd_toStartOf="@+id/barrier"
             app:layout_constraintHorizontal_bias="0.15"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,17 +64,17 @@
             app:constraint_referenced_ids="guideline,techCard" />
 
         <TextView
-            android:id="@+id/tvTechSub"
+            android:id="@+id/tvGenericSub"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
             android:padding="4dp"
-            android:text="@string/tech_conf_sub"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/barrier"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="@string/tech_conf_sub" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

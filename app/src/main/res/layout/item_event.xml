@@ -67,7 +67,7 @@
                 tools:text="Paris, France" />
 
             <TextView
-                android:id="@+id/tvStartDate"
+                android:id="@+id/tvEventDate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

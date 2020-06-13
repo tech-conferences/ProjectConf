@@ -8,6 +8,7 @@ import io.rot.labs.projectconf.data.model.Event
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.common.Topics
+import java.util.Date
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -270,6 +271,10 @@ class EventsRepository @Inject constructor(
 
     fun insertEvents(list: List<EventEntity>): Completable {
         return databaseService.insertEvents(list)
+    }
+
+    fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
+        return databaseService.getEventDetails(name, startDate)
     }
 
     private fun Single<List<Event>>.mapToListOfEventEntity(topic: String): Single<List<EventEntity>> {

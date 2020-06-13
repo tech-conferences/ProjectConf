@@ -5,7 +5,7 @@ import android.view.MenuItem
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_archive.*
+import kotlinx.android.synthetic.main.activity_archive.matToolbarArchive
 
 class ArchiveActivity : BaseActivity<ArchiveViewModel>() {
     override fun injectDependencies(buildComponent: ActivityComponent) {
@@ -15,7 +15,7 @@ class ArchiveActivity : BaseActivity<ArchiveViewModel>() {
     override fun provideLayoutId(): Int = R.layout.activity_archive
 
     override fun setupView(savedInstanceState: Bundle?) {
-        setSupportActionBar(materialToolBar)
+        setSupportActionBar(matToolbarArchive)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }

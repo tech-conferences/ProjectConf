@@ -85,7 +85,7 @@ class UpComingFragmentTest {
 
         onView(withId(R.id.ivPython)).perform(ViewActions.click())
 
-        onView(withId(R.id.tvTech)).check(matches(withText("PYTHON")))
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText("PYTHON")))
     }
 
     @Test
@@ -94,7 +94,7 @@ class UpComingFragmentTest {
 
         onView(withId(R.id.ivRust)).perform(ViewActions.click())
 
-        onView(withId(R.id.tvTech)).check(matches(withText("RUST")))
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText("RUST")))
     }
 
     @Test
@@ -103,7 +103,7 @@ class UpComingFragmentTest {
 
         onView(withId(R.id.ivGolang)).perform(ViewActions.click())
 
-        onView(withId(R.id.tvTech)).check(matches(withText("GOLANG")))
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText("GOLANG")))
     }
 
     @Test
@@ -112,7 +112,7 @@ class UpComingFragmentTest {
 
         onView(withId(R.id.ivGraphql)).perform(ViewActions.click())
 
-        onView(withId(R.id.tvTech)).check(matches(withText("GRAPHQL")))
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText("GRAPHQL")))
     }
 
     @Test
@@ -121,12 +121,12 @@ class UpComingFragmentTest {
 
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
-        onView(withId(R.id.tvCloudDevOps)).check(matches(isDisplayed()))
-
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.click())
 
-        onView(withId(R.id.tvCloudDevOps)).check(matches(withText("Cloud and DevOps")))
+        onView(withId(R.id.tvCloudDevOpsList)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tvCloudDevOpsList)).check(matches(withText("Cloud and DevOps")))
     }
 
     @Test
@@ -138,12 +138,14 @@ class UpComingFragmentTest {
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
 
-        onView(withId(R.id.tvMobileDev)).check(matches(isDisplayed()))
+        Thread.sleep(1000)
 
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.click())
 
-        onView(withId(R.id.tvMobileDev)).check(matches(withText("Mobile Development")))
+        onView(withId(R.id.tvMobileDevList)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tvMobileDevList)).check(matches(withText("Mobile Development")))
     }
 
     @Test
@@ -158,12 +160,14 @@ class UpComingFragmentTest {
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
 
-        onView(withId(R.id.tvDesign)).check(matches(isDisplayed()))
+        Thread.sleep(1000)
 
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.click())
 
-        onView(withId(R.id.tvDesign)).check(matches(withText("Design")))
+        onView(withId(R.id.tvDesignList)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tvDesignList)).check(matches(withText("Design")))
     }
 
     @Test
@@ -181,12 +185,14 @@ class UpComingFragmentTest {
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
 
-        onView(withId(R.id.tvJvmUniverse)).check(matches(isDisplayed()))
+        Thread.sleep(1000)
 
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.click())
 
-        onView(withId(R.id.tvJvmUniverse)).check(matches(withText("JVM Universe")))
+        onView(withId(R.id.tvJvmUniverseList)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tvJvmUniverseList)).check(matches(withText("JVM Universe")))
     }
 
     @Test
@@ -207,11 +213,13 @@ class UpComingFragmentTest {
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.swipeLeft())
 
-        onView(withId(R.id.tvJSLand)).check(matches(isDisplayed()))
+        Thread.sleep(1000)
 
         onView(withId(R.id.techBannerPager))
             .perform(ViewActions.click())
 
-        onView(withId(R.id.tvJSLand)).check(matches(withText("JS Land")))
+        onView(withId(R.id.tvJSLandList)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.tvJSLandList)).check(matches(withText("JS Land")))
     }
 }

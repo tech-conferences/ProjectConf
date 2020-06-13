@@ -18,7 +18,7 @@
         android:paddingBottom="4dp">
 
         <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/materialToolBar"
+            android:id="@+id/matToolbarArchive"
             app:layout_scrollFlags="scroll|enterAlways"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

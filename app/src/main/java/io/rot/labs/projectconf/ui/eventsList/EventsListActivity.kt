@@ -24,19 +24,19 @@ import kotlinx.android.synthetic.main.activity_events_list.collapsingToolbarLayo
 import kotlinx.android.synthetic.main.activity_events_list.headerContainer
 import kotlinx.android.synthetic.main.activity_events_list.layoutError
 import kotlinx.android.synthetic.main.activity_events_list.layoutNoConnection
+import kotlinx.android.synthetic.main.activity_events_list.matToolBarEventList
 import kotlinx.android.synthetic.main.activity_events_list.rvEvents
 import kotlinx.android.synthetic.main.activity_events_list.shimmerEventsList
 import kotlinx.android.synthetic.main.activity_events_list.swipeRefreshList
-import kotlinx.android.synthetic.main.activity_settings.materialToolBar
 import kotlinx.android.synthetic.main.layout_design_list_banner.view.ivDesignListCard
 import kotlinx.android.synthetic.main.layout_design_list_banner.view.tvDesignSub
 import kotlinx.android.synthetic.main.layout_devops_list_banner.view.ivDevOpsListCard
 import kotlinx.android.synthetic.main.layout_devops_list_banner.view.tvCloudDevOpsSub
 import kotlinx.android.synthetic.main.layout_error.btnErrorRetry
 import kotlinx.android.synthetic.main.layout_error.tvFatalError
-import kotlinx.android.synthetic.main.layout_generic_list_banner.view.ivTech
-import kotlinx.android.synthetic.main.layout_generic_list_banner.view.tvTech
-import kotlinx.android.synthetic.main.layout_generic_list_banner.view.tvTechSub
+import kotlinx.android.synthetic.main.layout_generic_banner.view.ivTech
+import kotlinx.android.synthetic.main.layout_generic_banner.view.tvGenericSub
+import kotlinx.android.synthetic.main.layout_generic_banner.view.tvGenericTitle
 import kotlinx.android.synthetic.main.layout_js_land_list_banner.view.ivJavaScriptListCard
 import kotlinx.android.synthetic.main.layout_js_land_list_banner.view.ivTypeScriptListCard
 import kotlinx.android.synthetic.main.layout_js_land_list_banner.view.tvJSLandSub
@@ -80,7 +80,7 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
 
     override fun setupView(savedInstanceState: Bundle?) {
 
-        setSupportActionBar(materialToolBar)
+        setSupportActionBar(matToolBarEventList)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
@@ -331,10 +331,10 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
     private fun addBannerForTech(tech: String, info: String) {
         val inflater = LayoutInflater.from(this)
         val view =
-            inflater.inflate(R.layout.layout_generic_list_banner, headerContainer, false)
-        view.tvTechSub.text =
+            inflater.inflate(R.layout.layout_generic_banner, headerContainer, false)
+        view.tvGenericSub.text =
             String.format(getString(R.string.tech_conf_sub), info)
-        view.tvTech.text = tech
+        view.tvGenericTitle.text = tech
         ImageUtils.loadImageDrawable(this, ImageUtils.getTopicDrawableResId(tech), view.ivTech)
         headerContainer.addView(view)
     }

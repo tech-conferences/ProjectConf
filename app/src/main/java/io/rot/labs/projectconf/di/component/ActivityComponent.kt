@@ -4,6 +4,7 @@ import dagger.Component
 import io.rot.labs.projectconf.di.ActivityScope
 import io.rot.labs.projectconf.di.module.ActivityModule
 import io.rot.labs.projectconf.ui.archive.ArchiveActivity
+import io.rot.labs.projectconf.ui.eventDetails.EventDetailsActivity
 import io.rot.labs.projectconf.ui.eventsList.EventsListActivity
 import io.rot.labs.projectconf.ui.main.MainActivity
 import io.rot.labs.projectconf.ui.search.SearchActivity
@@ -25,4 +26,6 @@ interface ActivityComponent {
     fun inject(activity: SearchActivity)
 
     fun inject(activity: EventsListActivity)
+
+    fun inject(activity: EventDetailsActivity)
 }

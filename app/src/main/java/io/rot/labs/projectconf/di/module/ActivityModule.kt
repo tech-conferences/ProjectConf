@@ -9,6 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.archive.ArchiveViewModel
 import io.rot.labs.projectconf.ui.base.BaseActivity
+import io.rot.labs.projectconf.ui.eventDetails.EventDetailsViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.eventsList.EventsListViewModel
 import io.rot.labs.projectconf.ui.main.MainViewModel
@@ -90,5 +91,22 @@ class ActivityModule(private val activity: BaseActivity<*>) {
                 eventsRepository
             )
         }).get(EventsListViewModel::class.java)
+    }
+
+    @Provides
+    fun provideEventDetailsViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper,
+        eventsRepository: EventsRepository
+    ): EventDetailsViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(EventDetailsViewModel::class) {
+            EventDetailsViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkHelper,
+                eventsRepository
+            )
+        }).get(EventDetailsViewModel::class.java)
     }
 }

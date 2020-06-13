@@ -14,10 +14,12 @@
 
     <color name="grey500">#DD323232</color>
     <color name="grey700">#222222</color>
+    <color name="greyLight">#ABA9A9</color>
     <color name="greyShimmerLight">#F3878787</color>
     <color name="greyShimmerDark">#F35F5F5F</color>
 
     <color name="blue500">#195BE0</color>
+    <color name="blueTwitter">#1DA1F2</color>
 
     <color name="red500">#ED2828</color>
     <color name="orange500">#FA4C16</color>

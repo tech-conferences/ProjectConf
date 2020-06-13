@@ -10,6 +10,7 @@ import io.rot.labs.projectconf.ui.base.BaseItemViewModel
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.network.NetworkHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
+import java.util.Date
 import javax.inject.Inject
 
 class EventsItemViewModel @Inject constructor(
@@ -49,6 +50,14 @@ class EventsItemViewModel @Inject constructor(
     val day: LiveData<String?> = Transformations.map(data) {
         if (it is EventEntity) {
             TimeDateUtils.getFormattedDay(it.event.startDate)
+        } else {
+            null
+        }
+    }
+
+    val startDate: LiveData<Date?> = Transformations.map(data) {
+        if (it is EventEntity) {
+            it.event.startDate
         } else {
             null
         }

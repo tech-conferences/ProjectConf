@@ -19,6 +19,7 @@
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.eventsList.EventsListActivity" />
+        <activity android:name=".ui.eventDetails.EventDetailsActivity"/>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"

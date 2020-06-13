@@ -12,7 +12,7 @@
         android:background="?attr/baseThemeColor">
 
         <TextView
-            android:id="@+id/tvCloudDevOps"
+            android:id="@+id/tvCloudDevOpsList"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

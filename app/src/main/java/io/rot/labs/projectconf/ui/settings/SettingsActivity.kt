@@ -5,7 +5,7 @@ import android.view.MenuItem
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_settings.materialToolBar
+import kotlinx.android.synthetic.main.activity_settings.matToolBarSettings
 
 class SettingsActivity : BaseActivity<SettingsViewModel>() {
     override fun injectDependencies(buildComponent: ActivityComponent) {
@@ -15,7 +15,7 @@ class SettingsActivity : BaseActivity<SettingsViewModel>() {
     override fun provideLayoutId(): Int = R.layout.activity_settings
 
     override fun setupView(savedInstanceState: Bundle?) {
-        setSupportActionBar(materialToolBar)
+        setSupportActionBar(matToolBarSettings)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }

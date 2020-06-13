@@ -13,6 +13,7 @@
         <item name="baseThemeComplimentColor">@android:color/white</item>
         <item name="android:textColor">?attr/baseThemeComplimentColor</item>
         <item name="shimmerColor">@color/greyShimmerDark</item>
+        <item name="shadeGrey">@color/greyLight</item>
     </style>
 
 </resources>

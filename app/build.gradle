@@ -123,6 +123,9 @@ dependencies {
     // Progress Loader Lib
     implementation "com.wang.avi:library:$avi_version"
 
+    // Custom tabs
+    implementation "androidx.browser:browser:$custom_tabs_version"
+
     // Logger
     implementation "com.jakewharton.timber:timber:$timber_version"
 

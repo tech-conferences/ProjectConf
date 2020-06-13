@@ -47,15 +47,16 @@ object TimeDateUtils {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = date.time
         }
-        val sdf = SimpleDateFormat("EEE, dd MMM yyyy")
-        return sdf.format(calendar.time)
+        val sdf = SimpleDateFormat("EEE, dd MMM yyyy", Locale.ENGLISH)
+        val dateString = sdf.format(calendar.time)
+        return dateString
     }
 
     fun getEventPeriod(date: Date): String {
         val calendar = Calendar.getInstance().apply {
             timeInMillis = date.time
         }
-        val sdf = SimpleDateFormat("MMMM, yyyy")
+        val sdf = SimpleDateFormat("MMMM, yyyy", Locale.ENGLISH)
         return sdf.format(calendar.time)
     }
 }

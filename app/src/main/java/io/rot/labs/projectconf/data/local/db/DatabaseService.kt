@@ -4,6 +4,7 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
+import java.util.Date
 import javax.inject.Singleton
 
 @Singleton
@@ -43,5 +44,9 @@ open class DatabaseService(database: ConfDatabase) {
 
     open fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
         return dao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
+    }
+
+    open fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
+        return dao.getEventDetails(name, startDate)
     }
 }

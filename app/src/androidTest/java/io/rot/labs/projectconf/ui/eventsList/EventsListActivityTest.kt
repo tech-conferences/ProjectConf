@@ -49,7 +49,7 @@ class EventsListActivityTest {
             }
         )
 
-        onView(withId(R.id.tvTech)).check(matches(withText(Topics.KOTLIN)))
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText(Topics.KOTLIN)))
 
         onView(withId(R.id.layoutNoConnection)).check(matches(isDisplayed()))
     }
@@ -67,7 +67,7 @@ class EventsListActivityTest {
             }
         )
 
-        onView(withId(R.id.tvTech)).check(matches(withText(Topics.KOTLIN)))
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText(Topics.KOTLIN)))
 
         onView(withId(R.id.layoutError)).check(matches(isDisplayed()))
     }

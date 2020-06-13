@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="16dp"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tvConfDetailsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/conference_details"
+        android:textSize="21sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:background="@color/yellow500"
+        app:layout_constraintBottom_toBottomOf="@+id/tvConfDetailsHeader"
+        app:layout_constraintEnd_toEndOf="@+id/tvConfDetailsHeader"
+        app:layout_constraintStart_toStartOf="@+id/tvConfDetailsHeader" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="270dp" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="guideline,btnConfUrl,btnTwitter" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnConfUrl"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/go_to_site"
+        android:textColor="@color/yellow500"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:strokeColor="@color/yellow500"
+        app:strokeWidth="2dp" />
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnTwitter"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:textAllCaps="false"
+        android:textColor="@color/blueTwitter"
+        android:visibility="gone"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/btnConfUrl"
+        app:strokeColor="@color/blueTwitter"
+        app:strokeWidth="2dp"
+        tools:text="blrDroid"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvDaysHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/conference_days"
+        android:textColor="?attr/shadeGrey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <TextView
+        android:id="@+id/tvEventStartDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDaysHeader"
+        tools:text="Mon, 19 Jun 2020" />
+
+    <TextView
+        android:id="@+id/tvDateSeparator"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="to"
+        android:textColor="?attr/shadeGrey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEventStartDate" />
+
+    <TextView
+        android:id="@+id/tvEventEndDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDateSeparator"
+        tools:text="Wed, 21 Jun 2020" />
+
+    <TextView
+        android:id="@+id/tvCFPHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/call_for_proposals"
+        android:textColor="?attr/shadeGrey"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEventEndDate"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/tvCFPEndDateHeader"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/cfp_end_date_label"
+        android:textColor="?attr/shadeGrey"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCFPHeader"
+        tools:visibility="visible" />
+
+    <TextView
+        android:background="?attr/selectableItemBackground"
+        android:id="@+id/tvCFPEndDate"
+        android:padding="4dp"
+        android:layout_width="wrap_content"
+        android:drawablePadding="8dp"
+        android:drawableEnd="@drawable/ic_add_alert"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="4dp"
+        android:visibility="gone"
+        app:layout_constraintHorizontal_bias="0.0000001"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/tvCFPEndDateHeader"
+        tools:text="Wed, 8 Jun 2020"
+        tools:visibility="visible" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCfpUrl"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/go_to_cfp_url"
+        android:textColor="@color/yellow500"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCFPEndDate"
+        app:layout_constraintVertical_bias="0.1"
+        app:strokeColor="@color/yellow500"
+        app:strokeWidth="2dp"
+        tools:visibility="visible" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
