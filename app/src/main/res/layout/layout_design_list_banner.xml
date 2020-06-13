@@ -40,11 +40,12 @@
             app:layout_constraintVertical_bias="0.75">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDesignListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="16dp"
-                android:src="@drawable/ux_logo" />
+                tools:src="@drawable/ux_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline

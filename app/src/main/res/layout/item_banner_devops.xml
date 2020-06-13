@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="16dp"
+        android:foreground="?selectableItemBackground"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,20 +17,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:foreground="?selectableItemBackground"
-            android:background="@drawable/devops_gradient"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/devops_gradient">
 
             <TextView
                 android:id="@+id/tvCloudDevOps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:textSize="21sp"
-                android:textStyle="bold"
                 android:text="@string/cloud_devops_label"
                 android:textColor="@android:color/white"
+                android:textSize="21sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +47,11 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivDevopsCard"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="4dp"
-                    android:src="@drawable/devops_logo" />
+                    tools:src="@drawable/devops_logo" />
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

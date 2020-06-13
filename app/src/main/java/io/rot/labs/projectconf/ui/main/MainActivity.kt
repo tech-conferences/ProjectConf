@@ -2,8 +2,9 @@ package io.rot.labs.projectconf.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Gravity
+import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 import kotlinx.android.synthetic.main.activity_main.drawerLayout
 import kotlinx.android.synthetic.main.activity_main.ivSearch
+import kotlinx.android.synthetic.main.activity_main.ivSearchContainer
 import kotlinx.android.synthetic.main.activity_main.materialToolBar
 import kotlinx.android.synthetic.main.activity_main.navView
 import kotlinx.android.synthetic.main.activity_main.tvScreenTitle
@@ -47,7 +49,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
             it.getIfNotHandled()?.let {
                 showUpComingFragment()
                 tvScreenTitle.text = getString(R.string.upcoming_events)
-                ivSearch.isVisible = true
+                ivSearchContainer.isVisible = true
             }
         })
 
@@ -55,7 +57,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
             it.getIfNotHandled()?.let {
                 showTwitterFragment()
                 tvScreenTitle.text = getString(R.string.nav_tweets)
-                ivSearch.isVisible = false
+                ivSearchContainer.visibility = View.INVISIBLE
             }
         })
 
@@ -63,7 +65,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
             it.getIfNotHandled()?.let {
                 showBookmarksFragment()
                 tvScreenTitle.text = getString(R.string.nav_bookmarks)
-                ivSearch.isVisible = false
+                ivSearchContainer.visibility = View.INVISIBLE
             }
         })
 
@@ -78,7 +80,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
             it.getIfNotHandled()?.let {
                 showAlertsFragment()
                 tvScreenTitle.text = getString(R.string.nav_alerts)
-                ivSearch.isVisible = false
+                ivSearchContainer.visibility = View.INVISIBLE
             }
         })
 
@@ -109,32 +111,32 @@ class MainActivity : BaseActivity<MainViewModel>() {
             when (it.itemId) {
                 R.id.nav_upcomimg -> {
                     viewModel.onUpComingRedirection()
-                    drawerLayout.closeDrawer(Gravity.LEFT)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_tweets -> {
                     viewModel.onTweetRedirection()
-                    drawerLayout.closeDrawer(Gravity.LEFT)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_alerts -> {
                     viewModel.onAlertsRedirection()
-                    drawerLayout.closeDrawer(Gravity.LEFT)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_archive -> {
                     viewModel.onArchiveRedirection()
-                    drawerLayout.closeDrawer(Gravity.LEFT)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     false
                 }
                 R.id.nav_bookmarks -> {
                     viewModel.onBookmarksRedirection()
-                    drawerLayout.closeDrawer(Gravity.LEFT)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
                 R.id.nav_settings -> {
                     viewModel.onSettingsRedirection()
-                    drawerLayout.closeDrawer(Gravity.LEFT)
+                    drawerLayout.closeDrawer(GravityCompat.START)
                     false
                 }
                 else -> false

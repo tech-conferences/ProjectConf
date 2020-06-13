@@ -3,25 +3,21 @@ package io.rot.labs.projectconf.ui.eventsList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MenuItem
-import android.widget.ImageView
-import androidx.annotation.DrawableRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.appbar.AppBarLayout
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
-import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
 import io.rot.labs.projectconf.utils.common.Resource
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
+import io.rot.labs.projectconf.utils.display.ImageUtils
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
+import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_events_list.appBarLayoutEventsList
 import kotlinx.android.synthetic.main.activity_events_list.collapsingToolbarLayout
@@ -32,15 +28,26 @@ import kotlinx.android.synthetic.main.activity_events_list.rvEvents
 import kotlinx.android.synthetic.main.activity_events_list.shimmerEventsList
 import kotlinx.android.synthetic.main.activity_events_list.swipeRefreshList
 import kotlinx.android.synthetic.main.activity_settings.materialToolBar
+import kotlinx.android.synthetic.main.layout_design_list_banner.view.ivDesignListCard
 import kotlinx.android.synthetic.main.layout_design_list_banner.view.tvDesignSub
+import kotlinx.android.synthetic.main.layout_devops_list_banner.view.ivDevOpsListCard
 import kotlinx.android.synthetic.main.layout_devops_list_banner.view.tvCloudDevOpsSub
 import kotlinx.android.synthetic.main.layout_error.btnErrorRetry
 import kotlinx.android.synthetic.main.layout_error.tvFatalError
 import kotlinx.android.synthetic.main.layout_generic_list_banner.view.ivTech
 import kotlinx.android.synthetic.main.layout_generic_list_banner.view.tvTech
 import kotlinx.android.synthetic.main.layout_generic_list_banner.view.tvTechSub
+import kotlinx.android.synthetic.main.layout_js_land_list_banner.view.ivJavaScriptListCard
+import kotlinx.android.synthetic.main.layout_js_land_list_banner.view.ivTypeScriptListCard
 import kotlinx.android.synthetic.main.layout_js_land_list_banner.view.tvJSLandSub
+import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivGroovyListCard
+import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivJavaListCard
+import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivKotlinListCard
+import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivScalaListCard
 import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.tvJvmUniverseSub
+import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.ivAndroidListCard
+import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.ivIosListCard
+import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.ivKotlinMBListCard
 import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.tvMobileDevSub
 import kotlinx.android.synthetic.main.layout_no_connection.btnNoConnectionRetry
 import kotlinx.android.synthetic.main.layout_no_connection.tvNoInternet
@@ -175,11 +182,11 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                 scrollRange = barLayout?.totalScrollRange!!
             }
             if (scrollRange + verticalOffset == 0) {
-                collapsingToolbarLayout.title = topicTitle!!.toUpperCase()
+                collapsingToolbarLayout.title = topicTitle!!.toUpperCase(Locale.ROOT)
                 isShow = true
             } else if (isShow) {
-                collapsingToolbarLayout.title =
-                    " " // careful there should a space between double quote otherwise it wont work
+                // careful there should a space between double quote otherwise it wont work
+                collapsingToolbarLayout.title = " "
                 isShow = false
             }
         })
@@ -191,6 +198,11 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                     inflater.inflate(R.layout.layout_mobile_dev_list_banner, headerContainer, false)
                 view.tvMobileDevSub.text =
                     String.format(getString(R.string.tech_conf_sub), topicSub)
+
+                ImageUtils.loadImageDrawable(this, R.drawable.kotlin_logo, view.ivKotlinMBListCard)
+                ImageUtils.loadImageDrawable(this, R.drawable.ios_logo, view.ivIosListCard)
+                ImageUtils.loadImageDrawable(this, R.drawable.android_logo, view.ivAndroidListCard)
+
                 headerContainer.addView(view)
             }
             getString(R.string.cloud_devops_label) -> {
@@ -199,6 +211,9 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                     inflater.inflate(R.layout.layout_devops_list_banner, headerContainer, false)
                 view.tvCloudDevOpsSub.text =
                     String.format(getString(R.string.tech_conf_sub), topicSub)
+
+                ImageUtils.loadImageDrawable(this, R.drawable.devops_logo, view.ivDevOpsListCard)
+
                 headerContainer.addView(view)
             }
             getString(R.string.jvm_universe_label) -> {
@@ -211,6 +226,12 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                     )
                 view.tvJvmUniverseSub.text =
                     String.format(getString(R.string.tech_conf_sub), topicSub)
+
+                ImageUtils.loadImageDrawable(this, R.drawable.kotlin_logo, view.ivKotlinListCard)
+                ImageUtils.loadImageDrawable(this, R.drawable.java_logo, view.ivJavaListCard)
+                ImageUtils.loadImageDrawable(this, R.drawable.scala_logo, view.ivScalaListCard)
+                ImageUtils.loadImageDrawable(this, R.drawable.groovy_logo, view.ivGroovyListCard)
+
                 headerContainer.addView(view)
             }
             getString(R.string.design_label) -> {
@@ -219,6 +240,9 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                     inflater.inflate(R.layout.layout_design_list_banner, headerContainer, false)
                 view.tvDesignSub.text =
                     String.format(getString(R.string.tech_conf_sub), topicSub)
+
+                ImageUtils.loadImageDrawable(this, R.drawable.ux_logo, view.ivDesignListCard)
+
                 headerContainer.addView(view)
             }
             getString(R.string.js_land_label) -> {
@@ -227,6 +251,18 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                     inflater.inflate(R.layout.layout_js_land_list_banner, headerContainer, false)
                 view.tvJSLandSub.text =
                     String.format(getString(R.string.tech_conf_sub), topicSub)
+
+                ImageUtils.loadImageDrawable(
+                    this,
+                    R.drawable.javascript_logo,
+                    view.ivJavaScriptListCard
+                )
+                ImageUtils.loadImageDrawable(
+                    this,
+                    R.drawable.typescript_logo,
+                    view.ivTypeScriptListCard
+                )
+
                 headerContainer.addView(view)
             }
 
@@ -299,15 +335,8 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         view.tvTechSub.text =
             String.format(getString(R.string.tech_conf_sub), info)
         view.tvTech.text = tech
-        loadTopicDrawable(EventsItemHelper.getTopicDrawableResId(tech), view.ivTech)
+        ImageUtils.loadImageDrawable(this, ImageUtils.getTopicDrawableResId(tech), view.ivTech)
         headerContainer.addView(view)
-    }
-
-    private fun loadTopicDrawable(@DrawableRes drawableRes: Int, imageView: ImageView) {
-        Glide.with(this)
-            .load(drawableRes)
-            .apply(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
-            .into(imageView)
     }
 
     private fun setupRecyclerView() {

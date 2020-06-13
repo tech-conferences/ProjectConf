@@ -21,6 +21,7 @@ import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
 import io.rot.labs.projectconf.utils.common.Resource
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
+import io.rot.labs.projectconf.utils.display.ImageUtils
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
 import kotlin.random.Random
@@ -199,7 +200,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         for (i in slidingDots.indices) {
             slidingDots[i].setImageDrawable(
                 ContextCompat.getDrawable(
-                    context!!,
+                    requireContext(),
                     R.drawable.non_active_indicator
                 )
             )
@@ -214,7 +215,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         slidingDots[bannerViewModel.iterator % TechBannerAdapter.NUM_BANNERS].setImageDrawable(
             ContextCompat.getDrawable(
-                context!!,
+                requireContext(),
                 R.drawable.active_indicator
             )
         )
@@ -222,7 +223,6 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         techBannerPager.apply {
             adapter = techBannerAdapter
             setPageTransformer(zoomOutPageTransformer)
-
             currentItem = bannerViewModel.iterator
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -252,9 +252,14 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
     private fun setUpDistinctLanguages() {
 
+        ImageUtils.loadImageDrawable(requireContext(), R.drawable.python_logo, ivPython)
+        ImageUtils.loadImageDrawable(requireContext(), R.drawable.rust_logo, ivRust)
+        ImageUtils.loadImageDrawable(requireContext(), R.drawable.golang_logo, ivGolang)
+        ImageUtils.loadImageDrawable(requireContext(), R.drawable.graphql_logo, ivGraphql)
+
         ivPython.setOnClickListener {
             EventsItemHelper.navigateToEventsListActivity(
-                context!!,
+                requireContext(),
                 Topics.PYTHON,
                 "${Topics.PYTHON} devs",
                 arrayListOf(Topics.PYTHON)
@@ -263,7 +268,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         ivGolang.setOnClickListener {
             EventsItemHelper.navigateToEventsListActivity(
-                context!!,
+                requireContext(),
                 Topics.GOLANG,
                 "${Topics.GOLANG} devs",
                 arrayListOf(Topics.GOLANG)
@@ -272,7 +277,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         ivRust.setOnClickListener {
             EventsItemHelper.navigateToEventsListActivity(
-                context!!,
+                requireContext(),
                 Topics.RUST,
                 "${Topics.RUST} devs",
                 arrayListOf(Topics.RUST)
@@ -281,7 +286,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         ivGraphql.setOnClickListener {
             EventsItemHelper.navigateToEventsListActivity(
-                context!!,
+                requireContext(),
                 Topics.GRAPHQL,
                 "${Topics.GRAPHQL} devs",
                 arrayListOf(Topics.GRAPHQL)

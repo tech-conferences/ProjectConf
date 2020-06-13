@@ -24,8 +24,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/materialToolBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -39,19 +38,26 @@
                         android:layout_weight="2"
                         android:fontFamily="@font/nova_round"
                         android:gravity="center_vertical"
+                        android:textColor="?attr/baseThemeComplimentColor"
                         android:textSize="21sp"
                         android:textStyle="bold"
                         tools:text="@string/upcoming_events" />
 
-                    <ImageView
-                        android:id="@+id/ivSearch"
+                    <FrameLayout
+                        android:id="@+id/ivSearchContainer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:foreground="@drawable/circle_border_yellow"
-                        android:padding="8dp"
-                        android:src="@drawable/ic_search" />
+                        android:foreground="@drawable/circle_border_yellow">
+
+                        <androidx.appcompat.widget.AppCompatImageView
+                            android:id="@+id/ivSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="?selectableItemBackgroundBorderless"
+                            android:padding="8dp"
+                            android:src="@drawable/ic_search" />
+                    </FrameLayout>
                 </LinearLayout>
 
             </com.google.android.material.appbar.MaterialToolbar>
@@ -66,7 +72,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/appBarLayout"/>
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

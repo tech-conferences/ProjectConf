@@ -39,12 +39,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivKotlinMBListCard"
                 android:layout_width="70dp"
-
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="16dp"
-                android:src="@drawable/kotlin_logo" />
+                tools:src="@drawable/kotlin_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -60,11 +60,12 @@
             app:layout_constraintVertical_bias="0.85">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivIosListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="8dp"
-                android:src="@drawable/ios_logo" />
+                tools:src="@drawable/ios_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -79,10 +80,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivAndroidListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
-                android:src="@drawable/android_logo" />
+                tools:src="@drawable/android_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline

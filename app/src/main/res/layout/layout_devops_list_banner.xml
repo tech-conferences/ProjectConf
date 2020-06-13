@@ -40,11 +40,12 @@
             app:layout_constraintVertical_bias="0.75">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivDevOpsListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="16dp"
-                android:src="@drawable/devops_logo" />
+                tools:src="@drawable/devops_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline

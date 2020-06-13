@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="160dp"
         android:layout_margin="16dp"
+        android:foreground="?selectableItemBackground"
         app:cardCornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,20 +17,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:foreground="?selectableItemBackground"
-            android:background="@drawable/jvm_gradient"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@drawable/jvm_gradient">
 
             <TextView
                 android:id="@+id/tvJvmUniverse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                android:textSize="21sp"
-                android:textStyle="bold"
                 android:text="@string/jvm_universe_label"
                 android:textColor="@android:color/white"
+                android:textSize="21sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,10 +47,11 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivGroovyCard"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="10dp"
-                    android:src="@drawable/groovy_logo" />
+                    tools:src="@drawable/groovy_logo" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -65,14 +66,15 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivScalaCard"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="8dp"
-                    android:src="@drawable/scala_logo" />
+                    tools:src="@drawable/scala_logo" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/javaCard"
+                android:id="@+id/kotlinCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="65dp"
@@ -83,10 +85,11 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivKotlinCard"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="10dp"
-                    android:src="@drawable/kotlin_logo" />
+                    tools:src="@drawable/kotlin_logo" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
@@ -101,10 +104,11 @@
                 app:layout_constraintEnd_toEndOf="parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/ivJavaCard"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:padding="8dp"
-                    android:src="@drawable/java_logo" />
+                    tools:src="@drawable/java_logo" />
             </androidx.cardview.widget.CardView>
 
 

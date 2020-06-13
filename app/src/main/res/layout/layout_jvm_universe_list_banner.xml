@@ -40,11 +40,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivGroovyListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:padding="10dp"
                 android:background="@drawable/circle_border_yellow"
-                android:src="@drawable/groovy_logo" />
+                tools:src="@drawable/groovy_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -59,11 +60,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivScalaListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="16dp"
-                android:src="@drawable/scala_logo" />
+                tools:src="@drawable/scala_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -79,11 +81,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivKotlinListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:padding="16dp"
                 android:background="@drawable/circle_border_yellow"
-                android:src="@drawable/kotlin_logo" />
+                tools:src="@drawable/kotlin_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -98,11 +101,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivJavaListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:padding="8dp"
                 android:background="@drawable/circle_border_yellow"
-                android:src="@drawable/java_logo" />
+                tools:src="@drawable/java_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
@@ -117,7 +121,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="start"
-            app:constraint_referenced_ids="kotlinCard,iosCard,scalaCard,groovyCard,javaCard" />
+            app:constraint_referenced_ids="kotlinCard,scalaCard,groovyCard,javaCard" />
 
         <TextView
             android:id="@+id/tvJvmUniverseSub"

@@ -17,12 +17,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Distinct Languages"
-            android:textSize="21dp" />
+            android:textSize="21sp" />
 
         <View
-            android:layout_marginTop="3dp"
             android:layout_width="match_parent"
             android:layout_height="3dp"
+            android:layout_marginTop="3dp"
             android:background="@color/yellow500" />
     </LinearLayout>
 
@@ -57,7 +57,7 @@
                     android:layout_height="50dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="16dp"
-                    android:src="@drawable/python_logo" />
+                    tools:src="@drawable/python_logo" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -93,7 +93,7 @@
                     android:layout_height="50dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="12dp"
-                    android:src="@drawable/rust_logo" />
+                    tools:src="@drawable/rust_logo" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -129,7 +129,7 @@
                     android:layout_height="50dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="12dp"
-                    android:src="@drawable/golang_logo" />
+                    tools:src="@drawable/golang_logo" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -165,7 +165,7 @@
                     android:layout_height="50dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:padding="12dp"
-                    android:src="@drawable/graphql_logo" />
+                    tools:src="@drawable/graphql_logo" />
             </com.google.android.material.card.MaterialCardView>
 
             <TextView

@@ -6,9 +6,11 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/eventCardContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:foreground="?attr/selectableItemBackground"
         android:padding="8dp"
         app:cardBackgroundColor="?attr/baseThemeColor"
         app:cardCornerRadius="8dp"
@@ -21,11 +23,9 @@
         app:strokeWidth="3dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/eventCardContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/baseThemeColor"
-            android:foreground="?attr/selectableItemBackground">
+            android:background="?attr/baseThemeColor">
 
             <TextView
                 android:id="@+id/tvTopicTitle"
@@ -36,7 +36,7 @@
                 android:gravity="center"
                 android:textAllCaps="true"
                 android:textColor="@color/blue500"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -103,21 +103,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:barrierDirection="start"
-                app:constraint_referenced_ids="ivSave,guideline" />
+                app:constraint_referenced_ids="guideline" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/ivSave"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:background="?selectableItemBackgroundBorderless"
-                android:foreground="@drawable/circle_border_blue"
-                android:padding="8dp"
-                android:src="@drawable/ic_bookmark_border"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/barrier"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -41,7 +41,7 @@ jobs:
       - name: Run UI Tests
         uses: malinskiy/action-android/emulator-run-cmd@release/0.0.7
         with:
-          api: 29
+          api: 21
           cmd: ./gradlew connectedCheck
           tag: default
           abi: x86

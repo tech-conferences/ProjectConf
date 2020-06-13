@@ -39,11 +39,12 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivTypeScriptListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="16dp"
-                android:src="@drawable/typescript_logo" />
+                tools:src="@drawable/typescript_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -59,11 +60,12 @@
             app:layout_constraintVertical_bias="0.85">
 
             <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivJavaScriptListCard"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:background="@drawable/circle_border_yellow"
                 android:padding="16dp"
-                android:src="@drawable/javascript_logo" />
+                tools:src="@drawable/javascript_logo" />
         </androidx.cardview.widget.CardView>
 
         <androidx.constraintlayout.widget.Guideline
