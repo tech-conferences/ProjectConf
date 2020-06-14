@@ -45,7 +45,7 @@ class UpComingFragmentTest {
             matches(
                 atPositionOnView(
                     1,
-                    withText("Pragma Conf"),
+                    withText("PragmaConf"),
                     R.id.tvConfName
                 )
             )
@@ -54,7 +54,7 @@ class UpComingFragmentTest {
             matches(
                 atPositionOnView(
                     2,
-                    withText("Kotliners Conf"),
+                    withText("KotlinersConf"),
                     R.id.tvConfName
                 )
             )

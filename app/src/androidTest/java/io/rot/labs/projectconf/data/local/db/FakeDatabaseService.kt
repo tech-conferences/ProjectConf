@@ -6,6 +6,7 @@ import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.testHelper.AndroidTestHelper
 import java.net.ConnectException
 import java.net.SocketTimeoutException
+import java.util.Date
 import javax.inject.Singleton
 
 @Singleton
@@ -71,5 +72,19 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
                 }
             }
         }
+    }
+
+    override fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
+
+        val eventEntity = when (name) {
+            "PragmaConf" -> AndroidTestHelper.fakeEventEntityList[0]
+            "KotlinersConf" -> AndroidTestHelper.fakeEventEntityList[1]
+            "Kubecon" -> AndroidTestHelper.fakeEventEntityList[2]
+            "Cloudnative" -> AndroidTestHelper.fakeEventEntityList[3]
+            "Rustlang" -> AndroidTestHelper.fakeEventEntityList[4]
+            else -> null
+        }
+
+        return Single.just(eventEntity)
     }
 }

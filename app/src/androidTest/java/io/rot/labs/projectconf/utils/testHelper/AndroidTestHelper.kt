@@ -6,14 +6,21 @@ import java.util.Date
 
 object AndroidTestHelper {
 
-    private const val milliSecondsIn1Day = 86400000
+    const val milliSecondsIn1Day = 86400000
+
+    private val baseTime = System.currentTimeMillis()
+    val eventDatePast = baseTime - 2 * milliSecondsIn1Day
+    val eventDateFuture = baseTime + 10 * milliSecondsIn1Day
+    val eventDateFuture1 = baseTime + 11 * milliSecondsIn1Day
+    val cfpDateFuture = baseTime + 5 * milliSecondsIn1Day
+    val cfpDatePast = baseTime - 5 * milliSecondsIn1Day
 
     val fakeEventEntityList = listOf(
         EventEntity(
             Event(
-                "Pragma Conf",
+                "PragmaConf",
                 "https://pragmaconf.tech",
-                Date(System.currentTimeMillis() - milliSecondsIn1Day),
+                Date(eventDatePast),
                 Date(),
                 "Allahabad",
                 "India"
@@ -21,14 +28,59 @@ object AndroidTestHelper {
             "ux"
         ), EventEntity(
             Event(
-                "Kotliners Conf",
+                "KotlinersConf",
                 "https://kotliners.tech",
-                Date(System.currentTimeMillis() - 2 * milliSecondsIn1Day),
+                Date(eventDatePast),
                 Date(),
                 "Austin",
-                "U.S.A."
+                "U.S.A.",
+                null,
+                null,
+                "@kotliners"
             ),
             "kotlin"
+        ),
+        EventEntity(
+            Event(
+                "Kubecon",
+                "https://kubecon.tech",
+                Date(baseTime - 2 * milliSecondsIn1Day),
+                Date(),
+                "San diego",
+                "U.S.A.",
+                "https://papercall.io/kubecon",
+                Date(cfpDatePast),
+                "@kubecon"
+            ),
+            "devops"
+        ),
+        EventEntity(
+            Event(
+                "Cloudnative",
+                "https://cloudnative.tech",
+                Date(eventDatePast),
+                Date(),
+                "San diego",
+                "U.S.A.",
+                "https://papercall.io/cloudnative",
+                null,
+                "@cloudnative"
+            ),
+            "devops"
+        ),
+        EventEntity(
+            Event(
+                "Rustlang",
+                "https://rustlang.tech",
+                Date(eventDateFuture),
+                Date(eventDateFuture1),
+                "San diego",
+                "U.S.A.",
+                null,
+                Date(cfpDateFuture),
+                "@rustlang"
+            ),
+            "rust"
         )
     )
 }

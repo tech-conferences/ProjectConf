@@ -76,7 +76,7 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
         btnTwitter.setOnClickListener {
             eventDetail?.event?.twitter?.let {
-                val twitterUrl = "https://twitter.com/$it"
+                val twitterUrl = "https://twitter.com/${it.apply { removePrefix("@") }}"
                 openURL(twitterUrl, true)
             }
         }
