@@ -7,7 +7,7 @@ import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import java.util.Date
 
 object TestHelper {
-    private const val milliSecondsIn1Day = 86400000
+    const val milliSecondsIn1Day = 86400000
 
     val fakeEventEntityList = listOf(
         EventEntity(
