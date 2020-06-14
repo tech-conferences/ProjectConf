@@ -2,7 +2,6 @@ package io.rot.labs.projectconf.ui.eventDetails
 
 import android.content.Intent
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -51,7 +50,6 @@ class EventDetailsActivityTest {
         onView(withId(R.id.btnCfpUrl)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
         onView(withId(R.id.btnConfUrl)).check(matches(isDisplayed()))
-        onView(withId(R.id.btnConfUrl)).perform(ViewActions.click())
     }
 
     @Test
@@ -70,7 +68,6 @@ class EventDetailsActivityTest {
         onView(withId(R.id.btnCfpUrl)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
         onView(withId(R.id.btnTwitter)).check(matches(isDisplayed()))
-        onView(withId(R.id.btnTwitter)).perform(ViewActions.click())
     }
 
     @Test
@@ -86,7 +83,6 @@ class EventDetailsActivityTest {
         onView(withId(R.id.tvGenericTitle)).check(matches(withText("Kubecon")))
 
         onView(withId(R.id.tvCFPEndDate)).check(matches(isDisplayed()))
-        onView(withId(R.id.btnCfpUrl)).check(matches(isDisplayed()))
     }
 
     @Test
@@ -103,8 +99,6 @@ class EventDetailsActivityTest {
 
         onView(withId(R.id.tvCFPEndDate)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
         onView(withId(R.id.btnCfpUrl)).check(matches(isDisplayed()))
-
-        onView(withId(R.id.btnCfpUrl)).perform(ViewActions.click())
     }
 
     @Test
@@ -120,30 +114,7 @@ class EventDetailsActivityTest {
         onView(withId(R.id.tvGenericTitle)).check(matches(withText("Rustlang")))
 
         onView(withId(R.id.tvCFPEndDate)).check(matches(isDisplayed()))
-        onView(withId(R.id.tvCFPEndDate)).perform(ViewActions.click())
 
         onView(withId(R.id.btnCfpUrl)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-    }
-
-    @Test
-    fun test_share_function() {
-        activityTestRule.launchActivity(
-            Intent(component.getContext(), EventDetailsActivity::class.java).apply {
-                putExtra(EventDetailsActivity.EVENT_NAME, "PragmaConf")
-                putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
-            }
-        )
-        onView(withId(R.id.ivShare)).perform(ViewActions.click())
-    }
-
-    @Test
-    fun test_add_to_calendar_function() {
-        activityTestRule.launchActivity(
-            Intent(component.getContext(), EventDetailsActivity::class.java).apply {
-                putExtra(EventDetailsActivity.EVENT_NAME, "PragmaConf")
-                putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
-            }
-        )
-        onView(withId(R.id.ivAddToCalendar)).perform(ViewActions.click())
     }
 }
