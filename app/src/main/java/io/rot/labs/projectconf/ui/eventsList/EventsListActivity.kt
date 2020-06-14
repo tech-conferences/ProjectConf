@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.activity_events_list.appBarLayoutEventsLis
 import kotlinx.android.synthetic.main.activity_events_list.collapsingToolbarLayout
 import kotlinx.android.synthetic.main.activity_events_list.headerContainer
 import kotlinx.android.synthetic.main.activity_events_list.layoutError
+import kotlinx.android.synthetic.main.activity_events_list.layoutListIsEmpty
 import kotlinx.android.synthetic.main.activity_events_list.layoutNoConnection
 import kotlinx.android.synthetic.main.activity_events_list.matToolBarEventList
 import kotlinx.android.synthetic.main.activity_events_list.rvEvents
@@ -138,7 +139,15 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         })
 
         viewModel.upcomingEvents.observe(this, Observer {
-            eventsItemAdapter.updateData(it)
+            if (it.isEmpty()) {
+                layoutListIsEmpty.isVisible = true
+                layoutNoConnection.isVisible = false
+                layoutError.isVisible = false
+                swipeRefreshList.isVisible = false
+                rvEvents.isVisible = false
+            } else {
+                eventsItemAdapter.updateData(it)
+            }
         })
 
         viewModel.progress.observe(this, Observer {
