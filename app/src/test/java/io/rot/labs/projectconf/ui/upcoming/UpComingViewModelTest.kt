@@ -78,6 +78,9 @@ class UpComingViewModelTest {
         testScheduler.triggerActions()
 
         verify(progressObserver).onChanged(true)
+
+        Thread.sleep(1500)
+
         verify(progressObserver).onChanged(false)
 
         verify(upComingEventsObserver).onChanged(fakeResponse)

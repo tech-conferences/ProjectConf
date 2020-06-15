@@ -39,6 +39,8 @@ class UpComingFragmentTest {
     fun upcomingEventsAvailable_shouldDisplay() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
 
+        Thread.sleep(1500)
+
         onView(withId(R.id.rvEvents)).check(matches(isDisplayed()))
 
         onView(withId(R.id.rvEvents)).check(
@@ -83,6 +85,8 @@ class UpComingFragmentTest {
     fun upcomingEventsPython_shouldNavigate_To_Python_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
 
+        Thread.sleep(1500)
+
         onView(withId(R.id.ivPython)).perform(ViewActions.click())
 
         onView(withId(R.id.tvGenericTitle)).check(matches(withText("PYTHON")))
@@ -91,6 +95,8 @@ class UpComingFragmentTest {
     @Test
     fun upcomingEventsRust_shouldNavigate_To_Rust_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        Thread.sleep(1500)
 
         onView(withId(R.id.ivRust)).perform(ViewActions.click())
 
@@ -101,6 +107,8 @@ class UpComingFragmentTest {
     fun upcomingEventsGoLang_shouldNavigate_To_Golang_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
 
+        Thread.sleep(1500)
+
         onView(withId(R.id.ivGolang)).perform(ViewActions.click())
 
         onView(withId(R.id.tvGenericTitle)).check(matches(withText("GOLANG")))
@@ -110,6 +118,8 @@ class UpComingFragmentTest {
     fun upcomingEventsGraphQl_shouldNavigate_To_GraphQl_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
 
+        Thread.sleep(1500)
+
         onView(withId(R.id.ivGraphql)).perform(ViewActions.click())
 
         onView(withId(R.id.tvGenericTitle)).check(matches(withText("GRAPHQL")))
@@ -118,6 +128,8 @@ class UpComingFragmentTest {
     @Test
     fun upcomingEventsCloudDevOps_shouldNavigate_To_CloudDevOps_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        Thread.sleep(1500)
 
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
@@ -132,6 +144,8 @@ class UpComingFragmentTest {
     @Test
     fun upcomingEventsMobileDev_shouldNavigate_To_MobileDev_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        Thread.sleep(1500)
 
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
@@ -151,6 +165,8 @@ class UpComingFragmentTest {
     @Test
     fun upcomingEventsDesign_shouldNavigate_To_Design_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        Thread.sleep(1500)
 
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
@@ -173,6 +189,8 @@ class UpComingFragmentTest {
     @Test
     fun upcomingEventsJVM_Universe_shouldNavigate_To_JVM_Universe_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        Thread.sleep(1500)
 
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 
@@ -198,6 +216,8 @@ class UpComingFragmentTest {
     @Test
     fun upcomingEventsJS_Land_shouldNavigate_To_JS_Land_EventsList() {
         launchFragmentInContainer<UpComingFragment>(Bundle(), R.style.Theme_ProjectConf)
+
+        Thread.sleep(1500)
 
         onView(withId(R.id.techBannerPager)).check(matches(isDisplayed()))
 

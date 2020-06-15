@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="?attr/baseThemeColor"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="?attr/baseThemeColor">
 
     <TextView
         android:id="@+id/tvAppTitle"
@@ -23,7 +23,7 @@
         android:id="@+id/tvSubTitle"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:text="global conferences information at one place"
+        android:text="@string/splash_subtext"
         android:textAllCaps="true"
         android:textColor="@color/blue500"
         android:textSize="21sp"
@@ -38,7 +38,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="32dp"
         android:src="@drawable/ic_splash_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -50,10 +50,10 @@
         android:src="@drawable/ic_splash_circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.35"
         app:layout_constraintHorizontal_bias="0.75"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.35" />
 
     <ImageView
         android:id="@+id/ivSplashPyramid"
@@ -71,9 +71,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_splash_square"
-        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintBottom_toTopOf="@+id/ivSplashPyramid"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivSplashRect" />
 
@@ -82,11 +82,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_splash_rect"
-        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintBottom_toTopOf="@+id/ivSplashSquare"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivSplashRect1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_splash_rect"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.65" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

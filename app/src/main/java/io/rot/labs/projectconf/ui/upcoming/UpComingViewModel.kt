@@ -9,6 +9,7 @@ import io.rot.labs.projectconf.ui.base.BaseViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper.transformToInterleavedList
 import io.rot.labs.projectconf.utils.network.NetworkHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
+import java.util.concurrent.TimeUnit
 
 class UpComingViewModel(
     private val schedulerProvider: SchedulerProvider,
@@ -34,6 +35,7 @@ class UpComingViewModel(
         }
         compositeDisposable.add(
             eventsRepository.getUpComingEventsForCurrentMonth(isRefresh)
+                .delay(1, TimeUnit.SECONDS)
                 .subscribeOn(schedulerProvider.io())
                 .subscribe({
                     upcomingEventsHolder.postValue(transformToInterleavedList(it))
