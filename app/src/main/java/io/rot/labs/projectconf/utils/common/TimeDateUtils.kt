@@ -59,4 +59,11 @@ object TimeDateUtils {
         val sdf = SimpleDateFormat("MMMM, yyyy", Locale.ENGLISH)
         return sdf.format(calendar.time)
     }
+
+    fun getYearForDate(date: Date): Int {
+        val calendar = Calendar.getInstance().apply {
+            timeInMillis = date.time
+        }
+        return calendar.get(Calendar.YEAR)
+    }
 }

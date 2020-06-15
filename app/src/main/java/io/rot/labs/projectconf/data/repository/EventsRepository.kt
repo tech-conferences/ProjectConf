@@ -277,10 +277,31 @@ class EventsRepository @Inject constructor(
         return databaseService.getEventDetails(name, startDate)
     }
 
+    fun getRecentEventsByQuery(nameQuery: String, yearList: List<Int>): Single<List<EventEntity>> {
+        return databaseService.getEventsForYear(yearList[1])
+            .flatMap {
+                if (it.isEmpty()) {
+                    val source = getConfSourcesList(yearList[1])
+                    Single.merge(source).collect(
+                        { mutableListOf<EventEntity>() },
+                        { collector, value ->
+                            value.forEach { event -> collector.add(event) }
+                        }
+                    ).flatMap {
+                        databaseService.insertEvents(it).toSingle { "Complete" }
+                    }.flatMap {
+                        databaseService.getEventsByQuery(nameQuery, yearList)
+                    }
+                } else {
+                    databaseService.getEventsByQuery(nameQuery, yearList)
+                }
+            }
+    }
+
     private fun Single<List<Event>>.mapToListOfEventEntity(topic: String): Single<List<EventEntity>> {
         return this.map {
             it.map { event ->
-                EventEntity(event, topic)
+                EventEntity(event, topic, TimeDateUtils.getYearForDate(event.startDate))
             }
         }
     }

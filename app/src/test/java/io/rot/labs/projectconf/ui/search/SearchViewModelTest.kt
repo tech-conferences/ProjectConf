@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.ui.eventDetails
+package io.rot.labs.projectconf.ui.search
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
@@ -9,8 +9,8 @@ import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.utils.TestHelper
 import io.rot.labs.projectconf.utils.TestSchedulerProvider
+import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.network.NetworkDBHelper
-import java.util.Date
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -22,7 +22,7 @@ import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
-class EventDetailsViewModelTest {
+class SearchViewModelTest {
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
@@ -34,58 +34,72 @@ class EventDetailsViewModelTest {
     lateinit var eventsRepository: EventsRepository
 
     @Mock
-    lateinit var eventDetailsObserver: Observer<EventEntity>
+    lateinit var eventsObserver: Observer<List<EventEntity>>
 
     @Mock
     lateinit var progressObserver: Observer<Boolean>
 
+    @Mock
+    lateinit var nameQueryObserver: Observer<String>
+
     lateinit var testScheduler: TestScheduler
 
-    lateinit var eventsDetailsViewModel: EventDetailsViewModel
+    lateinit var searchViewModel: SearchViewModel
 
     @Before
     fun setup() {
         testScheduler = TestScheduler()
-        eventsDetailsViewModel = EventDetailsViewModel(
+        searchViewModel = SearchViewModel(
             TestSchedulerProvider(testScheduler),
             CompositeDisposable(),
             networkDBHelper,
             eventsRepository
         )
 
-        eventsDetailsViewModel.apply {
+        searchViewModel.apply {
+            events.observeForever(eventsObserver)
             progress.observeForever(progressObserver)
-            eventDetails.observeForever(eventDetailsObserver)
+            nameQueryHolder.observeForever(nameQueryObserver)
         }
     }
 
     @Test
-    fun getEventDetailsTest() {
-        val fakeEventEntity = TestHelper.fakeEventEntityList[1]
-        val fakeEventStartDate =
-            Date(System.currentTimeMillis() - 2 * TestHelper.milliSecondsIn1Day)
+    fun getRecentEventsByQueryTest() {
+        val fakeEventEntityList = listOf(TestHelper.fakeEventEntityList[0])
 
-        doReturn(Single.just(fakeEventEntity))
+        val yearsList = TimeDateUtils.getConfYearsList()
+        val recentYears = listOf(yearsList.last() - 1, yearsList.last())
+        doReturn(Single.just(fakeEventEntityList))
             .`when`(eventsRepository)
-            .getEventDetails("Kotliners Conf", fakeEventStartDate)
+            .getRecentEventsByQuery("Pragma", recentYears)
 
-        eventsDetailsViewModel.getEventDetails("Kotliners Conf", fakeEventStartDate)
+        searchViewModel.getRecentEventsByQuery("Pragma", recentYears)
 
         testScheduler.triggerActions()
 
         verify(progressObserver).onChanged(true)
         verify(progressObserver).onChanged(false)
 
-        verify(eventDetailsObserver).onChanged(fakeEventEntity)
+        verify(eventsObserver).onChanged(fakeEventEntityList)
 
-        assert(eventsDetailsViewModel.eventDetails.value == fakeEventEntity)
+        verify(nameQueryObserver).onChanged("Pragma")
+    }
+
+    @Test
+    fun getRecentEventsByQuery_emptyQuery_test() {
+        val yearsList = TimeDateUtils.getConfYearsList()
+        val recentYears = listOf(yearsList.last() - 1, yearsList.last())
+        searchViewModel.getRecentEventsByQuery("", recentYears)
+
+        verify(nameQueryObserver).onChanged("")
     }
 
     @After
     fun tearDown() {
-        eventsDetailsViewModel.apply {
+        searchViewModel.apply {
+            events.removeObserver(eventsObserver)
             progress.removeObserver(progressObserver)
-            eventDetails.removeObserver(eventDetailsObserver)
+            nameQueryHolder.removeObserver(nameQueryObserver)
         }
     }
 }

@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayoutEventDetails"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
+        android:layout_height="250dp"
         android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:contentScrim="?attr/baseThemeColor"
-            app:expandedTitleTextAppearance="@android:color/transparent">
+            app:expandedTitleTextAppearance="@android:color/transparent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <FrameLayout
                 android:id="@+id/headerContainer"

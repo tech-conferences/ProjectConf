@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.ui.upcoming.banner
+package io.rot.labs.projectconf.utils.display
 
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2

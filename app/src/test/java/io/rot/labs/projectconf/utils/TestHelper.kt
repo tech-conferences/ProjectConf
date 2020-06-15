@@ -9,32 +9,39 @@ import java.util.Date
 object TestHelper {
     const val milliSecondsIn1Day = 86400000
 
+    val baseTime = System.currentTimeMillis()
+
+    val eventDatePast = baseTime - milliSecondsIn1Day
+    val eventDatePast1 = baseTime - 2 * milliSecondsIn1Day
+
     val fakeEventEntityList = listOf(
         EventEntity(
             Event(
                 "Pragma Conf",
                 "https://pragmaconf.tech",
-                Date(System.currentTimeMillis() - milliSecondsIn1Day),
+                Date(eventDatePast),
                 Date(),
                 "Allahabad",
                 "India"
             ),
-            "ux"
+            "ux",
+            TimeDateUtils.getYearForDate(Date(eventDatePast))
         ), EventEntity(
             Event(
                 "Kotliners Conf",
                 "https://kotliners.tech",
-                Date(System.currentTimeMillis() - 2 * milliSecondsIn1Day),
+                Date(eventDatePast1),
                 Date(),
                 "Austin",
                 "U.S.A."
             ),
-            "kotlin"
+            "kotlin",
+            TimeDateUtils.getYearForDate(Date(eventDatePast1))
         )
     )
 
     val fakeEventItemList = listOf(
-        EventHeader(TimeDateUtils.getEventPeriod(Date(System.currentTimeMillis() - milliSecondsIn1Day))),
+        EventHeader(TimeDateUtils.getEventPeriod(Date(eventDatePast))),
         fakeEventEntityList[0],
         fakeEventEntityList[1]
     )

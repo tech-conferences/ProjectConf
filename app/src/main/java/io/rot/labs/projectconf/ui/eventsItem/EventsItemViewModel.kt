@@ -8,7 +8,7 @@ import io.rot.labs.projectconf.data.model.EventHeader
 import io.rot.labs.projectconf.data.model.EventItem
 import io.rot.labs.projectconf.ui.base.BaseItemViewModel
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import java.util.Date
 import javax.inject.Inject
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class EventsItemViewModel @Inject constructor(
     schedulerProvider: SchedulerProvider,
     compositeDisposable: CompositeDisposable,
-    networkHelper: NetworkHelper
-) : BaseItemViewModel<EventItem>(schedulerProvider, compositeDisposable, networkHelper) {
+    networkDBHelper: NetworkDBHelper
+) : BaseItemViewModel<EventItem>(schedulerProvider, compositeDisposable, networkDBHelper) {
 
     val name: LiveData<String?> = Transformations.map(data) {
         if (it is EventEntity) {

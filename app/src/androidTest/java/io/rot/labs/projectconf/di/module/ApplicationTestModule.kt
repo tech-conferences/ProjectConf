@@ -12,8 +12,8 @@ import io.rot.labs.projectconf.data.remote.FakeNetworkService
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
-import io.rot.labs.projectconf.utils.network.FakeNetworkHelper
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.FakeNetworkDBHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.RxSchedulerProvider
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import javax.inject.Singleton
@@ -40,7 +40,7 @@ class ApplicationTestModule(private val application: ConfApplication) {
 
     @Provides
     @Singleton
-    fun provideNetworkHelper(): NetworkHelper = FakeNetworkHelper(application)
+    fun provideNetworkHelper(): NetworkDBHelper = FakeNetworkDBHelper(application)
 
     @Provides
     fun provideCompositeDisposable() = CompositeDisposable()

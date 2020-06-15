@@ -87,4 +87,21 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
 
         return Single.just(eventEntity)
     }
+
+    override fun getEventsByQuery(
+        nameQuery: String,
+        yearList: List<Int>
+    ): Single<List<EventEntity>> {
+
+        val eventEntityList = when (nameQuery) {
+            "Pragma" -> listOf(AndroidTestHelper.fakeEventEntityList[0])
+            "Kotlin" -> listOf(AndroidTestHelper.fakeEventEntityList[1])
+            "Kube" -> listOf(AndroidTestHelper.fakeEventEntityList[2])
+            "Cloud" -> listOf(AndroidTestHelper.fakeEventEntityList[3])
+            "Rust" -> listOf(AndroidTestHelper.fakeEventEntityList[4])
+            else -> null
+        }
+
+        return Single.just(eventEntityList)
+    }
 }

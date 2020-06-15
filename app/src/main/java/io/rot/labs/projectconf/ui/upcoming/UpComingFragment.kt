@@ -15,14 +15,15 @@ import io.rot.labs.projectconf.di.component.FragmentComponent
 import io.rot.labs.projectconf.ui.base.BaseFragment
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
+import io.rot.labs.projectconf.ui.main.MainSharedViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
-import io.rot.labs.projectconf.ui.upcoming.banner.ZoomOutPageTransformer
 import io.rot.labs.projectconf.utils.common.Resource
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
 import io.rot.labs.projectconf.utils.display.ImageUtils
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
+import io.rot.labs.projectconf.utils.display.ZoomOutPageTransformer
 import javax.inject.Inject
 import kotlin.random.Random
 import kotlinx.android.synthetic.main.fragment_upcoming.*
@@ -53,6 +54,9 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
     @Inject
     lateinit var screenUtils: ScreenResourcesHelper
+
+    @Inject
+    lateinit var mainSharedViewModel: MainSharedViewModel
 
     companion object {
         const val TAG = "UpComingFragment"
@@ -137,6 +141,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         })
 
         viewModel.upcomingEvents.observe(this, Observer {
+
             eventsItemAdapter.updateData(it)
         })
 
@@ -146,6 +151,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
 
         viewModel.progress.observe(this, Observer {
             if (it) {
+                mainSharedViewModel.makeSearchClickable(false)
                 upComingEventsContainer.isVisible = false
                 layoutError.isVisible = false
                 layoutNoConnection.isVisible = false
@@ -170,6 +176,7 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
                     isVisible = false
                     smoothToHide()
                 }
+                mainSharedViewModel.makeSearchClickable(true)
             }
         })
     }

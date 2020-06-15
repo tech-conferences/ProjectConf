@@ -18,6 +18,8 @@ import io.rot.labs.projectconf.ui.search.SearchActivity
 import io.rot.labs.projectconf.ui.settings.SettingsActivity
 import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
+import io.rot.labs.projectconf.utils.common.TimeDateUtils
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.drawerLayout
 import kotlinx.android.synthetic.main.activity_main.ivSearch
 import kotlinx.android.synthetic.main.activity_main.ivSearchContainer
@@ -26,6 +28,9 @@ import kotlinx.android.synthetic.main.activity_main.navView
 import kotlinx.android.synthetic.main.activity_main.tvScreenTitle
 
 class MainActivity : BaseActivity<MainViewModel>() {
+
+    @Inject
+    lateinit var mainSharedViewModel: MainSharedViewModel
 
     private var activeFragment: Fragment? = null
 
@@ -38,7 +43,10 @@ class MainActivity : BaseActivity<MainViewModel>() {
     override fun setupView(savedInstanceState: Bundle?) {
         setUpNavigationDrawer()
         ivSearch.setOnClickListener {
-            startActivity(Intent(this, SearchActivity::class.java))
+            startActivity(Intent(this, SearchActivity::class.java).apply {
+                val years = TimeDateUtils.getConfYearsList()
+                putExtra(SearchActivity.YEAR_LIST, arrayListOf(years.last() - 1, years.last()))
+            })
         }
     }
 
@@ -89,6 +97,10 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 val settingsIntent = Intent(this, SettingsActivity::class.java)
                 startActivity(settingsIntent)
             }
+        })
+
+        mainSharedViewModel.searchClickable.observe(this, Observer {
+            ivSearch.isClickable = it
         })
     }
 

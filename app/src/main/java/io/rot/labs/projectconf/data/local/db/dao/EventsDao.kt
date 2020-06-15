@@ -36,4 +36,7 @@ interface EventsDao {
 
     @Query("SELECT * FROM events WHERE startDate LIKE :startDate AND name LIKE :name LIMIT 1")
     fun getEventDetails(name: String, startDate: Date): Single<EventEntity>
+
+    @Query("SELECT * FROM events WHERE name LIKE :nameQuery AND year IN (:yearList) ORDER BY startDate DESC")
+    fun getEventsByQuery(nameQuery: String, yearList: List<Int>): Single<List<EventEntity>>
 }

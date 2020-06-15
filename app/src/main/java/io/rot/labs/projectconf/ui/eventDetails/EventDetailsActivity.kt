@@ -9,6 +9,7 @@ import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import com.google.android.material.appbar.AppBarLayout
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.di.component.ActivityComponent
@@ -16,6 +17,8 @@ import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.display.ImageUtils
 import java.util.Date
+import java.util.Locale
+import kotlinx.android.synthetic.main.activity_event_details.appBarLayoutEventDetails
 import kotlinx.android.synthetic.main.activity_event_details.fabBookMark
 import kotlinx.android.synthetic.main.activity_event_details.ivAddToCalendar
 import kotlinx.android.synthetic.main.activity_event_details.ivShare
@@ -60,7 +63,7 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
         setupEventDetails()
 
-        collapsingToolbarLayout.title = " "
+        setupCollapsingToolbarLayout()
 
         btnCfpUrl.setOnClickListener {
             eventDetail?.event?.cfpUrl?.let {
@@ -243,6 +246,25 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
             finishAfterTransition()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setupCollapsingToolbarLayout() {
+        val title = intent.getStringExtra(EVENT_NAME)
+        var isShow = true
+        var scrollRange = -1
+        appBarLayoutEventDetails.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { barLayout, verticalOffset ->
+            if (scrollRange == -1) {
+                scrollRange = barLayout?.totalScrollRange!!
+            }
+            if (scrollRange + verticalOffset == 0) {
+                collapsingToolbarLayout.title = title!!.toUpperCase(Locale.ENGLISH)
+                isShow = true
+            } else if (isShow) {
+                // careful there should a space between double quote otherwise it wont work
+                collapsingToolbarLayout.title = " "
+                isShow = false
+            }
+        })
     }
 
     private fun setupEventDetails() {

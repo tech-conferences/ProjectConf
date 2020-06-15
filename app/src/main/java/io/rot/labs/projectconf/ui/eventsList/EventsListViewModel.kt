@@ -7,15 +7,15 @@ import io.rot.labs.projectconf.data.model.EventItem
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.base.BaseViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 class EventsListViewModel(
     private val schedulerProvider: SchedulerProvider,
     private val compositeDisposable: CompositeDisposable,
-    networkHelper: NetworkHelper,
+    networkDBHelper: NetworkDBHelper,
     private val eventsRepository: EventsRepository
-) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
+) : BaseViewModel(schedulerProvider, compositeDisposable, networkDBHelper) {
 
     private val upcomingEventsHolder = MutableLiveData<List<EventItem>>()
     val upcomingEvents: LiveData<List<EventItem>> = upcomingEventsHolder
@@ -41,7 +41,7 @@ class EventsListViewModel(
                     progress.postValue(false)
                 }, {
                     progress.postValue(false)
-                    handleNetworkError(it)
+                    handleNetworkDBError(it)
                 })
         )
     }
@@ -60,7 +60,7 @@ class EventsListViewModel(
                     progress.postValue(false)
                 }, {
                     progress.postValue(false)
-                    handleNetworkError(it)
+                    handleNetworkDBError(it)
                 })
         )
     }

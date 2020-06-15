@@ -2,6 +2,7 @@ package io.rot.labs.projectconf.utils.testHelper
 
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.data.model.Event
+import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import java.util.Date
 
 object AndroidTestHelper {
@@ -25,7 +26,8 @@ object AndroidTestHelper {
                 "Allahabad",
                 "India"
             ),
-            "ux"
+            "ux",
+            TimeDateUtils.getYearForDate(Date(eventDatePast))
         ), EventEntity(
             Event(
                 "KotlinersConf",
@@ -38,13 +40,14 @@ object AndroidTestHelper {
                 null,
                 "@kotliners"
             ),
-            "kotlin"
+            "kotlin",
+            TimeDateUtils.getYearForDate(Date(eventDatePast))
         ),
         EventEntity(
             Event(
                 "Kubecon",
                 "https://kubecon.tech",
-                Date(baseTime - 2 * milliSecondsIn1Day),
+                Date(eventDatePast),
                 Date(),
                 "San diego",
                 "U.S.A.",
@@ -52,7 +55,8 @@ object AndroidTestHelper {
                 Date(cfpDatePast),
                 "@kubecon"
             ),
-            "devops"
+            "devops",
+            TimeDateUtils.getYearForDate(Date(eventDatePast))
         ),
         EventEntity(
             Event(
@@ -66,7 +70,8 @@ object AndroidTestHelper {
                 null,
                 "@cloudnative"
             ),
-            "devops"
+            "devops",
+            TimeDateUtils.getYearForDate(Date(eventDatePast))
         ),
         EventEntity(
             Event(
@@ -80,7 +85,8 @@ object AndroidTestHelper {
                 Date(cfpDateFuture),
                 "@rustlang"
             ),
-            "rust"
+            "rust",
+            TimeDateUtils.getYearForDate(Date(eventDateFuture))
         )
     )
 }

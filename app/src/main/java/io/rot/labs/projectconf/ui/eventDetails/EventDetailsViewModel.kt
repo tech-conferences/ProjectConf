@@ -6,16 +6,16 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.base.BaseViewModel
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import java.util.Date
 
 class EventDetailsViewModel(
     private val schedulerProvider: SchedulerProvider,
     private val compositeDisposable: CompositeDisposable,
-    networkHelper: NetworkHelper,
+    networkDBHelper: NetworkDBHelper,
     private val eventsRepository: EventsRepository
-) : BaseViewModel(schedulerProvider, compositeDisposable, networkHelper) {
+) : BaseViewModel(schedulerProvider, compositeDisposable, networkDBHelper) {
 
     private val eventDetailsHolder = MutableLiveData<EventEntity>()
 
@@ -40,7 +40,7 @@ class EventDetailsViewModel(
                         progress.postValue(false)
                     }, {
                         progress.postValue(false)
-                        handleNetworkError(it)
+                        handleNetworkDBError(it)
                     }
                 )
         )

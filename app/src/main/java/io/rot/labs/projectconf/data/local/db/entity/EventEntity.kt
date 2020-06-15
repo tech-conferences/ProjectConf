@@ -17,6 +17,9 @@ data class EventEntity(
     val event: Event,
 
     @ColumnInfo(name = "topic")
-    val topic: String
+    val topic: String,
+
+    @ColumnInfo(name = "year")
+    val year: Int
 
 ) : EventItem(EVENT_ITEM_TYPE.DETAIL)

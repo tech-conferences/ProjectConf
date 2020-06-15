@@ -13,13 +13,14 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ProjectConf">
+        android:theme="@style/Theme.ProjectConf"
+        tools:ignore="AllowBackup">
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name="io.rot.labs.projectconf.ui.archive.ArchiveActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity android:name=".ui.eventsList.EventsListActivity" />
-        <activity android:name=".ui.eventDetails.EventDetailsActivity"/>
+        <activity android:name=".ui.eventDetails.EventDetailsActivity" />
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"

@@ -11,7 +11,7 @@ import io.rot.labs.projectconf.utils.TestHelper
 import io.rot.labs.projectconf.utils.TestSchedulerProvider
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.common.Topics
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -29,7 +29,7 @@ class EventsListViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @Mock
-    lateinit var networkHelper: NetworkHelper
+    lateinit var networkDBHelper: NetworkDBHelper
 
     @Mock
     lateinit var eventsRepository: EventsRepository
@@ -53,7 +53,7 @@ class EventsListViewModelTest {
         eventsListViewModel = EventsListViewModel(
             TestSchedulerProvider(testScheduler),
             CompositeDisposable(),
-            networkHelper,
+            networkDBHelper,
             eventsRepository
         )
 

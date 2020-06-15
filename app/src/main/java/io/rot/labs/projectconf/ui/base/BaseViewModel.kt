@@ -6,24 +6,24 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.utils.common.Resource
 import io.rot.labs.projectconf.utils.network.ErrorMessage
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import java.net.HttpURLConnection
 
 abstract class BaseViewModel(
     private val schedulerProvider: SchedulerProvider,
     private val compositeDisposable: CompositeDisposable,
-    private val networkHelper: NetworkHelper
+    private val networkDBHelper: NetworkDBHelper
 ) : ViewModel() {
 
     val messageString = MutableLiveData<Resource<String>>()
 
     val messageStringId = MutableLiveData<Resource<Int>>()
 
-    fun isConnectedToInternet() = networkHelper.isNetworkConnected()
+    fun isConnectedToInternet() = networkDBHelper.isNetworkConnected()
 
     fun isConnectedToInternetWithMessage(): Boolean {
-        return if (networkHelper.isNetworkConnected()) {
+        return if (networkDBHelper.isNetworkConnected()) {
             true
         } else {
             messageStringId.postValue(Resource.error(R.string.network_internet_not_connected))
@@ -31,8 +31,8 @@ abstract class BaseViewModel(
         }
     }
 
-    fun handleNetworkError(throwable: Throwable) {
-        networkHelper.castToNetworkError(throwable).run {
+    fun handleNetworkDBError(throwable: Throwable) {
+        networkDBHelper.castToNetworkDbError(throwable).run {
             when (this.code) {
                 0 -> messageString.postValue(Resource.error(this.message))
                 1 -> messageStringId.postValue(Resource.error(R.string.network_could_not_connect))

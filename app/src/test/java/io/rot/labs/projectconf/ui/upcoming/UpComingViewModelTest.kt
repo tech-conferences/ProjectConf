@@ -9,7 +9,7 @@ import io.rot.labs.projectconf.data.model.EventItem
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.utils.TestHelper
 import io.rot.labs.projectconf.utils.TestSchedulerProvider
-import io.rot.labs.projectconf.utils.network.NetworkHelperImpl
+import io.rot.labs.projectconf.utils.network.NetworkDBHelperImpl
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -27,7 +27,7 @@ class UpComingViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     @Mock
-    lateinit var networkHelper: NetworkHelperImpl
+    lateinit var networkHelper: NetworkDBHelperImpl
 
     @Mock
     lateinit var eventsRepository: EventsRepository

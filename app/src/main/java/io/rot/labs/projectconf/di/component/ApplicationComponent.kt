@@ -8,7 +8,7 @@ import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.di.module.ApplicationModule
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import javax.inject.Singleton
 
@@ -22,7 +22,7 @@ interface ApplicationComponent {
 
     fun getDatabaseService(): DatabaseService
 
-    fun getNetworkHelper(): NetworkHelper
+    fun getNetworkHelper(): NetworkDBHelper
 
     fun getCompositeDisposable(): CompositeDisposable
 

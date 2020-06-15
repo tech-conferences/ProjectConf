@@ -11,8 +11,8 @@ import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.remote.ConfApi
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
-import io.rot.labs.projectconf.utils.network.NetworkHelper
-import io.rot.labs.projectconf.utils.network.NetworkHelperImpl
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelperImpl
 import io.rot.labs.projectconf.utils.rx.RxSchedulerProvider
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import javax.inject.Singleton
@@ -44,7 +44,7 @@ class ApplicationModule(private val confApplication: ConfApplication) {
 
     @Provides
     @Singleton
-    fun provideNetworkHelper(): NetworkHelper = NetworkHelperImpl(confApplication)
+    fun provideNetworkHelper(): NetworkDBHelper = NetworkDBHelperImpl(confApplication)
 
     @Provides
     fun provideCompositeDisposable() = CompositeDisposable()

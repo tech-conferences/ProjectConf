@@ -49,4 +49,9 @@ open class DatabaseService(database: ConfDatabase) {
     open fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
         return dao.getEventDetails(name, startDate)
     }
+
+    open fun getEventsByQuery(nameQuery: String, yearList: List<Int>): Single<List<EventEntity>> {
+        val mutatedNamedQuery = "%$nameQuery%"
+        return dao.getEventsByQuery(mutatedNamedQuery, yearList)
+    }
 }

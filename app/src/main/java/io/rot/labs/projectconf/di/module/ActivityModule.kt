@@ -12,11 +12,13 @@ import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventDetails.EventDetailsViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.eventsList.EventsListViewModel
+import io.rot.labs.projectconf.ui.main.MainSharedViewModel
 import io.rot.labs.projectconf.ui.main.MainViewModel
+import io.rot.labs.projectconf.ui.search.SearchAdapter
 import io.rot.labs.projectconf.ui.search.SearchViewModel
 import io.rot.labs.projectconf.ui.settings.SettingsViewModel
 import io.rot.labs.projectconf.utils.ViewModelProviderFactory
-import io.rot.labs.projectconf.utils.network.NetworkHelper
+import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 @Module
@@ -33,13 +35,16 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         EventsItemAdapter(activity.lifecycle, ArrayList())
 
     @Provides
+    fun provideSearchAdapter(): SearchAdapter = SearchAdapter(activity.lifecycle, ArrayList())
+
+    @Provides
     fun provideMainViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
+        networkDBHelper: NetworkDBHelper
     ): MainViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(MainViewModel::class) {
-            MainViewModel(schedulerProvider, compositeDisposable, networkHelper)
+            MainViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
         }).get(MainViewModel::class.java)
     }
 
@@ -47,10 +52,10 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideArchiveViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
+        networkDBHelper: NetworkDBHelper
     ): ArchiveViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(ArchiveViewModel::class) {
-            ArchiveViewModel(schedulerProvider, compositeDisposable, networkHelper)
+            ArchiveViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
         }).get(ArchiveViewModel::class.java)
     }
 
@@ -58,10 +63,10 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideSettingsViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
+        networkDBHelper: NetworkDBHelper
     ): SettingsViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(SettingsViewModel::class) {
-            SettingsViewModel(schedulerProvider, compositeDisposable, networkHelper)
+            SettingsViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
         }).get(SettingsViewModel::class.java)
     }
 
@@ -69,10 +74,16 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideSearchViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper
+        networkDBHelper: NetworkDBHelper,
+        eventsRepository: EventsRepository
     ): SearchViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(SearchViewModel::class) {
-            SearchViewModel(schedulerProvider, compositeDisposable, networkHelper)
+            SearchViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkDBHelper,
+                eventsRepository
+            )
         }).get(SearchViewModel::class.java)
     }
 
@@ -80,14 +91,14 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideEventsListViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper,
+        networkDBHelper: NetworkDBHelper,
         eventsRepository: EventsRepository
     ): EventsListViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(EventsListViewModel::class) {
             EventsListViewModel(
                 schedulerProvider,
                 compositeDisposable,
-                networkHelper,
+                networkDBHelper,
                 eventsRepository
             )
         }).get(EventsListViewModel::class.java)
@@ -97,16 +108,27 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideEventDetailsViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkHelper: NetworkHelper,
+        networkDBHelper: NetworkDBHelper,
         eventsRepository: EventsRepository
     ): EventDetailsViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(EventDetailsViewModel::class) {
             EventDetailsViewModel(
                 schedulerProvider,
                 compositeDisposable,
-                networkHelper,
+                networkDBHelper,
                 eventsRepository
             )
         }).get(EventDetailsViewModel::class.java)
+    }
+
+    @Provides
+    fun provideMainSharedViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkDBHelper: NetworkDBHelper
+    ): MainSharedViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(MainSharedViewModel::class) {
+            MainSharedViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
+        }).get(MainSharedViewModel::class.java)
     }
 }
