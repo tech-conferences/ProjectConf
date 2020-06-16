@@ -48,6 +48,8 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
     private var eventDetail: EventEntity? = null
 
+    private val milliSecondsIn1Day = 86400000
+
     override fun injectDependencies(buildComponent: ActivityComponent) {
         buildComponent.inject(this)
     }
@@ -95,7 +97,17 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                     CalendarContract.Events.CONTENT_URI
                 ).apply {
                     putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, it.event.startDate.time)
-                    putExtra(CalendarContract.EXTRA_EVENT_END_TIME, it.event.endDate.time)
+
+                    if (it.event.endDate.time == it.event.startDate.time) {
+                        putExtra(CalendarContract.EXTRA_EVENT_ALL_DAY, true)
+                        putExtra(
+                            CalendarContract.EXTRA_EVENT_END_TIME,
+                            it.event.endDate.time + milliSecondsIn1Day
+                        )
+                    } else {
+                        putExtra(CalendarContract.EXTRA_EVENT_END_TIME, it.event.endDate.time)
+                    }
+
                     putExtra(CalendarContract.Events.TITLE, it.event.name)
                     putExtra(CalendarContract.Events.DESCRIPTION, "Conference link ${it.event.url}")
                     putExtra(

@@ -102,6 +102,9 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
                         .subscribe(
                             {
                                 rvSearchResults.isVisible = it.isNotEmpty()
+                                if (it.isEmpty()) {
+                                    layoutListIsEmptySearch.isVisible = false
+                                }
                             },
                             {
                                 Toaster.show(this, "Oops! Sorry, something wrong happened")
