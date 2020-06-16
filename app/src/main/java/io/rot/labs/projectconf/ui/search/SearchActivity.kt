@@ -1,8 +1,13 @@
 package io.rot.labs.projectconf.ui.search
 
 import android.content.Context
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
@@ -13,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
+import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
@@ -24,7 +30,9 @@ import kotlinx.android.synthetic.main.activity_search.aviLoaderSearch
 import kotlinx.android.synthetic.main.activity_search.etSearch
 import kotlinx.android.synthetic.main.activity_search.ivBackSearch
 import kotlinx.android.synthetic.main.activity_search.ivClearSearch
+import kotlinx.android.synthetic.main.activity_search.layoutListIsEmptySearch
 import kotlinx.android.synthetic.main.activity_search.rvSearchResults
+import kotlinx.android.synthetic.main.layout_list_is_empty.view.tvListIsEmpty
 
 class SearchActivity : BaseActivity<SearchViewModel>() {
 
@@ -78,7 +86,6 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
         val yearsList = intent.getIntegerArrayListExtra(YEAR_LIST)
 
         etSearch.setOnFocusChangeListener { _, hasFocus ->
-            Log.d("PUI", "edittext focus $hasFocus")
             if (hasFocus) {
                 compositeDisposable.add(
                     etSearch.getTextChangeObservable()
@@ -94,9 +101,7 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
                         .observeOn(schedulerProvider.ui())
                         .subscribe(
                             {
-                                if (it.isEmpty()) {
-                                    searchAdapter.updateData(emptyList())
-                                }
+                                rvSearchResults.isVisible = it.isNotEmpty()
                             },
                             {
                                 Toaster.show(this, "Oops! Sorry, something wrong happened")
@@ -115,6 +120,14 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
 
         viewModel.events.observe(this, Observer {
             searchAdapter.updateData(it)
+            if (it.isEmpty()) {
+                rvSearchResults.isVisible = false
+                layoutListIsEmptySearch.isVisible = true
+                setupListEmptyLayout()
+            } else {
+                rvSearchResults.isVisible = true
+                layoutListIsEmptySearch.isVisible = false
+            }
         })
 
         viewModel.nameQueryHolder.observe(this, Observer {
@@ -147,6 +160,31 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
         view?.let { v ->
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             imm?.hideSoftInputFromWindow(v.windowToken, 0)
+        }
+    }
+
+    private fun setupListEmptyLayout() {
+
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                startActivity(Intent(this@SearchActivity, ArchiveActivity::class.java))
+            }
+        }
+
+        val sb = StringBuilder()
+        sb.apply {
+            append(getString(R.string.sorry_no_conferences_search))
+            append("\n")
+            append(getString(R.string.check_archive))
+        }
+
+        val spannable = SpannableString(sb.toString())
+        spannable.setSpan(clickableSpan, 62, 71, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+        layoutListIsEmptySearch.tvListIsEmpty.apply {
+            text = spannable
+            movementMethod = LinkMovementMethod.getInstance()
+            highlightColor = Color.TRANSPARENT
         }
     }
 

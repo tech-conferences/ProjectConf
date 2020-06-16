@@ -99,7 +99,7 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
             "Kube" -> listOf(AndroidTestHelper.fakeEventEntityList[2])
             "Cloud" -> listOf(AndroidTestHelper.fakeEventEntityList[3])
             "Rust" -> listOf(AndroidTestHelper.fakeEventEntityList[4])
-            else -> null
+            else -> emptyList()
         }
 
         return Single.just(eventEntityList)

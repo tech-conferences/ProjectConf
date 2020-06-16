@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivJav
 import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivKotlinListCard
 import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.ivScalaListCard
 import kotlinx.android.synthetic.main.layout_jvm_universe_list_banner.view.tvJvmUniverseSub
+import kotlinx.android.synthetic.main.layout_list_is_empty.view.tvListIsEmpty
 import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.ivAndroidListCard
 import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.ivIosListCard
 import kotlinx.android.synthetic.main.layout_mobile_dev_list_banner.view.ivKotlinMBListCard
@@ -141,6 +142,7 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         viewModel.upcomingEvents.observe(this, Observer {
             if (it.isEmpty()) {
                 layoutListIsEmpty.isVisible = true
+                layoutListIsEmpty.tvListIsEmpty.text = getString(R.string.sorry_no_conferences)
                 layoutNoConnection.isVisible = false
                 layoutError.isVisible = false
                 swipeRefreshList.isVisible = false

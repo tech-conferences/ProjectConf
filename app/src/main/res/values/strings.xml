@@ -50,9 +50,13 @@
     <string name="cfp_end_date_label">End Date</string>
     <string name="go_to_cfp_url">Go to CFP URL</string>
 
+    <string name="search_hint">Search by conference title</string>
+    <string name="sorry_no_conferences_search">Sorry, no recent conferences found</string>
+    <string name="check_archive">You might like to check out Archives</string>
+
     //general
     <string name="retry">Retry</string>
-    <string name="search_hint">Search by conference title</string>
+    <string name="sorry_no_conferences">Sorry, no conferences for now</string>
 
     <string-array name="quotes">
         <item>"The best thing about a boolean is even if you are wrong, you are only off by a bit"</item>

@@ -18,7 +18,9 @@
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name="io.rot.labs.projectconf.ui.archive.ArchiveActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />
-        <activity android:name=".ui.search.SearchActivity" />
+        <activity
+            android:name=".ui.search.SearchActivity"
+            android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name=".ui.eventsList.EventsListActivity" />
         <activity android:name=".ui.eventDetails.EventDetailsActivity" />
         <activity

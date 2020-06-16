@@ -64,4 +64,29 @@ class SearchActivityTest {
             )
         )
     }
+
+    @Test
+    fun onSearchResultNotAvailable_should_display() {
+        val yearsList = TimeDateUtils.getConfYearsList()
+        val recentYears = arrayListOf(yearsList.last() - 1, yearsList.last())
+
+        intentsTestRule.launchActivity(
+            Intent(
+                component.getContext(),
+                SearchActivity::class.java
+            ).apply {
+                putExtra(SearchActivity.YEAR_LIST, recentYears)
+            })
+
+        onView(withId(R.id.etSearch)).check(matches(isDisplayed()))
+
+        onView(withId(R.id.ivClearSearch)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.INVISIBLE)))
+
+        onView(withId(R.id.etSearch)).perform(
+            typeText("iota"),
+            pressImeActionButton()
+        )
+
+        onView(withId(R.id.layoutListIsEmptySearch)).check(matches(isDisplayed()))
+    }
 }

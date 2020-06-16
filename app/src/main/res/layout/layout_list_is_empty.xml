@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:gravity="center"
+            android:textColorLink="@color/yellow500"
             android:textSize="21sp"
-            tools:text="Sorry, no upcoming conferences for now" />
+            tools:text="@string/sorry_no_conferences" />
     </LinearLayout>
 </ScrollView>
