@@ -1,6 +1,7 @@
 package io.rot.labs.projectconf.ui.base
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.StringRes
@@ -34,6 +35,12 @@ abstract class BaseActivity<VM : BaseViewModel> : AppCompatActivity() {
         } else super.onBackPressed()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finishAfterTransition()
+        }
+        return super.onOptionsItemSelected(item)
+    }
     open fun goBack() = onBackPressed()
 
     private fun getBuildComponent() = DaggerActivityComponent

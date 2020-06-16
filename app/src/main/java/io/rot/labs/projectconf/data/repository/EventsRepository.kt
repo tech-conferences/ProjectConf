@@ -108,6 +108,7 @@ class EventsRepository @Inject constructor(
                 networkService.getPHPEventsByYear(year).mapToListOfEventEntity(Topics.PHP),
                 networkService.getProductEventsByYear(year).mapToListOfEventEntity(Topics.PRODUCT),
                 networkService.getPythonEventsByYear(year).mapToListOfEventEntity(Topics.PYTHON),
+                networkService.getRubyEventsByYear(year).mapToListOfEventEntity(Topics.RUBY),
                 networkService.getRustEventsByYear(year).mapToListOfEventEntity(Topics.RUST),
                 networkService.getScalaEventsByYear(year).mapToListOfEventEntity(Topics.SCALA),
                 networkService.getSecurityEventsByYear(year)

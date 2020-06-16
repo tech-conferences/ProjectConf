@@ -101,8 +101,10 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         compositeDisposable: CompositeDisposable,
         networkDBHelper: NetworkDBHelper
     ): MainSharedViewModel {
-        return ViewModelProvider(fragment.activity!!, ViewModelProviderFactory(MainSharedViewModel::class) {
-            MainSharedViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
-        }).get(MainSharedViewModel::class.java)
+        return ViewModelProvider(
+            fragment.activity!!,
+            ViewModelProviderFactory(MainSharedViewModel::class) {
+                MainSharedViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
+            }).get(MainSharedViewModel::class.java)
     }
 }

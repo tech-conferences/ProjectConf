@@ -1,5 +1,6 @@
 package io.rot.labs.projectconf.ui.upcoming
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.FragmentComponent
+import io.rot.labs.projectconf.ui.allTech.AllTechActivity
 import io.rot.labs.projectconf.ui.base.BaseFragment
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemHelper
@@ -19,6 +21,7 @@ import io.rot.labs.projectconf.ui.main.MainSharedViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
 import io.rot.labs.projectconf.utils.common.Resource
+import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
 import io.rot.labs.projectconf.utils.display.ImageUtils
@@ -301,7 +304,14 @@ class UpComingFragment : BaseFragment<UpComingViewModel>() {
         }
 
         ivShowAll.setOnClickListener {
-            // show tech categoryies activitity
+            // show tech categories activity
+            startActivity(Intent(requireContext(), AllTechActivity::class.java).apply {
+                val yearList = TimeDateUtils.getConfYearsList()
+                putExtra(
+                    AllTechActivity.YEARS,
+                    arrayListOf(yearList[yearList.lastIndex - 1], yearList.last())
+                )
+            })
         }
     }
 

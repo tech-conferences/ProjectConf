@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
-import android.view.MenuItem
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -251,13 +250,6 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                 }
             }
         })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finishAfterTransition()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setupCollapsingToolbarLayout() {

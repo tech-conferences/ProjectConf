@@ -41,7 +41,9 @@ object EventsItemHelper {
         context: Context,
         topicTitle: String,
         topicSub: String,
-        list: ArrayList<String>
+        list: ArrayList<String>,
+        isArchive: Boolean = false,
+        archiveYear: Int = -1
     ) {
         context.startActivity(Intent(context, EventsListActivity::class.java).apply {
             putExtra(
@@ -55,6 +57,14 @@ object EventsItemHelper {
             putExtra(
                 EventsListActivity.TOPICS_LIST,
                 list
+            )
+            putExtra(
+                EventsListActivity.IS_ARCHIVE,
+                isArchive
+            )
+            putExtra(
+                EventsListActivity.ARCHIVE_YEAR,
+                archiveYear
             )
         })
     }

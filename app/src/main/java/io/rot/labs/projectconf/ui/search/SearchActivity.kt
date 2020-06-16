@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.activity_search.aviLoaderSearch
 import kotlinx.android.synthetic.main.activity_search.etSearch
 import kotlinx.android.synthetic.main.activity_search.ivBackSearch
 import kotlinx.android.synthetic.main.activity_search.ivClearSearch
+import kotlinx.android.synthetic.main.activity_search.ivSearchArt
 import kotlinx.android.synthetic.main.activity_search.layoutListIsEmptySearch
 import kotlinx.android.synthetic.main.activity_search.rvSearchResults
 import kotlinx.android.synthetic.main.layout_list_is_empty.view.tvListIsEmpty
@@ -71,6 +72,7 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
         }
 
         ivClearSearch.setOnClickListener {
+            etSearch.requestFocus()
             etSearch.setText("", TextView.BufferType.EDITABLE)
         }
 
@@ -101,9 +103,15 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
                         .observeOn(schedulerProvider.ui())
                         .subscribe(
                             {
-                                rvSearchResults.isVisible = it.isNotEmpty()
+
+                                // For setting up empty query view
                                 if (it.isEmpty()) {
+                                    rvSearchResults.isVisible = false
                                     layoutListIsEmptySearch.isVisible = false
+                                    ivSearchArt.isVisible = true
+                                } else {
+                                    rvSearchResults.isVisible = true
+                                    ivSearchArt.isVisible = false
                                 }
                             },
                             {

@@ -7,6 +7,9 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.repository.EventsRepository
+import io.rot.labs.projectconf.ui.allTech.AllTechAdapter
+import io.rot.labs.projectconf.ui.allTech.AllTechViewModel
+import io.rot.labs.projectconf.ui.archive.ArchiveAdapter
 import io.rot.labs.projectconf.ui.archive.ArchiveViewModel
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventDetails.EventDetailsViewModel
@@ -36,6 +39,12 @@ class ActivityModule(private val activity: BaseActivity<*>) {
 
     @Provides
     fun provideSearchAdapter(): SearchAdapter = SearchAdapter(activity.lifecycle, ArrayList())
+
+    @Provides
+    fun provideArchiveAdapter(): ArchiveAdapter = ArchiveAdapter(activity.lifecycle, ArrayList())
+
+    @Provides
+    fun provideAllTechAdapter(): AllTechAdapter = AllTechAdapter(activity.lifecycle, ArrayList())
 
     @Provides
     fun provideMainViewModel(
@@ -130,5 +139,16 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         return ViewModelProvider(activity, ViewModelProviderFactory(MainSharedViewModel::class) {
             MainSharedViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
         }).get(MainSharedViewModel::class.java)
+    }
+
+    @Provides
+    fun provideAllTechViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkDBHelper: NetworkDBHelper
+    ): AllTechViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(AllTechViewModel::class) {
+            AllTechViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
+        }).get(AllTechViewModel::class.java)
     }
 }

@@ -2,7 +2,6 @@ package io.rot.labs.projectconf.ui.eventsList
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -72,6 +71,8 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         const val TOPIC_TITLE = "topic_title"
         const val TOPIC_SUB = "topic_sub"
         const val TOPICS_LIST = "topics_list"
+        const val IS_ARCHIVE = "is_archive"
+        const val ARCHIVE_YEAR = "archive_year"
     }
 
     override fun injectDependencies(buildComponent: ActivityComponent) {
@@ -93,7 +94,13 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         setupErrorLayouts()
 
         val topicsList = intent.getStringArrayListExtra(TOPICS_LIST)
-        viewModel.getUpComingEventsForTech(topicsList!!)
+        val isArchive = intent.getBooleanExtra(IS_ARCHIVE, false)
+        if (!isArchive) {
+            viewModel.getUpComingEventsForTech(topicsList!!)
+        } else {
+            val year = intent.getIntExtra(ARCHIVE_YEAR, -1)
+            viewModel.getEventsForYearAndTech(year, topicsList!![0])
+        }
     }
 
     override fun setupObservables() {
@@ -152,6 +159,19 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
             }
         })
 
+        viewModel.archiveEvents.observe(this, Observer {
+            if (it.isEmpty()) {
+                layoutListIsEmpty.isVisible = true
+                layoutListIsEmpty.tvListIsEmpty.text = getString(R.string.sorry_no_conferences)
+                layoutNoConnection.isVisible = false
+                layoutError.isVisible = false
+                swipeRefreshList.isVisible = false
+                rvEvents.isVisible = false
+            } else {
+                eventsItemAdapter.updateData(it)
+            }
+        })
+
         viewModel.progress.observe(this, Observer {
             if (it) {
                 swipeRefreshList.isVisible = false
@@ -174,13 +194,6 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                 }
             }
         })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finishAfterTransition()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setupCollapsingToolBarLayout() {
@@ -385,7 +398,13 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
     private fun setupSwipeRefreshLayout() {
         swipeRefreshList.setOnRefreshListener {
             val topicsList = intent.getStringArrayListExtra(TOPICS_LIST)
-            viewModel.getUpComingEventsForTech(topicsList!!, true)
+            val isArchive = intent.getBooleanExtra(IS_ARCHIVE, false)
+            if (!isArchive) {
+                viewModel.getUpComingEventsForTech(topicsList!!, true)
+            } else {
+                val year = intent.getIntExtra(ARCHIVE_YEAR, -1)
+                viewModel.getEventsForYearAndTech(year, topicsList!![0], true)
+            }
         }
     }
 }

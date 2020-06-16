@@ -1,7 +1,6 @@
 package io.rot.labs.projectconf.ui.settings
 
 import android.os.Bundle
-import android.view.MenuItem
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
@@ -19,12 +18,5 @@ class SettingsActivity : BaseActivity<SettingsViewModel>() {
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            finishAfterTransition()
-        }
-        return super.onOptionsItemSelected(item)
     }
 }
