@@ -23,7 +23,7 @@ import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_main.drawerLayout
 import kotlinx.android.synthetic.main.activity_main.ivSearch
 import kotlinx.android.synthetic.main.activity_main.ivSearchContainer
-import kotlinx.android.synthetic.main.activity_main.materialToolBar
+import kotlinx.android.synthetic.main.activity_main.matToolBarMain
 import kotlinx.android.synthetic.main.activity_main.navView
 import kotlinx.android.synthetic.main.activity_main.tvScreenTitle
 
@@ -105,13 +105,13 @@ class MainActivity : BaseActivity<MainViewModel>() {
     }
 
     private fun setUpNavigationDrawer() {
-        setSupportActionBar(materialToolBar)
+        setSupportActionBar(matToolBarMain)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val drawerToggle = ActionBarDrawerToggle(
             this,
             drawerLayout,
-            materialToolBar,
+            matToolBarMain,
             R.string.open_drawer,
             R.string.close_drawer
         )
