@@ -153,7 +153,8 @@ class EventsRepository @Inject constructor(
 
     private fun getTopicList(year: Int): List<String> {
         return when (year) {
-            2014, 2015, 2016 -> TopicsList.YEAR_2014_2015_2016
+            2014, 2015 -> TopicsList.YEAR_2014_2015
+            2016 -> TopicsList.YEAR_2016
             2017 -> TopicsList.YEAR_2017
             2018 -> TopicsList.YEAR_2018
             2019 -> TopicsList.YEAR_2019

@@ -28,7 +28,7 @@ class ArchiveActivityTest {
     fun archiveYears_available_shouldDisplay() {
         launch(ArchiveActivity::class.java)
 
-        val lastYear = TimeDateUtils.getConfYearsList().last() - 2
+        val lastYear = TimeDateUtils.getConfYearsList().last() - 1
         onView(withId(R.id.rvArchiveYears)).check(
             matches(
                 atPositionOnView(

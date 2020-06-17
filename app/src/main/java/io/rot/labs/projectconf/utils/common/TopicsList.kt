@@ -2,7 +2,9 @@ package io.rot.labs.projectconf.utils.common
 
 object TopicsList {
 
-    val YEAR_2014_2015_2016 = listOf(
+    val YEAR_2014_2015 = listOf(Topics.RUBY)
+
+    val YEAR_2016 = listOf(
         Topics.JAVASCRIPT,
         Topics.RUBY,
         Topics.UX

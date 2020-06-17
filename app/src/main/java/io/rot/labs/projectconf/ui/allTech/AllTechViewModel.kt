@@ -24,7 +24,9 @@ class AllTechViewModel(
         val topicSet = HashSet<String>()
         for (year in yearList) {
             when (year) {
-                2014, 2015, 2016 -> topicSet.addAll(TopicsList.YEAR_2014_2015_2016)
+                2014, 2015 -> topicSet.addAll(TopicsList.YEAR_2014_2015)
+
+                2016 -> topicSet.addAll(TopicsList.YEAR_2016)
 
                 2017 -> topicSet.addAll(TopicsList.YEAR_2017)
 

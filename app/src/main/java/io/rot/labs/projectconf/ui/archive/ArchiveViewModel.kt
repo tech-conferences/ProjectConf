@@ -21,7 +21,7 @@ class ArchiveViewModel(
 
     fun getArchiveYears() {
         val yearList = TimeDateUtils.getConfYearsList()
-        val archive = yearList.subList(0, yearList.lastIndex - 1).reversed()
+        val archive = yearList.subList(0, yearList.lastIndex).reversed()
         archiveYears.postValue(archive)
     }
 }
