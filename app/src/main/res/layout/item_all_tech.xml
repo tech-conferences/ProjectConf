@@ -2,25 +2,25 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/allTechCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="?selectableItemBackground"
     app:cardCornerRadius="8dp"
     app:cardElevation="8dp"
-    android:layout_margin="16dp"
-    android:id="@+id/allTechCard"
     app:strokeColor="@color/yellow500"
-    android:background="?selectableItemBackground"
     app:strokeWidth="3dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <ImageView
             android:id="@+id/ivAllTech"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:padding="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
