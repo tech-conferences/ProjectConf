@@ -134,9 +134,11 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
             if (it.isEmpty()) {
                 rvSearchResults.isVisible = false
                 layoutListIsEmptySearch.isVisible = true
+                ivSearchArt.isVisible = false
                 setupListEmptyLayout()
             } else {
                 rvSearchResults.isVisible = true
+                ivSearchArt.isVisible = false
                 layoutListIsEmptySearch.isVisible = false
             }
         })
@@ -190,7 +192,7 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
         }
 
         val spannable = SpannableString(sb.toString())
-        spannable.setSpan(clickableSpan, 62, 71, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        spannable.setSpan(clickableSpan, 63, 71, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
         layoutListIsEmptySearch.tvListIsEmpty.apply {
             text = spannable

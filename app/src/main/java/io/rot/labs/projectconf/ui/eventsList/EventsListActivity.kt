@@ -430,7 +430,7 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         }
 
         val spannable = SpannableString(sb.toString())
-        spannable.setSpan(clickableSpan, 55, 64, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        spannable.setSpan(clickableSpan, 56, 64, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
         layoutListIsEmpty.tvListIsEmpty.apply {
             requestFocus()
