@@ -31,6 +31,17 @@ open class DatabaseService(database: ConfDatabase) {
         )
     }
 
+    open fun getPastEventsForCurrentYearAndTech(
+        topics: List<String>,
+        year: Int
+    ): Single<List<EventEntity>> {
+        return dao.getEventsByYearAndTech(
+            TimeDateUtils.getFirstDayOfYear(year),
+            TimeDateUtils.getCurrentDate(),
+            topics
+        )
+    }
+
     open fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
         return dao.getUpComingEventsForCurrentMonth(
             TimeDateUtils.getCurrentDate(),

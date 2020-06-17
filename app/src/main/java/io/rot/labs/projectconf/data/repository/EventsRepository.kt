@@ -86,6 +86,9 @@ class EventsRepository @Inject constructor(
         year: Int,
         isRefresh: Boolean
     ): Single<List<EventEntity>> {
+
+        val isCurrYear = year == TimeDateUtils.getConfYearsList().last() - 1
+
         return databaseService.getEventsForYearAndTech(listOf(tech), year)
             .flatMap {
                 if (it.isEmpty() || isRefresh) {
@@ -98,10 +101,18 @@ class EventsRepository @Inject constructor(
                     ).flatMap { list ->
                         databaseService.insertEvents(list).toSingle { "Complete" }
                     }.flatMap {
-                        databaseService.getEventsForYearAndTech(listOf(tech), year)
+                        if (isCurrYear) {
+                            databaseService.getPastEventsForCurrentYearAndTech(listOf(tech), year)
+                        } else {
+                            databaseService.getEventsForYearAndTech(listOf(tech), year)
+                        }
                     }
                 } else {
-                    databaseService.getEventsForYearAndTech(listOf(tech), year)
+                    if (isCurrYear) {
+                        databaseService.getPastEventsForCurrentYearAndTech(listOf(tech), year)
+                    } else {
+                        databaseService.getEventsForYearAndTech(listOf(tech), year)
+                    }
                 }
             }
     }

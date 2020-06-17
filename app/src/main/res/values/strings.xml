@@ -56,7 +56,7 @@
 
     //general
     <string name="retry">Retry</string>
-    <string name="sorry_no_conferences">Sorry, no conferences for now</string>
+    <string name="sorry_no_conferences">Sorry, no conferences found</string>
 
     <string-array name="quotes">
         <item>"The best thing about a boolean is even if you are wrong, you are only off by a bit"</item>

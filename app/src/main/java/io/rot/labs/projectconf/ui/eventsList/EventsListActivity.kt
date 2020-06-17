@@ -424,13 +424,13 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
 
         val sb = StringBuilder()
         sb.apply {
-            append(getString(R.string.sorry_no_conferences_search))
+            append(getString(R.string.sorry_no_conferences))
             append("\n")
             append(getString(R.string.check_archive))
         }
 
         val spannable = SpannableString(sb.toString())
-        spannable.setSpan(clickableSpan, 62, 71, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+        spannable.setSpan(clickableSpan, 55, 64, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
 
         layoutListIsEmpty.tvListIsEmpty.apply {
             requestFocus()
