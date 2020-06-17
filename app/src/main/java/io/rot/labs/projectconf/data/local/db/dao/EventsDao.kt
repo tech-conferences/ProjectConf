@@ -18,11 +18,11 @@ interface EventsDao {
     @Query("SELECT * FROM events WHERE startDate >= :firstDay AND startDate <= :lastDay ORDER BY startDate")
     fun getEventsByYear(firstDay: Date, lastDay: Date): Single<List<EventEntity>>
 
-    @Query("SELECT * FROM events WHERE startDate >= :firstDay AND startDate <= :lastDay AND topic LIKE :topic ORDER BY startDate")
+    @Query("SELECT * FROM events WHERE startDate >= :firstDay AND startDate <= :lastDay AND topic IN (:topics) ORDER BY startDate")
     fun getEventsByYearAndTech(
         firstDay: Date,
         lastDay: Date,
-        topic: String
+        topics: List<String>
     ): Single<List<EventEntity>>
 
     @Query("SELECT * FROM events WHERE startDate >= :date ORDER BY startDate")

@@ -23,11 +23,11 @@ open class DatabaseService(database: ConfDatabase) {
         )
     }
 
-    open fun getEventsForYearAndTech(tech: String, year: Int): Single<List<EventEntity>> {
+    open fun getEventsForYearAndTech(topics: List<String>, year: Int): Single<List<EventEntity>> {
         return dao.getEventsByYearAndTech(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getLastDayOfYear(year),
-            tech
+            topics
         )
     }
 

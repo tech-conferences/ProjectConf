@@ -19,16 +19,7 @@ class EventsRepository @Inject constructor(
 ) {
 
     private fun getConfSourcesList(year: Int): List<Single<List<EventEntity>>> {
-
-        return when (year) {
-            2014, 2015, 2016 -> makeSourceConfList(year, TopicsList.YEAR_2014_2015_2016)
-            2017 -> makeSourceConfList(year, TopicsList.YEAR_2017)
-            2018 -> makeSourceConfList(year, TopicsList.YEAR_2018)
-            2019 -> makeSourceConfList(year, TopicsList.YEAR_2019)
-            2020 -> makeSourceConfList(year, TopicsList.YEAR_2020)
-            2021 -> makeSourceConfList(year, TopicsList.YEAR_2021)
-            else -> emptyList()
-        }
+        return makeConfSourceList(year, getTopicList(year))
     }
 
     fun getUpComingEventsForCurrentMonth(isRefresh: Boolean): Single<List<EventEntity>> {
@@ -63,11 +54,17 @@ class EventsRepository @Inject constructor(
         val yearList = TimeDateUtils.getConfYearsList()
         val nextYear = yearList.last()
         val currYear = nextYear - 1
-        return databaseService.getEventsForYear(nextYear)
+        return databaseService.getEventsForYearAndTech(topics, nextYear)
             .flatMap {
                 if (it.isEmpty() || isRefresh) {
                     val upcomingSources =
-                        getConfSourcesList(currYear) + getConfSourcesList(nextYear)
+                        makeConfSourceList(
+                            currYear,
+                            topics.intersect(getTopicList(currYear)).toList()
+                        ) + makeConfSourceList(
+                            nextYear,
+                            topics.intersect(getTopicList(nextYear)).toList()
+                        )
                     Single.merge(upcomingSources).collect(
                         { mutableListOf<EventEntity>() },
                         { collector, value ->
@@ -89,10 +86,10 @@ class EventsRepository @Inject constructor(
         year: Int,
         isRefresh: Boolean
     ): Single<List<EventEntity>> {
-        return databaseService.getEventsForYear(year)
+        return databaseService.getEventsForYearAndTech(listOf(tech), year)
             .flatMap {
                 if (it.isEmpty() || isRefresh) {
-                    val source = getConfSourcesList(year)
+                    val source = makeConfSourceList(year, listOf(tech))
                     Single.merge(source).collect(
                         { mutableListOf<EventEntity>() },
                         { collector, value ->
@@ -101,10 +98,10 @@ class EventsRepository @Inject constructor(
                     ).flatMap { list ->
                         databaseService.insertEvents(list).toSingle { "Complete" }
                     }.flatMap {
-                        databaseService.getEventsForYearAndTech(tech, year)
+                        databaseService.getEventsForYearAndTech(listOf(tech), year)
                     }
                 } else {
-                    databaseService.getEventsForYearAndTech(tech, year)
+                    databaseService.getEventsForYearAndTech(listOf(tech), year)
                 }
             }
     }
@@ -138,7 +135,7 @@ class EventsRepository @Inject constructor(
             }
     }
 
-    private fun makeSourceConfList(year: Int, list: List<String>): List<Single<List<EventEntity>>> {
+    private fun makeConfSourceList(year: Int, list: List<String>): List<Single<List<EventEntity>>> {
         val sourceList = mutableListOf<Single<List<EventEntity>>>()
         list.forEach {
             sourceList.add(networkService.getEventsByYear(year, it).mapToListOfEventEntity(it))
@@ -151,6 +148,18 @@ class EventsRepository @Inject constructor(
             it.map { event ->
                 EventEntity(event, topic, TimeDateUtils.getYearForDate(event.startDate))
             }
+        }
+    }
+
+    private fun getTopicList(year: Int): List<String> {
+        return when (year) {
+            2014, 2015, 2016 -> TopicsList.YEAR_2014_2015_2016
+            2017 -> TopicsList.YEAR_2017
+            2018 -> TopicsList.YEAR_2018
+            2019 -> TopicsList.YEAR_2019
+            2020 -> TopicsList.YEAR_2020
+            2021 -> TopicsList.YEAR_2021
+            else -> emptyList()
         }
     }
 }

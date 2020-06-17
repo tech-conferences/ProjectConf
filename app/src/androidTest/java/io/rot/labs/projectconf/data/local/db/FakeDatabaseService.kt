@@ -58,6 +58,41 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
         }
     }
 
+    override fun getEventsForYearAndTech(
+        topics: List<String>,
+        year: Int
+    ): Single<List<EventEntity>> {
+        return Single.just(AndroidTestHelper.fakeEventEntityList).flatMap {
+            when {
+                toThrowConnectException -> {
+                    throw ConnectException(COULD_NOT_CONNECT)
+                }
+                toThrowTimeOutException -> {
+                    throw SocketTimeoutException(TIMEOUT)
+                }
+                else -> {
+                    Single.just(it)
+                }
+            }
+        }
+    }
+
+    override fun getUpComingEventsForTech(topics: List<String>): Single<List<EventEntity>> {
+        return Single.just(AndroidTestHelper.fakeEventEntityList).flatMap {
+            when {
+                toThrowConnectException -> {
+                    throw ConnectException(COULD_NOT_CONNECT)
+                }
+                toThrowTimeOutException -> {
+                    throw SocketTimeoutException(TIMEOUT)
+                }
+                else -> {
+                    Single.just(it)
+                }
+            }
+        }
+    }
+
     override fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
         return Single.just(AndroidTestHelper.fakeEventEntityList).flatMap {
             when {

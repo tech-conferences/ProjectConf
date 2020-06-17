@@ -1,7 +1,14 @@
 package io.rot.labs.projectconf.ui.eventsList
 
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -9,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.appbar.AppBarLayout
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
+import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.utils.common.Resource
@@ -149,7 +157,7 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         viewModel.upcomingEvents.observe(this, Observer {
             if (it.isEmpty()) {
                 layoutListIsEmpty.isVisible = true
-                layoutListIsEmpty.tvListIsEmpty.text = getString(R.string.sorry_no_conferences)
+                setupListEmptyLayout()
                 layoutNoConnection.isVisible = false
                 layoutError.isVisible = false
                 swipeRefreshList.isVisible = false
@@ -162,7 +170,7 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
         viewModel.archiveEvents.observe(this, Observer {
             if (it.isEmpty()) {
                 layoutListIsEmpty.isVisible = true
-                layoutListIsEmpty.tvListIsEmpty.text = getString(R.string.sorry_no_conferences)
+                setupListEmptyLayout()
                 layoutNoConnection.isVisible = false
                 layoutError.isVisible = false
                 swipeRefreshList.isVisible = false
@@ -405,6 +413,32 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                 val year = intent.getIntExtra(ARCHIVE_YEAR, -1)
                 viewModel.getEventsForYearAndTech(year, topicsList!![0], true)
             }
+        }
+    }
+
+    private fun setupListEmptyLayout() {
+
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                startActivity(Intent(this@EventsListActivity, ArchiveActivity::class.java))
+            }
+        }
+
+        val sb = StringBuilder()
+        sb.apply {
+            append(getString(R.string.sorry_no_conferences_search))
+            append("\n")
+            append(getString(R.string.check_archive))
+        }
+
+        val spannable = SpannableString(sb.toString())
+        spannable.setSpan(clickableSpan, 62, 71, Spanned.SPAN_INCLUSIVE_INCLUSIVE)
+
+        layoutListIsEmpty.tvListIsEmpty.apply {
+            requestFocus()
+            text = spannable
+            movementMethod = LinkMovementMethod.getInstance()
+            highlightColor = Color.TRANSPARENT
         }
     }
 }

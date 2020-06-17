@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:gravity="center"
+            android:clickable="false"
             android:textColorLink="@color/yellow500"
             android:textSize="21sp"
             tools:text="@string/sorry_no_conferences" />
