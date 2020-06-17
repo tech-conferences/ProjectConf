@@ -160,7 +160,6 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                 setupListEmptyLayout()
                 layoutNoConnection.isVisible = false
                 layoutError.isVisible = false
-                swipeRefreshList.isVisible = false
                 rvEvents.isVisible = false
             } else {
                 eventsItemAdapter.updateData(it)
@@ -173,7 +172,6 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
                 setupListEmptyLayout()
                 layoutNoConnection.isVisible = false
                 layoutError.isVisible = false
-                swipeRefreshList.isVisible = false
                 rvEvents.isVisible = false
             } else {
                 eventsItemAdapter.updateData(it)

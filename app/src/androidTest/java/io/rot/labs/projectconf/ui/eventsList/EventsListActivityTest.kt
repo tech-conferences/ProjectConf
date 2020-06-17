@@ -74,4 +74,42 @@ class EventsListActivityTest {
 
         onView(withId(R.id.layoutError)).check(matches(isDisplayed()))
     }
+
+    @Test
+    fun eventsList_Empty_ShouldShowEmptyListLayout() {
+
+        fakeDbService.toGiveEmptyList = true
+
+        activityTestRule.launchActivity(
+            Intent(component.getContext(), EventsListActivity::class.java).apply {
+                putExtra(EventsListActivity.TOPICS_LIST, arrayListOf(Topics.KOTLIN))
+                putExtra(EventsListActivity.TOPIC_SUB, "${Topics.KOTLIN} devs")
+                putExtra(EventsListActivity.TOPIC_TITLE, Topics.KOTLIN)
+            }
+        )
+
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText(Topics.KOTLIN)))
+
+        onView(withId(R.id.layoutListIsEmpty)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun eventsList_Empty_Archive_ShouldShowEmptyListLayout() {
+
+        fakeDbService.toGiveEmptyList = true
+
+        activityTestRule.launchActivity(
+            Intent(component.getContext(), EventsListActivity::class.java).apply {
+                putExtra(EventsListActivity.TOPICS_LIST, arrayListOf(Topics.KOTLIN))
+                putExtra(EventsListActivity.TOPIC_SUB, "${Topics.KOTLIN} devs")
+                putExtra(EventsListActivity.TOPIC_TITLE, Topics.KOTLIN)
+                putExtra(EventsListActivity.IS_ARCHIVE, true)
+                putExtra(EventsListActivity.ARCHIVE_YEAR, 2017)
+            }
+        )
+
+        onView(withId(R.id.tvGenericTitle)).check(matches(withText(Topics.KOTLIN)))
+
+        onView(withId(R.id.layoutListIsEmpty)).check(matches(isDisplayed()))
+    }
 }

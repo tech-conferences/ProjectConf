@@ -14,6 +14,7 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
 
     var toThrowConnectException = false
     var toThrowTimeOutException = false
+    var toGiveEmptyList = false
 
     companion object {
         private const val COULD_NOT_CONNECT = "Could not connect"
@@ -62,6 +63,11 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
         topics: List<String>,
         year: Int
     ): Single<List<EventEntity>> {
+
+        if (toGiveEmptyList) {
+            return Single.just(emptyList())
+        }
+
         return Single.just(AndroidTestHelper.fakeEventEntityList).flatMap {
             when {
                 toThrowConnectException -> {
@@ -78,6 +84,11 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
     }
 
     override fun getUpComingEventsForTech(topics: List<String>): Single<List<EventEntity>> {
+
+        if (toGiveEmptyList) {
+            return Single.just(emptyList())
+        }
+
         return Single.just(AndroidTestHelper.fakeEventEntityList).flatMap {
             when {
                 toThrowConnectException -> {
