@@ -10,8 +10,8 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.local.prefs.UserTopicPreferences
 import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.EventsRepository
-import io.rot.labs.projectconf.ui.alerts.AlertsAdapter
-import io.rot.labs.projectconf.ui.alerts.AlertsViewModel
+import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsAdapter
+import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsViewModel
 import io.rot.labs.projectconf.ui.alerts.userTopicsChooser.AlertTopicChooserAdapter
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
@@ -43,7 +43,11 @@ class FragmentModule(private val fragment: Fragment) {
         TechBannerAdapter(fragment.requireActivity())
 
     @Provides
-    fun provideAlertAdapter() = AlertsAdapter(fragment.lifecycle, arrayListOf())
+    fun provideAlertAdapter() =
+        AlertsAdapter(
+            fragment.lifecycle,
+            arrayListOf()
+        )
 
     @Provides
     fun provideAlertTopicChooserAdapter(): AlertTopicChooserAdapter = AlertTopicChooserAdapter(

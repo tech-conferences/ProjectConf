@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.ui.alerts
+package io.rot.labs.projectconf.ui.alerts.alertsView
 
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.ui.base.BaseItemViewModel

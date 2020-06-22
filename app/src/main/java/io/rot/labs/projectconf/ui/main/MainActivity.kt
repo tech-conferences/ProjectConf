@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
-import io.rot.labs.projectconf.ui.alerts.AlertsFragment
+import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsFragment
 import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksFragment

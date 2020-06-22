@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.ui.alerts.alertsNotification
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
@@ -36,7 +35,6 @@ class AlertsViewViewModel(
                 }
             ).subscribeOn(schedulerProvider.io())
                 .subscribe({
-                    Log.d("PUI", "alertList ${it.size}")
                     events.postValue(EventsItemHelper.transformToInterleavedList(it))
                 }, {
                     handleNetworkDBError(it)

@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.ui.alerts
+package io.rot.labs.projectconf.ui.alerts.alertsView
 
 import android.os.Bundle
 import androidx.core.view.isVisible
@@ -22,7 +22,8 @@ class AlertsFragment : BaseFragment<AlertsViewModel>() {
 
         fun newInstance(): AlertsFragment {
             val args = Bundle()
-            val fragment = AlertsFragment()
+            val fragment =
+                AlertsFragment()
             fragment.arguments = args
             return fragment
         }

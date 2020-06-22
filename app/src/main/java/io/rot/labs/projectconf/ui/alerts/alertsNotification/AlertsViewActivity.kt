@@ -1,7 +1,6 @@
 package io.rot.labs.projectconf.ui.alerts.alertsNotification
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_alerts_view.rvAlertEvents
 class AlertsViewActivity : BaseActivity<AlertsViewViewModel>() {
 
     companion object {
-        const val ALERT_EVENTS_BUNDLE = "alert_events"
         const val ALERTS_LIST = "alerts_list"
     }
 
@@ -51,7 +49,6 @@ class AlertsViewActivity : BaseActivity<AlertsViewViewModel>() {
         setupRecyclerView()
 
         val alertsList = intent.getParcelableArrayListExtra<EventEntity>(ALERTS_LIST)
-        Log.d("PUI", "alertList $alertsList")
         viewModel.getEvents(alertsList!!)
     }
 

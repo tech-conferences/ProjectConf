@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.data.repository
 
-import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.EventsDatabaseService
@@ -205,7 +204,6 @@ class EventsRepository @Inject constructor(
     private fun makeConfSourceList(year: Int, list: List<String>): List<Single<List<EventEntity>>> {
         val sourceList = mutableListOf<Single<List<EventEntity>>>()
         list.forEach {
-            Log.d("PUI", "tech:$it $year")
             sourceList.add(networkService.getEventsByYear(year, it).mapToListOfEventEntity(it))
         }
         return sourceList

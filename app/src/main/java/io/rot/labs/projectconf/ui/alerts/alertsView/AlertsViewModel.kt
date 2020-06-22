@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.ui.alerts
+package io.rot.labs.projectconf.ui.alerts.alertsView
 
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable

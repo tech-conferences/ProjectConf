@@ -3,7 +3,7 @@ package io.rot.labs.projectconf.di.component
 import dagger.Component
 import io.rot.labs.projectconf.di.ViewModelScope
 import io.rot.labs.projectconf.di.module.ViewHolderModule
-import io.rot.labs.projectconf.ui.alerts.AlertsItemViewHolder
+import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsItemViewHolder
 import io.rot.labs.projectconf.ui.alerts.userTopicsChooser.AlertTopicChooserItemViewHolder
 import io.rot.labs.projectconf.ui.allTech.AllTechItemViewHolder
 import io.rot.labs.projectconf.ui.archive.ArchiveItemViewHolder

@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.data.local.prefs.UserTopicPreferences
 import io.rot.labs.projectconf.di.component.FragmentComponent
-import io.rot.labs.projectconf.ui.alerts.AlertsViewModel
+import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsViewModel
 import io.rot.labs.projectconf.ui.base.BaseBottomSheetDialogFragment
 import io.rot.labs.projectconf.utils.common.TopicsList
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper

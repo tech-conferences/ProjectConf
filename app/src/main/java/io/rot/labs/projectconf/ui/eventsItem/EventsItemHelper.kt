@@ -10,6 +10,7 @@ import io.rot.labs.projectconf.utils.common.TimeDateUtils
 
 object EventsItemHelper {
 
+    @JvmStatic
     fun transformToInterleavedList(list: List<EventEntity>): List<EventItem> {
         val periodEventListMap = mutableMapOf<String, MutableList<EventEntity>>()
 
@@ -37,6 +38,7 @@ object EventsItemHelper {
         return result
     }
 
+    @JvmStatic
     fun navigateToEventsListActivity(
         context: Context,
         topicTitle: String,

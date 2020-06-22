@@ -1,6 +1,5 @@
 package io.rot.labs.projectconf.ui.alerts.userTopicsChooser
 
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
@@ -42,7 +41,6 @@ class AlertTopicChooserItemViewHolder(parent: ViewGroup, val userTopicList: Muta
         viewModel.isChosen.observe(this, Observer {
             topic?.let { topic ->
                 if (it) {
-                    Log.d("PUI", "topic $topic, isChosen $it")
                     if (!itemView.topicCheckBox.isChecked) {
                         itemView.topicCheckBox.isChecked = true
                     }

@@ -11,6 +11,7 @@ import io.rot.labs.projectconf.utils.common.Topics
 
 object ImageUtils {
 
+    @JvmStatic
     fun loadImageDrawable(context: Context, @DrawableRes resId: Int, targetView: ImageView) {
         Glide.with(context)
             .asBitmap()
@@ -21,6 +22,7 @@ object ImageUtils {
     }
 
     @DrawableRes
+    @JvmStatic
     fun getTopicDrawableResId(topic: String): Int {
         return when (topic) {
             Topics.ANDROID -> R.drawable.android_logo
