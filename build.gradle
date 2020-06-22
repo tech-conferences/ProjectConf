@@ -66,6 +66,9 @@ ext {
     retrofit_version = '2.9.0'
     okhttp_version = '4.7.2'
 
+    // Work
+    work_version = '2.3.4'
+
     // Image
     glide_version = '4.8.0'
 

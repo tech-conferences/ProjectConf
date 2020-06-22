@@ -3,13 +3,15 @@ package io.rot.labs.projectconf.data.local.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import io.rot.labs.projectconf.data.local.db.dao.BookmarksDao
 import io.rot.labs.projectconf.data.local.db.dao.EventsDao
+import io.rot.labs.projectconf.data.local.db.entity.BookmarkedEvent
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import javax.inject.Singleton
 
 @Singleton
 @Database(
-    entities = [EventEntity::class],
+    entities = [EventEntity::class, BookmarkedEvent::class],
     exportSchema = false,
     version = 1
 )
@@ -17,4 +19,6 @@ import javax.inject.Singleton
 abstract class ConfDatabase : RoomDatabase() {
 
     abstract fun eventsDao(): EventsDao
+
+    abstract fun bookmarksDao(): BookmarksDao
 }

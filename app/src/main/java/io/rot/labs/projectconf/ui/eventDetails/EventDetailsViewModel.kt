@@ -3,7 +3,9 @@ package io.rot.labs.projectconf.ui.eventDetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import io.reactivex.disposables.CompositeDisposable
+import io.rot.labs.projectconf.data.local.db.entity.BookmarkedEvent
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
+import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.ui.base.BaseViewModel
 import io.rot.labs.projectconf.utils.network.NetworkDBHelper
@@ -14,7 +16,8 @@ class EventDetailsViewModel(
     private val schedulerProvider: SchedulerProvider,
     private val compositeDisposable: CompositeDisposable,
     networkDBHelper: NetworkDBHelper,
-    private val eventsRepository: EventsRepository
+    private val eventsRepository: EventsRepository,
+    private val bookmarksRepository: BookmarksRepository
 ) : BaseViewModel(schedulerProvider, compositeDisposable, networkDBHelper) {
 
     private val eventDetailsHolder = MutableLiveData<EventEntity>()
@@ -23,16 +26,18 @@ class EventDetailsViewModel(
 
     val progress = MutableLiveData<Boolean>()
 
+    val isBookmarked = MutableLiveData<Boolean>()
+
     override fun onCreate() {}
 
-    fun getEventDetails(name: String, startDate: Date) {
+    fun getEventDetails(name: String, startDate: Date, topic: String) {
         progress.postValue(true)
         if (eventDetailsHolder.value != null) {
             progress.postValue(false)
             return
         }
         compositeDisposable.add(
-            eventsRepository.getEventDetails(name, startDate)
+            eventsRepository.getEventDetails(name, startDate, topic)
                 .subscribeOn(schedulerProvider.io())
                 .subscribe(
                     {
@@ -43,6 +48,43 @@ class EventDetailsViewModel(
                         handleNetworkDBError(it)
                     }
                 )
+        )
+    }
+
+    fun checkIfBookmarked(name: String, startDate: Date, topic: String) {
+        compositeDisposable.add(
+            bookmarksRepository.getBookmarkedEvent(name, startDate, topic)
+                .isEmpty
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    isBookmarked.postValue(!it)
+                }, {
+                    handleNetworkDBError(it)
+                })
+        )
+    }
+
+    fun insertBookmarkedEvent(bookmarkedEvent: BookmarkedEvent) {
+        compositeDisposable.add(
+            bookmarksRepository.insertBookmarkEvent(bookmarkedEvent)
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    isBookmarked.postValue(true)
+                }, {
+                    handleNetworkDBError(it)
+                })
+        )
+    }
+
+    fun removeBookmarkedEvent(bookmarkedEvent: BookmarkedEvent) {
+        compositeDisposable.add(
+            bookmarksRepository.removeBookmarkEvent(bookmarkedEvent)
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    isBookmarked.postValue(false)
+                }, {
+                    handleNetworkDBError(it)
+                })
         )
     }
 }

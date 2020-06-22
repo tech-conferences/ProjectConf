@@ -60,7 +60,7 @@ abstract class BaseFragment<VM : BaseViewModel> : Fragment() {
 
     private fun getBuildComponent() = DaggerFragmentComponent
         .builder()
-        .applicationComponent((context!!.applicationContext as ConfApplication).appComponent)
+        .applicationComponent((requireContext().applicationContext as ConfApplication).appComponent)
         .fragmentModule(FragmentModule(this))
         .build()
 

@@ -1,14 +1,17 @@
 package io.rot.labs.projectconf.di.module
 
+import android.content.Context
+import android.content.SharedPreferences
 import androidx.room.Room
+import androidx.work.Configuration
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.BuildConfig
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
-import io.rot.labs.projectconf.data.local.db.DatabaseService
 import io.rot.labs.projectconf.data.remote.ConfApi
+import io.rot.labs.projectconf.data.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
 import io.rot.labs.projectconf.utils.network.NetworkDBHelper
@@ -40,11 +43,22 @@ class ApplicationModule(private val confApplication: ConfApplication) {
 
     @Provides
     @Singleton
-    fun provideDataBaseService(): DatabaseService = DatabaseService(provideConfDatabase())
+    fun provideNetworkHelper(): NetworkDBHelper = NetworkDBHelperImpl(confApplication)
 
     @Provides
     @Singleton
-    fun provideNetworkHelper(): NetworkDBHelper = NetworkDBHelperImpl(confApplication)
+    fun provideWorkManagerConfiguration(managerWorkerFactory: ManagerWorkerFactory): Configuration =
+        Configuration.Builder()
+            .setMinimumLoggingLevel(android.util.Log.INFO)
+            .setWorkerFactory(managerWorkerFactory)
+            .build()
+
+    @Provides
+    @Singleton
+    fun providesSharedPreferences(): SharedPreferences = confApplication.getSharedPreferences(
+        "UserTopicPrefs",
+        Context.MODE_PRIVATE
+    )
 
     @Provides
     fun provideCompositeDisposable() = CompositeDisposable()

@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import io.rot.labs.projectconf.R
+import io.rot.labs.projectconf.data.local.db.entity.BookmarkedEvent
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
@@ -43,9 +44,12 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
     companion object {
         const val EVENT_NAME = "event_name"
         const val EVENT_START_DATE = "event_start_date"
+        const val EVENT_TOPIC = "event_topic"
     }
 
     private var eventDetail: EventEntity? = null
+
+    private var isBookMarked: Boolean = false
 
     private val milliSecondsIn1Day = 86400000
 
@@ -138,6 +142,11 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
         }
 
         fabBookMark.setOnClickListener {
+            if (isBookMarked) {
+                viewModel.removeBookmarkedEvent(BookmarkedEvent(eventDetail!!))
+            } else {
+                viewModel.insertBookmarkedEvent(BookmarkedEvent(eventDetail!!))
+            }
         }
     }
 
@@ -147,6 +156,8 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
         viewModel.eventDetails.observe(this, Observer {
 
             eventDetail = it
+
+            viewModel.checkIfBookmarked(it.event.name, it.event.startDate, it.topic)
 
             ImageUtils.loadImageDrawable(this, ImageUtils.getTopicDrawableResId(it.topic), ivTech)
 
@@ -250,6 +261,15 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                 }
             }
         })
+
+        viewModel.isBookmarked.observe(this, Observer {
+            isBookMarked = it
+            if (it) {
+                fabBookMark.setImageDrawable(getDrawable(R.drawable.ic_bookmark))
+            } else {
+                fabBookMark.setImageDrawable(getDrawable(R.drawable.ic_bookmark_border))
+            }
+        })
     }
 
     private fun setupCollapsingToolbarLayout() {
@@ -274,7 +294,8 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
     private fun setupEventDetails() {
         val eventName = intent.getStringExtra(EVENT_NAME)
         val eventStartDateLong = intent.getLongExtra(EVENT_START_DATE, -1)
-        viewModel.getEventDetails(eventName!!, Date(eventStartDateLong))
+        val eventTopic = intent.getStringExtra(EVENT_TOPIC)
+        viewModel.getEventDetails(eventName!!, Date(eventStartDateLong), eventTopic!!)
     }
 
     private fun openURL(url: String, isTwitter: Boolean) {

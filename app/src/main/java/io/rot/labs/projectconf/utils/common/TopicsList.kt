@@ -133,4 +133,37 @@ object TopicsList {
         Topics.TECH_COMM,
         Topics.UX
     )
+
+    val allIn = listOf(
+        Topics.ANDROID,
+        Topics.CLOJURE,
+        Topics.CPP,
+        Topics.CSS,
+        Topics.DATA,
+        Topics.DEVOPS,
+        Topics.DOTNET,
+        Topics.ELIXIR,
+        Topics.ELM,
+        Topics.GENERAL,
+        Topics.GOLANG,
+        Topics.GRAPHQL,
+        Topics.GROOVY,
+        Topics.IOS,
+        Topics.IOT,
+        Topics.JAVA,
+        Topics.JAVASCRIPT,
+        Topics.KOTLIN,
+        Topics.LEADERSHIP,
+        Topics.NETWORKING,
+        Topics.PHP,
+        Topics.PRODUCT,
+        Topics.PYTHON,
+        Topics.RUBY,
+        Topics.RUST,
+        Topics.SCALA,
+        Topics.SECURITY,
+        Topics.TECH_COMM,
+        Topics.TYPESCRIPT,
+        Topics.UX
+    )
 }

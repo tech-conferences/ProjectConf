@@ -5,26 +5,31 @@ import io.reactivex.Single
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import java.util.Date
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-open class DatabaseService(database: ConfDatabase) {
+open class EventsDatabaseService @Inject constructor(database: ConfDatabase) {
 
-    private val dao = database.eventsDao()
+    private val eventsDao = database.eventsDao()
 
     open fun insertEvents(list: List<EventEntity>): Completable {
-        return dao.insertEvents(list)
+        return eventsDao.insertEvents(list)
+    }
+
+    open fun updateEvents(list: List<EventEntity>): Completable {
+        return eventsDao.updateEvents(list)
     }
 
     open fun getEventsForYear(year: Int): Single<List<EventEntity>> {
-        return dao.getEventsByYear(
+        return eventsDao.getEventsByYear(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getLastDayOfYear(year)
         )
     }
 
     open fun getEventsForYearAndTech(topics: List<String>, year: Int): Single<List<EventEntity>> {
-        return dao.getEventsByYearAndTech(
+        return eventsDao.getEventsByYearAndTech(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getLastDayOfYear(year),
             topics
@@ -35,7 +40,7 @@ open class DatabaseService(database: ConfDatabase) {
         topics: List<String>,
         year: Int
     ): Single<List<EventEntity>> {
-        return dao.getEventsByYearAndTech(
+        return eventsDao.getEventsByYearAndTech(
             TimeDateUtils.getFirstDayOfYear(year),
             TimeDateUtils.getCurrentDate(),
             topics
@@ -43,26 +48,34 @@ open class DatabaseService(database: ConfDatabase) {
     }
 
     open fun getUpComingEventsForCurrentMonth(): Single<List<EventEntity>> {
-        return dao.getUpComingEventsForCurrentMonth(
+        return eventsDao.getUpComingEventsForCurrentMonth(
             TimeDateUtils.getCurrentDate(),
             TimeDateUtils.getLastDateOfCurrentMonth()
         )
     }
 
+    open fun getUpComingEventsForUserTechCurrentMonth(topics: List<String>): Single<List<EventEntity>> {
+        return eventsDao.getUpComingEventsForUserTechCurrentMonth(
+            TimeDateUtils.getCurrentDate(),
+            TimeDateUtils.getLastDateOfCurrentMonth(),
+            topics
+        )
+    }
+
     open fun getUpComingEventsForTech(topics: List<String>): Single<List<EventEntity>> {
-        return dao.getUpComingEventsForTech(topics, TimeDateUtils.getCurrentDate())
+        return eventsDao.getUpComingEventsForTech(topics, TimeDateUtils.getCurrentDate())
     }
 
     open fun getUpComingEventsFromCurrentYear(): Single<List<EventEntity>> {
-        return dao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
+        return eventsDao.getUpComingEventsFromCurrentYear(TimeDateUtils.getCurrentDate())
     }
 
-    open fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
-        return dao.getEventDetails(name, startDate)
+    open fun getEventDetails(name: String, startDate: Date, topic: String): Single<EventEntity> {
+        return eventsDao.getEventDetails(name, startDate, topic)
     }
 
     open fun getEventsByQuery(nameQuery: String, yearList: List<Int>): Single<List<EventEntity>> {
         val mutatedNamedQuery = "%$nameQuery%"
-        return dao.getEventsByQuery(mutatedNamedQuery, yearList)
+        return eventsDao.getEventsByQuery(mutatedNamedQuery, yearList)
     }
 }

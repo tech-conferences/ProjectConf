@@ -27,6 +27,7 @@ class EventsItemViewHolder(
 
     private var eventName: String? = null
     private var eventStartDate: Date? = null
+    private var eventTopic: String? = null
 
     override fun injectDependencies(buildComponent: ViewHolderComponent) {
         buildComponent.inject(this)
@@ -41,6 +42,7 @@ class EventsItemViewHolder(
                     Intent(itemView.context, EventDetailsActivity::class.java).apply {
                         putExtra(EventDetailsActivity.EVENT_NAME, eventName)
                         putExtra(EventDetailsActivity.EVENT_START_DATE, eventStartDate!!.time)
+                        putExtra(EventDetailsActivity.EVENT_TOPIC, eventTopic)
                     }
                 )
             }
@@ -58,6 +60,7 @@ class EventsItemViewHolder(
 
         viewModel.topic.observe(this, Observer {
             it?.let {
+                eventTopic = it
                 itemView.tvTopicTitle.text = it
                 loadImageDrawable(itemView.context, getTopicDrawableResId(it), itemView.ivTopic)
             }

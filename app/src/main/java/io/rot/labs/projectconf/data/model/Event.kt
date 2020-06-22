@@ -1,8 +1,11 @@
 package io.rot.labs.projectconf.data.model
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import java.util.Date
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Event(
 
     @ColumnInfo(name = "name")
@@ -31,4 +34,4 @@ data class Event(
 
     @ColumnInfo(name = "twitter")
     val twitter: String? = null
-)
+) : Parcelable

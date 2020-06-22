@@ -57,6 +57,20 @@
     //general
     <string name="retry">Retry</string>
     <string name="sorry_no_conferences">Sorry, no conferences found</string>
+    <string name="done_label">Done</string>
+    <string name="choose_topics">Choose Topics</string>
+    <string name="no_topics_set_for_alerts">No topics set for alerts</string>
+    <string name="alerts_info_header">Alerts are set for following</string>
+    <string name="channel_name">Events Alerts</string>
+    <string name="channel_description">Alerts for user selected topics</string>
+    <string name="bookmarks_all">All</string>
+    <string name="no_cfp_text">No CFP reminders set</string>
+    <string name="no_bookmarks_text">No bookmarks set</string>
+    <string name="bookmarks_cfp">CFP</string>
+    <string name="new_alerts_title">Up coming events</string>
+    <string name="monthly_alerts_title">Up coming events this month</string>
+    <string name="new_conferences">New conferences are here</string>
+    <string name="conferences_that_might_interests">Conferences that might interests you</string>
 
     <string-array name="quotes">
         <item>"The best thing about a boolean is even if you are wrong, you are only off by a bit"</item>

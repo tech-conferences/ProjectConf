@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.TestComponentRule
-import io.rot.labs.projectconf.data.local.db.FakeDatabaseService
+import io.rot.labs.projectconf.data.local.db.FakeEventsDatabaseService
 import io.rot.labs.projectconf.utils.testHelper.RVMatcher.atPositionOnView
 import org.junit.Before
 import org.junit.Rule
@@ -28,11 +28,11 @@ class UpComingFragmentTest {
     @get:Rule
     val rule = RuleChain.outerRule(component)
 
-    lateinit var fakeDbService: FakeDatabaseService
+    lateinit var fakeDbService: FakeEventsDatabaseService
 
     @Before
     fun setup() {
-        fakeDbService = component.testComponent!!.getDatabaseService() as FakeDatabaseService
+        fakeDbService = component.testComponent!!.getEventsDatabaseService() as FakeEventsDatabaseService
     }
 
     @Test

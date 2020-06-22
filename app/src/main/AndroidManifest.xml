@@ -15,15 +15,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectConf"
         tools:ignore="AllowBackup">
+        <provider
+            android:name="androidx.work.impl.WorkManagerInitializer"
+            android:authorities="${applicationId}.workmanager-init"
+            tools:node="remove"
+            android:exported="false" />
+
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.archive.ArchiveActivity" />
-        <activity android:name=".ui.allTech.AllTechActivity"/>
+        <activity android:name=".ui.allTech.AllTechActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity
             android:name=".ui.search.SearchActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name=".ui.eventsList.EventsListActivity" />
         <activity android:name=".ui.eventDetails.EventDetailsActivity" />
+        <activity android:name=".ui.alerts.alertsNotification.AlertsViewActivity"/>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"

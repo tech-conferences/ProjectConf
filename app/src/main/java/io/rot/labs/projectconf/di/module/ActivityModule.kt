@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.EventsRepository
+import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsViewViewModel
 import io.rot.labs.projectconf.ui.allTech.AllTechAdapter
 import io.rot.labs.projectconf.ui.allTech.AllTechViewModel
 import io.rot.labs.projectconf.ui.archive.ArchiveAdapter
@@ -118,14 +120,16 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
         networkDBHelper: NetworkDBHelper,
-        eventsRepository: EventsRepository
+        eventsRepository: EventsRepository,
+        bookmarksRepository: BookmarksRepository
     ): EventDetailsViewModel {
         return ViewModelProvider(activity, ViewModelProviderFactory(EventDetailsViewModel::class) {
             EventDetailsViewModel(
                 schedulerProvider,
                 compositeDisposable,
                 networkDBHelper,
-                eventsRepository
+                eventsRepository,
+                bookmarksRepository
             )
         }).get(EventDetailsViewModel::class.java)
     }
@@ -150,5 +154,22 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         return ViewModelProvider(activity, ViewModelProviderFactory(AllTechViewModel::class) {
             AllTechViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
         }).get(AllTechViewModel::class.java)
+    }
+
+    @Provides
+    fun provideAlertsViewViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkDBHelper: NetworkDBHelper,
+        eventsRepository: EventsRepository
+    ): AlertsViewViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(AlertsViewViewModel::class) {
+            AlertsViewViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkDBHelper,
+                eventsRepository
+            )
+        }).get(AlertsViewViewModel::class.java)
     }
 }

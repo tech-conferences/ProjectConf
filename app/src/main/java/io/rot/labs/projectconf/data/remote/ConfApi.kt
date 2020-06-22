@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ConfApi {
 
-    private const val NETWORK_CALL_TIMEOUT = 60
+    private const val NETWORK_CALL_TIMEOUT = 120
 
     fun create(baseUrl: String, cacheDir: File, cacheSize: Long): NetworkService {
         return Retrofit.Builder()
@@ -21,7 +21,7 @@ object ConfApi {
                 OkHttpClient.Builder()
                     .cache(Cache(cacheDir, cacheSize))
                     .addInterceptor(HttpLoggingInterceptor().apply {
-                        if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
+                        level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY
                         else HttpLoggingInterceptor.Level.NONE
                     })
                     .readTimeout(NETWORK_CALL_TIMEOUT.toLong(), TimeUnit.SECONDS)

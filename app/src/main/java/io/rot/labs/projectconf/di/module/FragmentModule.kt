@@ -1,14 +1,18 @@
 package io.rot.labs.projectconf.di.module
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
+import io.rot.labs.projectconf.data.local.prefs.UserTopicPreferences
+import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.EventsRepository
+import io.rot.labs.projectconf.ui.alerts.AlertsAdapter
 import io.rot.labs.projectconf.ui.alerts.AlertsViewModel
-import io.rot.labs.projectconf.ui.base.BaseFragment
+import io.rot.labs.projectconf.ui.alerts.userTopicsChooser.AlertTopicChooserAdapter
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.main.MainSharedViewModel
@@ -22,7 +26,7 @@ import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 
 @Module
-class FragmentModule(private val fragment: BaseFragment<*>) {
+class FragmentModule(private val fragment: Fragment) {
 
     @Provides
     fun provideLinearLayoutManager() = LinearLayoutManager(fragment.context)
@@ -35,7 +39,18 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         EventsItemAdapter(fragment.lifecycle, ArrayList())
 
     @Provides
-    fun provideTechBannerAdapter(): TechBannerAdapter = TechBannerAdapter(fragment.activity!!)
+    fun provideTechBannerAdapter(): TechBannerAdapter =
+        TechBannerAdapter(fragment.requireActivity())
+
+    @Provides
+    fun provideAlertAdapter() = AlertsAdapter(fragment.lifecycle, arrayListOf())
+
+    @Provides
+    fun provideAlertTopicChooserAdapter(): AlertTopicChooserAdapter = AlertTopicChooserAdapter(
+        fragment.lifecycle,
+        arrayListOf(),
+        mutableSetOf()
+    )
 
     @Provides
     fun provideZoomOutTransformer(): ZoomOutPageTransformer =
@@ -77,21 +92,30 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
     fun provideAlertsViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkDBHelper: NetworkDBHelper
+        networkDBHelper: NetworkDBHelper,
+        userTopicPreferences: UserTopicPreferences
     ): AlertsViewModel {
-        return ViewModelProvider(fragment, ViewModelProviderFactory(AlertsViewModel::class) {
-            AlertsViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
-        }).get(AlertsViewModel::class.java)
+        return ViewModelProvider(
+            fragment.requireActivity(),
+            ViewModelProviderFactory(AlertsViewModel::class) {
+                AlertsViewModel(
+                    schedulerProvider,
+                    compositeDisposable,
+                    networkDBHelper,
+                    userTopicPreferences
+                )
+            }).get(AlertsViewModel::class.java)
     }
 
     @Provides
     fun provideBookmarksViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkDBHelper: NetworkDBHelper
+        networkDBHelper: NetworkDBHelper,
+        bookmarksRepository: BookmarksRepository
     ): BookmarksViewModel {
         return ViewModelProvider(fragment, ViewModelProviderFactory(BookmarksViewModel::class) {
-            BookmarksViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
+            BookmarksViewModel(schedulerProvider, compositeDisposable, networkDBHelper, bookmarksRepository)
         }).get(BookmarksViewModel::class.java)
     }
 
@@ -102,7 +126,7 @@ class FragmentModule(private val fragment: BaseFragment<*>) {
         networkDBHelper: NetworkDBHelper
     ): MainSharedViewModel {
         return ViewModelProvider(
-            fragment.activity!!,
+            fragment.requireActivity(),
             ViewModelProviderFactory(MainSharedViewModel::class) {
                 MainSharedViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
             }).get(MainSharedViewModel::class.java)

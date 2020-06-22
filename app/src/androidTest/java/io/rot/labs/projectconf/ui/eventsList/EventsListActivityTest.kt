@@ -10,7 +10,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.TestComponentRule
-import io.rot.labs.projectconf.data.local.db.FakeDatabaseService
+import io.rot.labs.projectconf.data.local.db.FakeEventsDatabaseService
 import io.rot.labs.projectconf.utils.common.Topics
 import org.junit.Before
 import org.junit.FixMethodOrder
@@ -32,11 +32,11 @@ class EventsListActivityTest {
     @get:Rule
     val rule = RuleChain.outerRule(component).around(activityTestRule)
 
-    lateinit var fakeDbService: FakeDatabaseService
+    lateinit var fakeDbService: FakeEventsDatabaseService
 
     @Before
     fun setup() {
-        fakeDbService = component.testComponent!!.getDatabaseService() as FakeDatabaseService
+        fakeDbService = component.testComponent!!.getEventsDatabaseService() as FakeEventsDatabaseService
     }
 
     @Test

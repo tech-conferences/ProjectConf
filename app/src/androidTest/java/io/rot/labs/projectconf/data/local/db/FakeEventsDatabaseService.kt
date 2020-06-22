@@ -10,7 +10,7 @@ import java.util.Date
 import javax.inject.Singleton
 
 @Singleton
-class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
+class FakeEventsDatabaseService(database: ConfDatabase) : EventsDatabaseService(database) {
 
     var toThrowConnectException = false
     var toThrowTimeOutException = false
@@ -120,7 +120,11 @@ class FakeDatabaseService(database: ConfDatabase) : DatabaseService(database) {
         }
     }
 
-    override fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
+    override fun getEventDetails(
+        name: String,
+        startDate: Date,
+        topic: String
+    ): Single<EventEntity> {
 
         val eventEntity = when (name) {
             "PragmaConf" -> AndroidTestHelper.fakeEventEntityList[0]

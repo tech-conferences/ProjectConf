@@ -1,8 +1,9 @@
 package io.rot.labs.projectconf.data.repository
 
+import android.util.Log
 import io.reactivex.Completable
 import io.reactivex.Single
-import io.rot.labs.projectconf.data.local.db.DatabaseService
+import io.rot.labs.projectconf.data.local.db.EventsDatabaseService
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.data.model.Event
 import io.rot.labs.projectconf.data.remote.NetworkService
@@ -14,7 +15,7 @@ import javax.inject.Singleton
 
 @Singleton
 class EventsRepository @Inject constructor(
-    private val databaseService: DatabaseService,
+    private val eventsDatabaseService: EventsDatabaseService,
     private val networkService: NetworkService
 ) {
 
@@ -28,7 +29,7 @@ class EventsRepository @Inject constructor(
 
         val upcomingEventSources = getConfSourcesList(currYear)
 
-        return databaseService.getUpComingEventsForCurrentMonth()
+        return eventsDatabaseService.getUpComingEventsForCurrentMonth()
             .flatMap {
                 if (it.isEmpty() || isRefresh) {
                     Single.merge(upcomingEventSources).collect(
@@ -37,14 +38,30 @@ class EventsRepository @Inject constructor(
                             value.forEach { event -> collector.add(event) }
                         }
                     ).flatMap { list ->
-                        databaseService.insertEvents(list).toSingle { "Complete" }
+                        eventsDatabaseService.insertEvents(list).toSingle { "Complete" }
                     }.flatMap {
-                        databaseService.getUpComingEventsForCurrentMonth()
+                        eventsDatabaseService.getUpComingEventsForCurrentMonth()
                     }
                 } else {
                     Single.just(it)
                 }
             }
+    }
+
+    fun getUpComingEventsForCurrentYear(): Single<String> {
+        val yearList = TimeDateUtils.getConfYearsList()
+        val currYear = yearList.last() - 1
+
+        val upcomingEventSources = getConfSourcesList(currYear)
+
+        return Single.merge(upcomingEventSources).collect(
+            { mutableListOf<EventEntity>() },
+            { collector, value ->
+                value.forEach { event -> collector.add(event) }
+            }
+        ).flatMap { list ->
+            eventsDatabaseService.insertEvents(list).toSingle { "Complete" }
+        }
     }
 
     fun getUpComingEventsForTech(
@@ -54,7 +71,7 @@ class EventsRepository @Inject constructor(
         val yearList = TimeDateUtils.getConfYearsList()
         val nextYear = yearList.last()
         val currYear = nextYear - 1
-        return databaseService.getEventsForYearAndTech(topics, nextYear)
+        return eventsDatabaseService.getEventsForYearAndTech(topics, nextYear)
             .flatMap {
                 if (it.isEmpty() || isRefresh) {
                     val upcomingSources =
@@ -71,12 +88,12 @@ class EventsRepository @Inject constructor(
                             value.forEach { event -> collector.add(event) }
                         }
                     ).flatMap { list ->
-                        databaseService.insertEvents(list).toSingle { "Completable" }
+                        eventsDatabaseService.insertEvents(list).toSingle { "Complete" }
                     }.flatMap {
-                        databaseService.getUpComingEventsForTech(topics)
+                        eventsDatabaseService.getUpComingEventsForTech(topics)
                     }
                 } else {
-                    databaseService.getUpComingEventsForTech(topics)
+                    eventsDatabaseService.getUpComingEventsForTech(topics)
                 }
             }
     }
@@ -89,7 +106,7 @@ class EventsRepository @Inject constructor(
 
         val isCurrYear = year == TimeDateUtils.getConfYearsList().last() - 1
 
-        return databaseService.getEventsForYearAndTech(listOf(tech), year)
+        return eventsDatabaseService.getEventsForYearAndTech(listOf(tech), year)
             .flatMap {
                 if (it.isEmpty() || isRefresh) {
                     val source = makeConfSourceList(year, listOf(tech))
@@ -99,34 +116,73 @@ class EventsRepository @Inject constructor(
                             value.forEach { event -> collector.add(event) }
                         }
                     ).flatMap { list ->
-                        databaseService.insertEvents(list).toSingle { "Complete" }
+                        eventsDatabaseService.insertEvents(list).toSingle { "Complete" }
                     }.flatMap {
                         if (isCurrYear) {
-                            databaseService.getPastEventsForCurrentYearAndTech(listOf(tech), year)
+                            eventsDatabaseService.getPastEventsForCurrentYearAndTech(
+                                listOf(tech),
+                                year
+                            )
                         } else {
-                            databaseService.getEventsForYearAndTech(listOf(tech), year)
+                            eventsDatabaseService.getEventsForYearAndTech(listOf(tech), year)
                         }
                     }
                 } else {
                     if (isCurrYear) {
-                        databaseService.getPastEventsForCurrentYearAndTech(listOf(tech), year)
+                        eventsDatabaseService.getPastEventsForCurrentYearAndTech(listOf(tech), year)
                     } else {
-                        databaseService.getEventsForYearAndTech(listOf(tech), year)
+                        eventsDatabaseService.getEventsForYearAndTech(listOf(tech), year)
                     }
                 }
             }
     }
 
-    fun insertEvents(list: List<EventEntity>): Completable {
-        return databaseService.insertEvents(list)
+    fun getUpcomingEventsForUserTech(tech: List<String>): Single<List<EventEntity>> {
+        val yearList = TimeDateUtils.getConfYearsList()
+        val currYear = yearList.last() - 1
+        val nextYear = yearList.last()
+
+        val upcomingEventSources =
+            makeConfSourceList(currYear, tech.intersect(getTopicList(currYear)).toList()) +
+                    makeConfSourceList(nextYear, tech.intersect(getTopicList(nextYear)).toList())
+
+        return Single.merge(upcomingEventSources).collect(
+            { mutableListOf<EventEntity>() },
+            { collector, value ->
+                value.forEach { event -> collector.add(event) }
+            }
+        ).flatMap { networkList ->
+            val localSource = listOf(
+                eventsDatabaseService.getEventsForYearAndTech(tech, currYear),
+                eventsDatabaseService.getEventsForYearAndTech(tech, nextYear)
+            )
+            Single.merge(localSource).collect(
+                { mutableListOf<EventEntity>() },
+                { collector, value ->
+                    value.forEach { event -> collector.add(event) }
+                }
+            ).flatMap { localList ->
+                Single.just(networkList - localList)
+            }.flatMap {
+                eventsDatabaseService.insertEvents(it).toSingle { it }
+            }
+        }
     }
 
-    fun getEventDetails(name: String, startDate: Date): Single<EventEntity> {
-        return databaseService.getEventDetails(name, startDate)
+    fun getUpComingEventsForUserTechCurrentMonth(topics: List<String>): Single<List<EventEntity>> {
+        return eventsDatabaseService.getUpComingEventsForUserTechCurrentMonth(topics)
+    }
+
+    fun insertEvents(list: List<EventEntity>): Completable {
+        return eventsDatabaseService.insertEvents(list)
+    }
+
+    fun getEventDetails(name: String, startDate: Date, topic: String): Single<EventEntity> {
+        return eventsDatabaseService.getEventDetails(name, startDate, topic)
     }
 
     fun getRecentEventsByQuery(nameQuery: String, yearList: List<Int>): Single<List<EventEntity>> {
-        return databaseService.getEventsForYear(yearList[1])
+        return eventsDatabaseService.getEventsForYear(yearList[1])
             .flatMap {
                 if (it.isEmpty()) {
                     val source = getConfSourcesList(yearList[1])
@@ -136,12 +192,12 @@ class EventsRepository @Inject constructor(
                             value.forEach { event -> collector.add(event) }
                         }
                     ).flatMap { list ->
-                        databaseService.insertEvents(list).toSingle { "Complete" }
+                        eventsDatabaseService.insertEvents(list).toSingle { "Complete" }
                     }.flatMap {
-                        databaseService.getEventsByQuery(nameQuery, yearList)
+                        eventsDatabaseService.getEventsByQuery(nameQuery, yearList)
                     }
                 } else {
-                    databaseService.getEventsByQuery(nameQuery, yearList)
+                    eventsDatabaseService.getEventsByQuery(nameQuery, yearList)
                 }
             }
     }
@@ -149,6 +205,7 @@ class EventsRepository @Inject constructor(
     private fun makeConfSourceList(year: Int, list: List<String>): List<Single<List<EventEntity>>> {
         val sourceList = mutableListOf<Single<List<EventEntity>>>()
         list.forEach {
+            Log.d("PUI", "tech:$it $year")
             sourceList.add(networkService.getEventsByYear(year, it).mapToListOfEventEntity(it))
         }
         return sourceList
