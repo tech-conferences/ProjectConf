@@ -13,6 +13,8 @@ import io.rot.labs.projectconf.data.local.db.EventsDatabaseService
 import io.rot.labs.projectconf.data.local.db.FakeEventsDatabaseService
 import io.rot.labs.projectconf.data.remote.FakeNetworkService
 import io.rot.labs.projectconf.data.remote.NetworkService
+import io.rot.labs.projectconf.data.repository.BookmarksRepository
+import io.rot.labs.projectconf.data.repository.FakeBookmarksRepository
 import io.rot.labs.projectconf.data.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
@@ -46,6 +48,11 @@ class ApplicationTestModule(private val application: ConfApplication) {
     @Provides
     @Singleton
     fun provideNetworkHelper(): NetworkDBHelper = FakeNetworkDBHelper(application)
+
+    @Provides
+    @Singleton
+    fun provideBookmarkRepository(): BookmarksRepository =
+        FakeBookmarksRepository(provideConfDatabase())
 
     @Provides
     @Singleton

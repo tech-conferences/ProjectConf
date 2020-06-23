@@ -154,4 +154,8 @@ class FakeEventsDatabaseService(database: ConfDatabase) : EventsDatabaseService(
 
         return Single.just(eventEntityList)
     }
+
+    override fun getUpComingEventsForUserTechCurrentMonth(topics: List<String>): Single<List<EventEntity>> {
+        return Single.just(AndroidTestHelper.fakeEventEntityList)
+    }
 }

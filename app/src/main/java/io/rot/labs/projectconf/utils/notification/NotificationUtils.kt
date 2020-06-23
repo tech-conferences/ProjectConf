@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.background.cfpUrl.CFPUrlReceiver
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
@@ -57,6 +58,7 @@ object NotificationUtils {
                 )
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
+                .setColor(ContextCompat.getColor(appContext, R.color.yellow500))
                 .setAutoCancel(true)
                 .build()
 
@@ -97,6 +99,7 @@ object NotificationUtils {
                 .setContentText("${eventEntity.topic} : ${eventEntity.event.name}")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
+                .setColor(ContextCompat.getColor(context, R.color.yellow500))
                 .setAutoCancel(true)
 
         eventEntity.event.cfpUrl?.let {
