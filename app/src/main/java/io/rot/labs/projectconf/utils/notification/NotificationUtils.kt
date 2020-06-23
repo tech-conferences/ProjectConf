@@ -9,9 +9,12 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import io.rot.labs.projectconf.R
+import io.rot.labs.projectconf.background.cfpUrl.CFPUrlReceiver
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
-import io.rot.labs.projectconf.data.work.UserTopicNewAlertsWorker
 import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsViewActivity
+import io.rot.labs.projectconf.ui.eventDetails.EventDetailsActivity
+import kotlin.math.absoluteValue
+import kotlin.random.Random
 
 object NotificationUtils {
 
@@ -41,7 +44,7 @@ object NotificationUtils {
         val pendingIntent =
             PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        createNotificationChannel(appContext)
+        createNotificationChannel(appContext, channelId)
 
         val notification =
             NotificationCompat.Builder(appContext, channelId)
@@ -62,13 +65,87 @@ object NotificationUtils {
     }
 
     @JvmStatic
-    fun createNotificationChannel(appContext: Context) {
+    fun generateCFPReminder(
+        context: Context,
+        eventEntity: EventEntity,
+        channelId: String,
+        notificationId: Int
+    ) {
+        val intent = Intent(context, EventDetailsActivity::class.java).apply {
+            putExtra(EventDetailsActivity.EVENT_NAME, eventEntity.event.name)
+            putExtra(EventDetailsActivity.EVENT_START_DATE, eventEntity.event.startDate.time)
+            putExtra(EventDetailsActivity.EVENT_TOPIC, eventEntity.topic)
+
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val randReqCode = Random.nextInt(0, Int.MAX_VALUE)
+        val pendingIntent =
+            PendingIntent.getActivity(
+                context,
+                randReqCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
+        createNotificationChannel(context, channelId)
+
+        val notification =
+            NotificationCompat.Builder(context, channelId)
+                .setSmallIcon(R.drawable.android_logo)
+                .setContentTitle(context.getString(R.string.cfp_reminder))
+                .setContentText("${eventEntity.topic} : ${eventEntity.event.name}")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+
+        eventEntity.event.cfpUrl?.let {
+            val cfpUrlIntent = Intent(context, CFPUrlReceiver::class.java).let { intent ->
+                intent.putExtra(CFPUrlReceiver.URL_KEY, it)
+                intent.putExtra(CFPUrlReceiver.NOTIFY_KEY, notificationId)
+                PendingIntent.getBroadcast(
+                    context,
+                    Random.nextInt().absoluteValue,
+                    intent,
+                    PendingIntent.FLAG_CANCEL_CURRENT
+                )
+            }
+
+            notification.addAction(
+                R.drawable.ic_web,
+                context.getString(R.string.go_to_cfp_url),
+                cfpUrlIntent
+            )
+        }
+
+        val siteIntent = Intent(context, CFPUrlReceiver::class.java).let {
+            it.putExtra(CFPUrlReceiver.URL_KEY, eventEntity.event.url)
+            it.putExtra(CFPUrlReceiver.NOTIFY_KEY, notificationId)
+            PendingIntent.getBroadcast(
+                context,
+                Random.nextInt().absoluteValue,
+                it,
+                PendingIntent.FLAG_CANCEL_CURRENT
+            )
+        }
+        notification.addAction(
+            R.drawable.ic_web,
+            context.getString(R.string.go_to_site),
+            siteIntent
+        )
+
+        NotificationManagerCompat.from(context)
+            .notify(notificationId, notification.build())
+    }
+
+    @JvmStatic
+    fun createNotificationChannel(appContext: Context, channelId: String) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = appContext.getString(R.string.channel_name)
             val descriptionText = appContext.getString(R.string.channel_description)
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel =
-                NotificationChannel(UserTopicNewAlertsWorker.CHANNEL_ID, name, importance).apply {
+                NotificationChannel(channelId, name, importance).apply {
                     description = descriptionText
                 }
             val notificationManager: NotificationManager =

@@ -14,6 +14,8 @@ import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsAdapter
 import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsViewModel
 import io.rot.labs.projectconf.ui.alerts.userTopicsChooser.AlertTopicChooserAdapter
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
+import io.rot.labs.projectconf.ui.eventDetails.EventDetailsViewModel
+import io.rot.labs.projectconf.ui.eventDetails.eventReminder.EventReminderViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.main.MainSharedViewModel
 import io.rot.labs.projectconf.ui.twitter.TwitterViewModel
@@ -119,7 +121,12 @@ class FragmentModule(private val fragment: Fragment) {
         bookmarksRepository: BookmarksRepository
     ): BookmarksViewModel {
         return ViewModelProvider(fragment, ViewModelProviderFactory(BookmarksViewModel::class) {
-            BookmarksViewModel(schedulerProvider, compositeDisposable, networkDBHelper, bookmarksRepository)
+            BookmarksViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkDBHelper,
+                bookmarksRepository
+            )
         }).get(BookmarksViewModel::class.java)
     }
 
@@ -134,5 +141,39 @@ class FragmentModule(private val fragment: Fragment) {
             ViewModelProviderFactory(MainSharedViewModel::class) {
                 MainSharedViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
             }).get(MainSharedViewModel::class.java)
+    }
+
+    @Provides
+    fun provideEventReminderViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkDBHelper: NetworkDBHelper
+    ): EventReminderViewModel {
+        return ViewModelProvider(
+            fragment,
+            ViewModelProviderFactory(EventReminderViewModel::class) {
+                EventReminderViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
+            }).get(EventReminderViewModel::class.java)
+    }
+
+    @Provides
+    fun provideEventDetailsViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkDBHelper: NetworkDBHelper,
+        eventsRepository: EventsRepository,
+        bookmarksRepository: BookmarksRepository
+    ): EventDetailsViewModel {
+        return ViewModelProvider(
+            fragment.requireActivity(),
+            ViewModelProviderFactory(EventDetailsViewModel::class) {
+                EventDetailsViewModel(
+                    schedulerProvider,
+                    compositeDisposable,
+                    networkDBHelper,
+                    eventsRepository,
+                    bookmarksRepository
+                )
+            }).get(EventDetailsViewModel::class.java)
     }
 }

@@ -28,17 +28,17 @@ class ConfApplication : Application(), Configuration.Provider {
     override fun onCreate() {
         super.onCreate()
         injectDependencies()
-        scheduleWorkers(AllEventsFetchWorker::class.java, AllEventsFetchWorker.TAG, 15, 15)
+        scheduleWorkers(AllEventsFetchWorker::class.java, AllEventsFetchWorker.TAG, 11, 15)
         scheduleWorkers(
             UserTopicNewAlertsWorker::class.java,
             UserTopicNewAlertsWorker.TAG,
-            5,
+            8,
             15
         )
         scheduleWorkers(
             UserTopicBiWeeklyAlertWorker::class.java,
             UserTopicBiWeeklyAlertWorker.TAG,
-            10,
+            5,
             15
         )
     }

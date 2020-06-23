@@ -6,6 +6,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.TestScheduler
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
+import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.EventsRepository
 import io.rot.labs.projectconf.utils.TestHelper
 import io.rot.labs.projectconf.utils.TestSchedulerProvider
@@ -34,6 +35,9 @@ class EventDetailsViewModelTest {
     lateinit var eventsRepository: EventsRepository
 
     @Mock
+    lateinit var bookmarksRepository: BookmarksRepository
+
+    @Mock
     lateinit var eventDetailsObserver: Observer<EventEntity>
 
     @Mock
@@ -50,7 +54,8 @@ class EventDetailsViewModelTest {
             TestSchedulerProvider(testScheduler),
             CompositeDisposable(),
             networkDBHelper,
-            eventsRepository
+            eventsRepository,
+            bookmarksRepository
         )
 
         eventsDetailsViewModel.apply {
@@ -67,9 +72,9 @@ class EventDetailsViewModelTest {
 
         doReturn(Single.just(fakeEventEntity))
             .`when`(eventsRepository)
-            .getEventDetails("Kotliners Conf", fakeEventStartDate)
+            .getEventDetails("Kotliners Conf", fakeEventStartDate, "kotlin")
 
-        eventsDetailsViewModel.getEventDetails("Kotliners Conf", fakeEventStartDate)
+        eventsDetailsViewModel.getEventDetails("Kotliners Conf", fakeEventStartDate, "kotlin")
 
         testScheduler.triggerActions()
 

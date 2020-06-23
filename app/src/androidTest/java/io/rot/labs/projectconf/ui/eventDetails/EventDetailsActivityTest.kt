@@ -38,6 +38,7 @@ class EventDetailsActivityTest {
             Intent(component.getContext(), EventDetailsActivity::class.java).apply {
                 putExtra(EventDetailsActivity.EVENT_NAME, "PragmaConf")
                 putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
+                putExtra(EventDetailsActivity.EVENT_TOPIC, "ux")
             }
         )
 
@@ -58,6 +59,7 @@ class EventDetailsActivityTest {
             Intent(component.getContext(), EventDetailsActivity::class.java).apply {
                 putExtra(EventDetailsActivity.EVENT_NAME, "KotlinersConf")
                 putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
+                putExtra(EventDetailsActivity.EVENT_TOPIC, "kotlin")
             }
         )
 
@@ -76,6 +78,7 @@ class EventDetailsActivityTest {
             Intent(component.getContext(), EventDetailsActivity::class.java).apply {
                 putExtra(EventDetailsActivity.EVENT_NAME, "Kubecon")
                 putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
+                putExtra(EventDetailsActivity.EVENT_TOPIC, "devops")
             }
         )
 
@@ -91,6 +94,7 @@ class EventDetailsActivityTest {
             Intent(component.getContext(), EventDetailsActivity::class.java).apply {
                 putExtra(EventDetailsActivity.EVENT_NAME, "Cloudnative")
                 putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
+                putExtra(EventDetailsActivity.EVENT_TOPIC, "devops")
             }
         )
 
@@ -107,6 +111,7 @@ class EventDetailsActivityTest {
             Intent(component.getContext(), EventDetailsActivity::class.java).apply {
                 putExtra(EventDetailsActivity.EVENT_NAME, "Rustlang")
                 putExtra(EventDetailsActivity.EVENT_START_DATE, AndroidTestHelper.eventDatePast)
+                putExtra(EventDetailsActivity.EVENT_TOPIC, "rust")
             }
         )
 

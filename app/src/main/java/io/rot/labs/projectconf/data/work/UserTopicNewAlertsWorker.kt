@@ -19,7 +19,7 @@ class UserTopicNewAlertsWorker(
 
     companion object {
         const val TAG = "UserTopicNewAlertsWorker"
-        const val CHANNEL_ID = "userTopicNewAlerts"
+        const val CHANNEL_ID = "User Topic New Alerts"
         const val notificationId = 21
     }
 

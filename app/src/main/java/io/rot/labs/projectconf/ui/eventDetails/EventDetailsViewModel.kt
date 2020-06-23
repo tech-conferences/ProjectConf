@@ -28,6 +28,8 @@ class EventDetailsViewModel(
 
     val isBookmarked = MutableLiveData<Boolean>()
 
+    val cfpScheduledId = MutableLiveData<Int>()
+
     override fun onCreate() {}
 
     fun getEventDetails(name: String, startDate: Date, topic: String) {
@@ -64,12 +66,25 @@ class EventDetailsViewModel(
         )
     }
 
+    fun checkIfCFPScheduled(name: String, startDate: Date, topic: String) {
+        compositeDisposable.add(
+            bookmarksRepository.getBookmarkedEvent(name, startDate, topic)
+                .subscribeOn(schedulerProvider.io())
+                .subscribe({
+                    cfpScheduledId.postValue(it.cfpReminderId)
+                }, {
+                    handleNetworkDBError(it)
+                })
+        )
+    }
+
     fun insertBookmarkedEvent(bookmarkedEvent: BookmarkedEvent) {
         compositeDisposable.add(
             bookmarksRepository.insertBookmarkEvent(bookmarkedEvent)
                 .subscribeOn(schedulerProvider.io())
                 .subscribe({
                     isBookmarked.postValue(true)
+                    cfpScheduledId.postValue(bookmarkedEvent.cfpReminderId)
                 }, {
                     handleNetworkDBError(it)
                 })

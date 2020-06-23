@@ -71,6 +71,14 @@
     <string name="monthly_alerts_title">Up coming events this month</string>
     <string name="new_conferences">New conferences are here</string>
     <string name="conferences_that_might_interests">Conferences that might interests you</string>
+    <string name="set">Set</string>
+    <string name="set_reminder">Set Reminder</string>
+    <string name="set_day">Set Day</string>
+    <string name="set_time">Set Time</string>
+    <string name="cfp_reminder">CFP Reminder</string>
+    <string name="cancel_reminder">Cancel Current Reminder ?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string-array name="quotes">
         <item>"The best thing about a boolean is even if you are wrong, you are only off by a bit"</item>

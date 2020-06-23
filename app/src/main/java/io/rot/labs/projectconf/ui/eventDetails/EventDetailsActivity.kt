@@ -1,11 +1,8 @@
 package io.rot.labs.projectconf.ui.eventDetails
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract
-import androidx.browser.customtabs.CustomTabsIntent
-import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
@@ -14,7 +11,9 @@ import io.rot.labs.projectconf.data.local.db.entity.BookmarkedEvent
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
+import io.rot.labs.projectconf.ui.eventDetails.eventReminder.EventReminderDialogFragment
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
+import io.rot.labs.projectconf.utils.common.URLOpener.openURL
 import io.rot.labs.projectconf.utils.display.ImageUtils
 import java.util.Date
 import java.util.Locale
@@ -50,6 +49,7 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
     private var eventDetail: EventEntity? = null
 
     private var isBookMarked: Boolean = false
+    private var cfpScheduledId: Int = -1
 
     private val milliSecondsIn1Day = 86400000
 
@@ -72,25 +72,29 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
         btnCfpUrl.setOnClickListener {
             eventDetail?.event?.cfpUrl?.let {
-                openURL(it, false)
+                openURL(it, false, this)
             }
         }
 
         btnConfUrl.setOnClickListener {
             eventDetail?.event?.url?.let {
-                openURL(it, false)
+                openURL(it, false, this)
             }
         }
 
         btnTwitter.setOnClickListener {
             eventDetail?.event?.twitter?.let {
                 val twitterUrl = "https://twitter.com/${it.apply { removePrefix("@") }}"
-                openURL(twitterUrl, true)
+                openURL(twitterUrl, true, this)
             }
         }
 
         tvCFPEndDate.setOnClickListener {
             // show Add reminder bottom frag
+            eventDetail?.let {
+                EventReminderDialogFragment.newInstance(it, cfpScheduledId)
+                    .show(supportFragmentManager, EventReminderDialogFragment.TAG)
+            }
         }
 
         ivAddToCalendar.setOnClickListener {
@@ -169,6 +173,7 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                 "${it.event.city}, ${it.event.country}"
             }
 
+            // Event Dates section
             val startDate = TimeDateUtils.getFormattedDay(it.event.startDate)
             val endDate = TimeDateUtils.getFormattedDay(it.event.endDate)
             tvEventStartDate.text = startDate
@@ -180,11 +185,19 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                 tvEventEndDate.text = endDate
             }
 
+            // Twitter button section
             if (it.event.twitter != null) {
                 btnTwitter.isVisible = true
                 btnTwitter.text = it.event.twitter
             } else {
                 btnTwitter.isVisible = false
+            }
+
+            // CFP Section
+            val cfpDrawable = if (cfpScheduledId != -1) {
+                getDrawable(R.drawable.ic_delete_alert)
+            } else {
+                getDrawable(R.drawable.ic_add_alert)
             }
 
             if (it.event.cfpEndDate == null && it.event.cfpUrl == null) {
@@ -201,11 +214,11 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
                 tvCFPEndDate.text = TimeDateUtils.getFormattedDay(it.event.cfpEndDate!!)
 
-                if (it.event.cfpEndDate.time > TimeDateUtils.getCurrentDate().time + 43_200_000) {
+                if (it.event.cfpEndDate.time > TimeDateUtils.getCurrentDate().time + (3 * 86_400_000)) {
                     tvCFPEndDate.setCompoundDrawablesWithIntrinsicBounds(
                         null,
                         null,
-                        ContextCompat.getDrawable(this, R.drawable.ic_add_alert),
+                        cfpDrawable,
                         null
                     )
                 } else {
@@ -227,11 +240,11 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                 tvCFPEndDate.isVisible = true
                 tvCFPEndDate.text = TimeDateUtils.getFormattedDay(it.event.cfpEndDate)
 
-                if (it.event.cfpEndDate.time > TimeDateUtils.getCurrentDate().time + 43_200_000) {
+                if (it.event.cfpEndDate.time > TimeDateUtils.getCurrentDate().time + (3 * 86_400_000)) {
                     tvCFPEndDate.setCompoundDrawablesWithIntrinsicBounds(
                         null,
                         null,
-                        ContextCompat.getDrawable(this, R.drawable.ic_add_alert),
+                        cfpDrawable,
                         null
                     )
                 } else {
@@ -270,6 +283,25 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
                 fabBookMark.setImageDrawable(getDrawable(R.drawable.ic_bookmark_border))
             }
         })
+
+        viewModel.cfpScheduledId.observe(this, Observer {
+            cfpScheduledId = it ?: -1
+            if (it != null) {
+                tvCFPEndDate.setCompoundDrawablesWithIntrinsicBounds(
+                    null,
+                    null,
+                    getDrawable(R.drawable.ic_delete_alert),
+                    null
+                )
+            } else {
+                tvCFPEndDate.setCompoundDrawablesWithIntrinsicBounds(
+                    null,
+                    null,
+                    getDrawable(R.drawable.ic_add_alert),
+                    null
+                )
+            }
+        })
     }
 
     private fun setupCollapsingToolbarLayout() {
@@ -296,19 +328,6 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
         val eventStartDateLong = intent.getLongExtra(EVENT_START_DATE, -1)
         val eventTopic = intent.getStringExtra(EVENT_TOPIC)
         viewModel.getEventDetails(eventName!!, Date(eventStartDateLong), eventTopic!!)
-    }
-
-    private fun openURL(url: String, isTwitter: Boolean) {
-        val urlIntent = CustomTabsIntent.Builder().apply {
-            val colorId = if (isTwitter) {
-                R.color.blueTwitter
-            } else {
-                R.color.yellow500
-            }
-            setToolbarColor(ContextCompat.getColor(this@EventDetailsActivity, colorId))
-            addDefaultShareMenuItem()
-            setShowTitle(true)
-        }.build()
-        urlIntent.launchUrl(this, Uri.parse(url))
+        viewModel.checkIfCFPScheduled(eventName, Date(eventStartDateLong), eventTopic)
     }
 }

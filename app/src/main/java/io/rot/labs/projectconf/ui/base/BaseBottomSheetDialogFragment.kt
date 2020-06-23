@@ -23,7 +23,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel> : BottomSheetDi
     lateinit var viewModel: VM
 
     @LayoutRes
-    abstract fun provideLayoutResId(): Int
+    abstract fun provideLayoutId(): Int
 
     abstract fun injectDependencies(buildComponent: FragmentComponent)
 
@@ -67,7 +67,7 @@ abstract class BaseBottomSheetDialogFragment<VM : BaseViewModel> : BottomSheetDi
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(provideLayoutResId(), container, false)
+        return inflater.inflate(provideLayoutId(), container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -32,7 +32,7 @@ class AlertTopicChooserDialogFragment : BaseBottomSheetDialogFragment<AlertsView
     @Inject
     lateinit var userTopicPreferences: UserTopicPreferences
 
-    override fun provideLayoutResId(): Int = R.layout.fragment_alert_topic_chooser
+    override fun provideLayoutId(): Int = R.layout.fragment_alert_topic_chooser
 
     override fun injectDependencies(buildComponent: FragmentComponent) {
         buildComponent.inject(this)

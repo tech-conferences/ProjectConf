@@ -18,7 +18,7 @@ class UserTopicBiWeeklyAlertWorker(
 
     companion object {
         const val TAG = "UserTopicBiWeeklyAlertsWorker"
-        const val CHANNEL_ID = "userTopicsBiWeeklyAlerts"
+        const val CHANNEL_ID = "User Topics BiWeekly Alerts"
         const val notificationId = 3
     }
 

@@ -17,5 +17,9 @@ data class BookmarkedEvent(
     var cfpReminderEnabled: Boolean = false,
 
     @ColumnInfo(name = "cfp_reminder_req_id")
-    var cfpReminderId: Int? = null
+    var cfpReminderId: Int? = null,
+
+    @ColumnInfo(name = "cfp_reminder_time")
+    var cfpReminderTimeMillis: Long? = null
+
 ) : Serializable

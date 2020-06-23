@@ -29,7 +29,6 @@ class MainActivityTest {
     @Test
     fun onOpen_show_Upcoming_Fragment() {
         launch(MainActivity::class.java)
-
         onView(withId(R.id.tvScreenTitle)).check(matches(withText(R.string.upcoming_events)))
     }
 
