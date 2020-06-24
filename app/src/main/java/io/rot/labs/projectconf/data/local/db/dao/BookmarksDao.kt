@@ -24,10 +24,10 @@ interface BookmarksDao {
     @Delete
     fun remove(bookmarkedEvent: BookmarkedEvent): Completable
 
-    @Query("SELECT * FROM bookmarked_events")
+    @Query("SELECT * FROM bookmarked_events ORDER BY startDate")
     fun getAllBookmarkedEvents(): Single<List<BookmarkedEvent>>
 
-    @Query("SELECT * FROM bookmarked_events WHERE cfp_reminder_enabled = 1")
+    @Query("SELECT * FROM bookmarked_events WHERE cfp_reminder_enabled = 1 ORDER BY startDate")
     fun getCFPReminderEvents(): Single<List<BookmarkedEvent>>
 
     @Query("SELECT * FROM bookmarked_events WHERE name = :name AND startDate = :startDate AND topic = :topic LIMIT 1")

@@ -30,6 +30,10 @@ class SearchItemViewModel @Inject constructor(
         it.event.startDate
     }
 
+    val topic = Transformations.map(data) {
+        it.topic
+    }
+
     override fun onCreate() {
     }
 }

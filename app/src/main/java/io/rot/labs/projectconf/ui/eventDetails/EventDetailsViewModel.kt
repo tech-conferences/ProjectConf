@@ -97,6 +97,7 @@ class EventDetailsViewModel(
                 .subscribeOn(schedulerProvider.io())
                 .subscribe({
                     isBookmarked.postValue(false)
+                    cfpScheduledId.postValue(null)
                 }, {
                     handleNetworkDBError(it)
                 })

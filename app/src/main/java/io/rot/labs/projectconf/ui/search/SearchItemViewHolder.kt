@@ -21,6 +21,7 @@ class SearchItemViewHolder(parent: ViewGroup) :
 
     private var eventName: String? = null
     private var startDate: Date? = null
+    private var topic: String? = null
 
     override fun injectDependencies(buildComponent: ViewHolderComponent) {
         buildComponent.inject(this)
@@ -35,6 +36,7 @@ class SearchItemViewHolder(parent: ViewGroup) :
                 ).apply {
                     putExtra(EventDetailsActivity.EVENT_NAME, eventName)
                     putExtra(EventDetailsActivity.EVENT_START_DATE, startDate!!.time)
+                    putExtra(EventDetailsActivity.EVENT_TOPIC, topic)
                 })
         }
     }
@@ -54,6 +56,10 @@ class SearchItemViewHolder(parent: ViewGroup) :
         viewModel.startDate.observe(this, Observer {
             startDate = it
             itemView.tvEventDateSearch.text = TimeDateUtils.getFormattedDay(it)
+        })
+
+        viewModel.topic.observe(this, Observer {
+            topic = it
         })
     }
 }

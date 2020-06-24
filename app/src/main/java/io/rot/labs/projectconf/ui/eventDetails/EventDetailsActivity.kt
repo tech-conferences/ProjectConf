@@ -17,6 +17,7 @@ import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventDetails.eventReminder.EventReminderDialogFragment
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
+import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.URLOpener.openURL
 import io.rot.labs.projectconf.utils.display.ImageUtils
 import java.util.Date
@@ -177,6 +178,7 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
             )
         }
         alarmManager.cancel(alarmIntent)
+        Toaster.show(this, "Reminder Cancel")
     }
 
     override fun setupObservables() {
