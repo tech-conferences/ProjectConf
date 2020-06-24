@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectConf</string>
+    <string name="app_name">ConfX</string>
 
     // Networking
     <string name="network_could_not_connect">Could not able to connect, Please try again</string>
