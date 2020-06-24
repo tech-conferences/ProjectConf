@@ -60,4 +60,4 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 |<img src="https://user-images.githubusercontent.com/24780524/85633711-68a23800-b697-11ea-93e9-62f7bfaf4b2e.jpeg" width=360>|<img src="https://user-images.githubusercontent.com/24780524/85633717-6a6bfb80-b697-11ea-9591-4389d619a8ac.jpeg" width=360>|<img src="https://user-images.githubusercontent.com/24780524/85633714-69d36500-b697-11ea-8a7f-b1dc0e8b2164.jpeg" width=360>|
 
 ## Illustrations Credits
-[Icons 8 Ouch](https://icons8.com/illustrations)
+[Icons 8 Ouch](https://icons8.com/illustrations) - Awesome free illustrations for your hobby and work projects
