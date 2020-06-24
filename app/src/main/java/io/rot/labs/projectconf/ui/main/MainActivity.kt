@@ -1,6 +1,7 @@
 package io.rot.labs.projectconf.ui.main
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -14,8 +15,8 @@ import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsFragment
 import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksFragment
+import io.rot.labs.projectconf.ui.changeTheme.ChangeThemeDialogFragment
 import io.rot.labs.projectconf.ui.search.SearchActivity
-import io.rot.labs.projectconf.ui.settings.SettingsActivity
 import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
@@ -92,10 +93,10 @@ class MainActivity : BaseActivity<MainViewModel>() {
             }
         })
 
-        viewModel.settingsNavigation.observe(this, Observer {
+        viewModel.changeThemeNavigation.observe(this, Observer {
             it.getIfNotHandled()?.let {
-                val settingsIntent = Intent(this, SettingsActivity::class.java)
-                startActivity(settingsIntent)
+                showChangeThemeBottomDialog()
+                drawerLayout.closeDrawer(GravityCompat.START)
             }
         })
 
@@ -107,6 +108,10 @@ class MainActivity : BaseActivity<MainViewModel>() {
     private fun setUpNavigationDrawer() {
         setSupportActionBar(matToolBarMain)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+            navView.menu.findItem(R.id.nav_change_theme).isVisible = false
+        }
 
         val drawerToggle = ActionBarDrawerToggle(
             this,
@@ -146,8 +151,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                R.id.nav_settings -> {
-                    viewModel.onSettingsRedirection()
+                R.id.nav_change_theme -> {
+                    viewModel.onChangeTheme()
                     drawerLayout.closeDrawer(GravityCompat.START)
                     false
                 }
@@ -258,5 +263,9 @@ class MainActivity : BaseActivity<MainViewModel>() {
         fragmentTransaction.commit()
 
         activeFragment = fragment
+    }
+
+    private fun showChangeThemeBottomDialog() {
+        ChangeThemeDialogFragment().show(supportFragmentManager, ChangeThemeDialogFragment.TAG)
     }
 }

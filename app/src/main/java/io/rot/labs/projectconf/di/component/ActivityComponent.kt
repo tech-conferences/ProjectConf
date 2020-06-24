@@ -10,7 +10,6 @@ import io.rot.labs.projectconf.ui.eventDetails.EventDetailsActivity
 import io.rot.labs.projectconf.ui.eventsList.EventsListActivity
 import io.rot.labs.projectconf.ui.main.MainActivity
 import io.rot.labs.projectconf.ui.search.SearchActivity
-import io.rot.labs.projectconf.ui.settings.SettingsActivity
 
 @ActivityScope
 @Component(
@@ -22,8 +21,6 @@ interface ActivityComponent {
     fun inject(activity: MainActivity)
 
     fun inject(activity: ArchiveActivity)
-
-    fun inject(activity: SettingsActivity)
 
     fun inject(activity: SearchActivity)
 

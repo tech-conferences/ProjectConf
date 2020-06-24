@@ -10,6 +10,7 @@ import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.BuildConfig
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
+import io.rot.labs.projectconf.data.local.prefs.ThemePreferences
 import io.rot.labs.projectconf.data.remote.ConfApi
 import io.rot.labs.projectconf.data.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
@@ -56,7 +57,7 @@ class ApplicationModule(private val confApplication: ConfApplication) {
     @Provides
     @Singleton
     fun providesSharedPreferences(): SharedPreferences = confApplication.getSharedPreferences(
-        "UserTopicPrefs",
+        "UserPrefs",
         Context.MODE_PRIVATE
     )
 
@@ -66,6 +67,8 @@ class ApplicationModule(private val confApplication: ConfApplication) {
     @Provides
     fun provideSchedulerProvider(): SchedulerProvider = RxSchedulerProvider()
 
+    @Singleton
     @Provides
-    fun provideScreenResourceHelper(): ScreenResourcesHelper = ScreenUtils
+    fun provideScreenResourceHelper(themePreferences: ThemePreferences): ScreenResourcesHelper =
+        ScreenUtils(themePreferences)
 }

@@ -21,7 +21,6 @@ import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.utils.common.Toaster
-import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
 import io.rot.labs.projectconf.utils.search.getTextChangeObservable
 import java.util.concurrent.TimeUnit
@@ -45,9 +44,6 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
 
     @Inject
     lateinit var searchAdapter: SearchAdapter
-
-    @Inject
-    lateinit var screenResourcesHelper: ScreenResourcesHelper
 
     @Inject
     lateinit var schedulerProvider: SchedulerProvider
@@ -78,7 +74,7 @@ class SearchActivity : BaseActivity<SearchViewModel>() {
 
         rvSearchResults.apply {
             adapter = searchAdapter
-            layoutManager = if (screenResourcesHelper.isPortrait()) {
+            layoutManager = if (screenUtils.isPortrait()) {
                 linearLayoutManager
             } else {
                 gridLayoutManager

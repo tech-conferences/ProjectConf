@@ -9,7 +9,6 @@ import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
-import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_alerts_view.matToolBarAlerts
 import kotlinx.android.synthetic.main.activity_alerts_view.rvAlertEvents
@@ -22,9 +21,6 @@ class AlertsNotificationActivity : BaseActivity<AlertsNotificationViewModel>() {
 
     @Inject
     lateinit var eventsItemAdapter: EventsItemAdapter
-
-    @Inject
-    lateinit var screenResourcesHelper: ScreenResourcesHelper
 
     @Inject
     lateinit var linearLayoutManager: LinearLayoutManager
@@ -63,7 +59,7 @@ class AlertsNotificationActivity : BaseActivity<AlertsNotificationViewModel>() {
         rvAlertEvents.apply {
             adapter = eventsItemAdapter
 
-            layoutManager = if (screenResourcesHelper.isPortrait()) {
+            layoutManager = if (screenUtils.isPortrait()) {
                 linearLayoutManager
             } else {
                 gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {

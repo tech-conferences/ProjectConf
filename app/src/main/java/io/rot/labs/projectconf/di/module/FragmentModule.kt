@@ -14,6 +14,7 @@ import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsAdapter
 import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsViewModel
 import io.rot.labs.projectconf.ui.alerts.userTopicsChooser.AlertTopicChooserAdapter
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksViewModel
+import io.rot.labs.projectconf.ui.changeTheme.ChangeThemeViewModel
 import io.rot.labs.projectconf.ui.eventDetails.EventDetailsViewModel
 import io.rot.labs.projectconf.ui.eventDetails.eventReminder.EventReminderViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
@@ -175,5 +176,18 @@ class FragmentModule(private val fragment: Fragment) {
                     bookmarksRepository
                 )
             }).get(EventDetailsViewModel::class.java)
+    }
+
+    @Provides
+    fun provideChangeThemeViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkDBHelper: NetworkDBHelper
+    ): ChangeThemeViewModel {
+        return ViewModelProvider(
+            fragment,
+            ViewModelProviderFactory(ChangeThemeViewModel::class) {
+                ChangeThemeViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
+            }).get(ChangeThemeViewModel::class.java)
     }
 }

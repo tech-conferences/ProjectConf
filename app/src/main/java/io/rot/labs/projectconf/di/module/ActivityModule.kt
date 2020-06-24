@@ -21,7 +21,6 @@ import io.rot.labs.projectconf.ui.main.MainSharedViewModel
 import io.rot.labs.projectconf.ui.main.MainViewModel
 import io.rot.labs.projectconf.ui.search.SearchAdapter
 import io.rot.labs.projectconf.ui.search.SearchViewModel
-import io.rot.labs.projectconf.ui.settings.SettingsViewModel
 import io.rot.labs.projectconf.utils.ViewModelProviderFactory
 import io.rot.labs.projectconf.utils.network.NetworkDBHelper
 import io.rot.labs.projectconf.utils.rx.SchedulerProvider
@@ -68,17 +67,6 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         return ViewModelProvider(activity, ViewModelProviderFactory(ArchiveViewModel::class) {
             ArchiveViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
         }).get(ArchiveViewModel::class.java)
-    }
-
-    @Provides
-    fun provideSettingsViewModel(
-        schedulerProvider: SchedulerProvider,
-        compositeDisposable: CompositeDisposable,
-        networkDBHelper: NetworkDBHelper
-    ): SettingsViewModel {
-        return ViewModelProvider(activity, ViewModelProviderFactory(SettingsViewModel::class) {
-            SettingsViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
-        }).get(SettingsViewModel::class.java)
     }
 
     @Provides

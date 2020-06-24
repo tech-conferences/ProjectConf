@@ -25,7 +25,6 @@
         <activity android:name=".ui.main.MainActivity" />
         <activity android:name=".ui.archive.ArchiveActivity" />
         <activity android:name=".ui.allTech.AllTechActivity" />
-        <activity android:name=".ui.settings.SettingsActivity" />
         <activity
             android:name=".ui.search.SearchActivity"
             android:windowSoftInputMode="adjustPan|adjustResize" />

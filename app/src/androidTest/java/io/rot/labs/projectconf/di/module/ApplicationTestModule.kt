@@ -11,6 +11,7 @@ import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
 import io.rot.labs.projectconf.data.local.db.EventsDatabaseService
 import io.rot.labs.projectconf.data.local.db.FakeEventsDatabaseService
+import io.rot.labs.projectconf.data.local.prefs.ThemePreferences
 import io.rot.labs.projectconf.data.remote.FakeNetworkService
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.data.repository.BookmarksRepository
@@ -75,6 +76,8 @@ class ApplicationTestModule(private val application: ConfApplication) {
     @Provides
     fun provideSchedulerProvider(): SchedulerProvider = RxSchedulerProvider()
 
+    @Singleton
     @Provides
-    fun provideScreenResourceHelper(): ScreenResourcesHelper = ScreenUtils
+    fun provideScreenResourceHelper(themePreferences: ThemePreferences): ScreenResourcesHelper =
+        ScreenUtils(themePreferences)
 }

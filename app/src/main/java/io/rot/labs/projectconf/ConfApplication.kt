@@ -1,6 +1,7 @@
 package io.rot.labs.projectconf
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.work.BackoffPolicy
 import androidx.work.Configuration
 import androidx.work.Constraints
@@ -9,6 +10,7 @@ import androidx.work.ListenableWorker
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import io.rot.labs.projectconf.data.local.prefs.ThemePreferences
 import io.rot.labs.projectconf.data.work.AllEventsFetchWorker
 import io.rot.labs.projectconf.data.work.UserTopicBiWeeklyAlertWorker
 import io.rot.labs.projectconf.data.work.UserTopicNewAlertsWorker
@@ -25,20 +27,24 @@ class ConfApplication : Application(), Configuration.Provider {
     @Inject
     lateinit var workerConfiguration: Configuration
 
+    @Inject
+    lateinit var themePreferences: ThemePreferences
+
     override fun onCreate() {
         super.onCreate()
         injectDependencies()
-        scheduleWorkers(AllEventsFetchWorker::class.java, AllEventsFetchWorker.TAG, 11, 15)
+        initTheme()
+        scheduleWorkers(AllEventsFetchWorker::class.java, AllEventsFetchWorker.TAG, 4, 7)
         scheduleWorkers(
             UserTopicNewAlertsWorker::class.java,
             UserTopicNewAlertsWorker.TAG,
-            8,
-            15
+            2,
+            7
         )
         scheduleWorkers(
             UserTopicBiWeeklyAlertWorker::class.java,
             UserTopicBiWeeklyAlertWorker.TAG,
-            5,
+            3,
             15
         )
     }
@@ -64,7 +70,7 @@ class ConfApplication : Application(), Configuration.Provider {
             .build()
 
         val workRequest =
-            PeriodicWorkRequest.Builder(workerClass, repeatInterval, TimeUnit.MINUTES)
+            PeriodicWorkRequest.Builder(workerClass, repeatInterval, TimeUnit.DAYS)
                 .setInitialDelay(initialDelay, TimeUnit.MINUTES)
                 .setBackoffCriteria(BackoffPolicy.LINEAR, 1, TimeUnit.HOURS)
                 .setConstraints(constraints)
@@ -84,5 +90,10 @@ class ConfApplication : Application(), Configuration.Provider {
 
     override fun getWorkManagerConfiguration(): Configuration {
         return workerConfiguration
+    }
+
+    private fun initTheme() {
+        val mode = themePreferences.getThemeMode()
+        AppCompatDelegate.setDefaultNightMode(mode)
     }
 }

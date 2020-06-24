@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
-import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_alltech.matToolbarAllTech
 import kotlinx.android.synthetic.main.activity_alltech.rvAllTech
@@ -15,9 +14,6 @@ class AllTechActivity : BaseActivity<AllTechViewModel>() {
 
     @Inject
     lateinit var gridLayoutManager: GridLayoutManager
-
-    @Inject
-    lateinit var screenResourcesHelper: ScreenResourcesHelper
 
     @Inject
     lateinit var allTechAdapter: AllTechAdapter
@@ -36,7 +32,7 @@ class AllTechActivity : BaseActivity<AllTechViewModel>() {
     override fun setupView(savedInstanceState: Bundle?) {
 
         rvAllTech.apply {
-            layoutManager = if (screenResourcesHelper.isPortrait()) {
+            layoutManager = if (screenUtils.isPortrait()) {
                 gridLayoutManager.apply { spanCount = 2 }
             } else {
                 gridLayoutManager.apply { spanCount = 3 }

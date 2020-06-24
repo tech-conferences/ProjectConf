@@ -4,6 +4,7 @@ import dagger.Component
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.ConfApplication
 import io.rot.labs.projectconf.data.local.db.EventsDatabaseService
+import io.rot.labs.projectconf.data.local.prefs.ThemePreferences
 import io.rot.labs.projectconf.data.local.prefs.UserTopicPreferences
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.data.repository.BookmarksRepository
@@ -37,4 +38,6 @@ interface ApplicationComponent {
     fun getScreenResourceHelper(): ScreenResourcesHelper
 
     fun getUserTopicPreferences(): UserTopicPreferences
+
+    fun getThemePreferences(): ThemePreferences
 }

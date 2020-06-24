@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
 import io.rot.labs.projectconf.ui.base.BaseActivity
-import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_archive.matToolbarArchive
 import kotlinx.android.synthetic.main.activity_archive.rvArchiveYears
@@ -15,9 +14,6 @@ class ArchiveActivity : BaseActivity<ArchiveViewModel>() {
 
     @Inject
     lateinit var gridLayoutManager: GridLayoutManager
-
-    @Inject
-    lateinit var screenResourcesHelper: ScreenResourcesHelper
 
     @Inject
     lateinit var archiveAdapter: ArchiveAdapter
@@ -36,7 +32,7 @@ class ArchiveActivity : BaseActivity<ArchiveViewModel>() {
 
         rvArchiveYears.apply {
             adapter = archiveAdapter
-            layoutManager = if (screenResourcesHelper.isPortrait()) {
+            layoutManager = if (screenUtils.isPortrait()) {
                 gridLayoutManager.apply { spanCount = 2 }
             } else {
                 gridLayoutManager.apply { spanCount = 3 }

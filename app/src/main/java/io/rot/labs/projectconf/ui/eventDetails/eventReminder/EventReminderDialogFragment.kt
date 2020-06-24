@@ -151,7 +151,6 @@ class EventReminderDialogFragment : BaseBottomSheetDialogFragment<EventReminderV
         when (reminderDayPeriod) {
             EventReminderViewModel.PERIOD_MONTH -> {
                 dayTimeMillis -= (31 * milliSecondIn1day)
-                dayTimeMillis = System.currentTimeMillis()
             }
             EventReminderViewModel.PERIOD_2_WEEKS -> {
                 dayTimeMillis -= (14 * milliSecondIn1day)
@@ -168,7 +167,6 @@ class EventReminderDialogFragment : BaseBottomSheetDialogFragment<EventReminderV
         when (reminderTimePeriod) {
             EventReminderViewModel.TIME_MORNING -> {
                 timePeriodMillis += (8 * milliSecondsIn1Hour)
-                timePeriodMillis = 5 * 60 * 1000
             }
             EventReminderViewModel.TIME_AFTERNOON -> {
                 timePeriodMillis += (14 * milliSecondsIn1Hour)

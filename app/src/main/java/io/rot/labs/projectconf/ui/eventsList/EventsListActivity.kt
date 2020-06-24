@@ -23,7 +23,6 @@ import io.rot.labs.projectconf.utils.common.Resource
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.Topics
 import io.rot.labs.projectconf.utils.display.ImageUtils
-import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import java.util.Locale
 import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_events_list.appBarLayoutEventsList
@@ -71,9 +70,6 @@ class EventsListActivity : BaseActivity<EventsListViewModel>() {
 
     @Inject
     lateinit var eventsItemAdapter: EventsItemAdapter
-
-    @Inject
-    lateinit var screenUtils: ScreenResourcesHelper
 
     companion object {
         const val TOPIC_TITLE = "topic_title"

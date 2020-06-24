@@ -25,7 +25,7 @@ class MainViewModel(
     val archiveNavigation = MutableLiveData<Event<Boolean>>()
     val bookmarksNavigation = MutableLiveData<Event<Boolean>>()
     val alertsNavigation = MutableLiveData<Event<Boolean>>()
-    val settingsNavigation = MutableLiveData<Event<Boolean>>()
+    val changeThemeNavigation = MutableLiveData<Event<Boolean>>()
     val aboutNavigation = MutableLiveData<Event<Boolean>>()
 
     private val activeFragmentNavigation = MutableLiveData(UPCOMING)
@@ -58,8 +58,8 @@ class MainViewModel(
         activeFragmentNavigation.postValue(ALERTS)
     }
 
-    fun onSettingsRedirection() {
-        settingsNavigation.postValue(Event(true))
+    fun onChangeTheme() {
+        changeThemeNavigation.postValue(Event(true))
     }
 
     fun onAboutRedirection() {
