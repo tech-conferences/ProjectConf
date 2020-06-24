@@ -8,7 +8,6 @@ import io.rot.labs.projectconf.ui.alerts.userTopicsChooser.AlertTopicChooserDial
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksFragment
 import io.rot.labs.projectconf.ui.changeTheme.ChangeThemeDialogFragment
 import io.rot.labs.projectconf.ui.eventDetails.eventReminder.EventReminderDialogFragment
-import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 
 @FragmentScope
@@ -19,8 +18,6 @@ import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 interface FragmentComponent {
 
     fun inject(fragment: UpComingFragment)
-
-    fun inject(fragment: TwitterFragment)
 
     fun inject(fragment: BookmarksFragment)
 

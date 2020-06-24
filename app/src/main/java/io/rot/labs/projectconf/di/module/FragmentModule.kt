@@ -19,7 +19,6 @@ import io.rot.labs.projectconf.ui.eventDetails.EventDetailsViewModel
 import io.rot.labs.projectconf.ui.eventDetails.eventReminder.EventReminderViewModel
 import io.rot.labs.projectconf.ui.eventsItem.EventsItemAdapter
 import io.rot.labs.projectconf.ui.main.MainSharedViewModel
-import io.rot.labs.projectconf.ui.twitter.TwitterViewModel
 import io.rot.labs.projectconf.ui.upcoming.UpComingViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.BannerViewModel
 import io.rot.labs.projectconf.ui.upcoming.banner.TechBannerAdapter
@@ -82,17 +81,6 @@ class FragmentModule(private val fragment: Fragment) {
                 eventsRepository
             )
         }).get(UpComingViewModel::class.java)
-    }
-
-    @Provides
-    fun provideTwitterViewModel(
-        schedulerProvider: SchedulerProvider,
-        compositeDisposable: CompositeDisposable,
-        networkDBHelper: NetworkDBHelper
-    ): TwitterViewModel {
-        return ViewModelProvider(fragment, ViewModelProviderFactory(TwitterViewModel::class) {
-            TwitterViewModel(schedulerProvider, compositeDisposable, networkDBHelper)
-        }).get(TwitterViewModel::class.java)
     }
 
     @Provides

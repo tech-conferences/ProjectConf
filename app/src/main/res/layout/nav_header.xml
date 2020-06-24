@@ -9,6 +9,7 @@
         android:textSize="48sp"
         android:textStyle="italic"
         android:padding="16dp"
+        android:textColor="@color/yellow500"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name" />

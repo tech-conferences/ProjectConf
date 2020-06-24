@@ -33,19 +33,6 @@ class MainActivityTest {
     }
 
     @Test
-    fun onNavigateToTweets_should_showTweetFragment() {
-        launch(MainActivity::class.java)
-        onView(withId(R.id.drawerLayout))
-            .check(matches(isClosed(GravityCompat.START)))
-            .perform(DrawerActions.open())
-
-        onView(withId(R.id.navView))
-            .perform(NavigationViewActions.navigateTo(R.id.nav_tweets))
-
-        onView(withId(R.id.tvScreenTitle)).check(matches(withText(R.string.nav_tweets)))
-    }
-
-    @Test
     fun onNavigateToAlerts_should_showAlertsFragment() {
         launch(MainActivity::class.java)
         onView(withId(R.id.drawerLayout))

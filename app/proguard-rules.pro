@@ -32,3 +32,7 @@
 }
 # We need to keep WorkerParameters for the ListenableWorker constructor
 -keep class androidx.work.WorkerParameters
+
+# models and entitites
+-keep class io.rot.labs.projectconf.data.model.** { *; }
+-keep class io.rot.labs.projectconf.data.local.db.entity.** { *; }

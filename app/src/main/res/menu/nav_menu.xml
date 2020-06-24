@@ -14,11 +14,6 @@
         android:id="@+id/group_option"
         android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_tweets"
-            android:icon="@drawable/ic_twitter"
-            android:title="@string/nav_tweets" />
-
-        <item
             android:id="@+id/nav_bookmarks"
             android:icon="@drawable/ic_bookmarks"
             android:title="@string/nav_bookmarks" />

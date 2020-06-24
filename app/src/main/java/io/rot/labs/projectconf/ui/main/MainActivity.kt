@@ -11,13 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.di.component.ActivityComponent
+import io.rot.labs.projectconf.ui.about.AboutDialog
 import io.rot.labs.projectconf.ui.alerts.alertsView.AlertsFragment
 import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.base.BaseActivity
 import io.rot.labs.projectconf.ui.bookmarks.BookmarksFragment
 import io.rot.labs.projectconf.ui.changeTheme.ChangeThemeDialogFragment
 import io.rot.labs.projectconf.ui.search.SearchActivity
-import io.rot.labs.projectconf.ui.twitter.TwitterFragment
 import io.rot.labs.projectconf.ui.upcoming.UpComingFragment
 import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import javax.inject.Inject
@@ -62,14 +62,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
             }
         })
 
-        viewModel.tweetNavigation.observe(this, Observer {
-            it.getIfNotHandled()?.let {
-                showTwitterFragment()
-                tvScreenTitle.text = getString(R.string.nav_tweets)
-                ivSearchContainer.visibility = View.INVISIBLE
-            }
-        })
-
         viewModel.bookmarksNavigation.observe(this, Observer {
             it.getIfNotHandled()?.let {
                 showBookmarksFragment()
@@ -97,6 +89,12 @@ class MainActivity : BaseActivity<MainViewModel>() {
             it.getIfNotHandled()?.let {
                 showChangeThemeBottomDialog()
                 drawerLayout.closeDrawer(GravityCompat.START)
+            }
+        })
+
+        viewModel.aboutNavigation.observe(this, Observer {
+            it.getIfNotHandled()?.let {
+                AboutDialog().show(supportFragmentManager, AboutDialog.TAG)
             }
         })
 
@@ -131,11 +129,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
                     drawerLayout.closeDrawer(GravityCompat.START)
                     true
                 }
-                R.id.nav_tweets -> {
-                    viewModel.onTweetRedirection()
-                    drawerLayout.closeDrawer(GravityCompat.START)
-                    true
-                }
                 R.id.nav_alerts -> {
                     viewModel.onAlertsRedirection()
                     drawerLayout.closeDrawer(GravityCompat.START)
@@ -153,6 +146,11 @@ class MainActivity : BaseActivity<MainViewModel>() {
                 }
                 R.id.nav_change_theme -> {
                     viewModel.onChangeTheme()
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                    false
+                }
+                R.id.nav_about -> {
+                    viewModel.onAboutRedirection()
                     drawerLayout.closeDrawer(GravityCompat.START)
                     false
                 }
@@ -174,32 +172,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
         if (fragment == null) {
             fragment = UpComingFragment.newInstance()
             fragmentTransaction.add(R.id.container, fragment, UpComingFragment.TAG)
-        } else {
-            fragmentTransaction.show(fragment)
-        }
-
-        if (activeFragment != null) {
-            fragmentTransaction.hide(activeFragment as Fragment)
-        }
-
-        fragmentTransaction.commit()
-
-        activeFragment = fragment
-    }
-
-    private fun showTwitterFragment() {
-        if (activeFragment is TwitterFragment) {
-            return
-        }
-
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
-
-        var fragment =
-            supportFragmentManager.findFragmentByTag(TwitterFragment.TAG) as TwitterFragment?
-
-        if (fragment == null) {
-            fragment = TwitterFragment.newInstance()
-            fragmentTransaction.add(R.id.container, fragment, TwitterFragment.TAG)
         } else {
             fragmentTransaction.show(fragment)
         }

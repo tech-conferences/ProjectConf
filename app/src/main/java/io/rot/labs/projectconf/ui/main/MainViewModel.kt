@@ -15,13 +15,11 @@ class MainViewModel(
 
     companion object {
         private const val UPCOMING = "upcoming"
-        private const val TWEETS = "tweets"
         private const val ALERTS = "alerts"
         private const val BOOKMARKS = "bookmarks"
     }
 
     val upComingNavigation = MutableLiveData<Event<Boolean>>()
-    val tweetNavigation = MutableLiveData<Event<Boolean>>()
     val archiveNavigation = MutableLiveData<Event<Boolean>>()
     val bookmarksNavigation = MutableLiveData<Event<Boolean>>()
     val alertsNavigation = MutableLiveData<Event<Boolean>>()
@@ -37,11 +35,6 @@ class MainViewModel(
     fun onUpComingRedirection() {
         upComingNavigation.postValue(Event(true))
         activeFragmentNavigation.postValue(UPCOMING)
-    }
-
-    fun onTweetRedirection() {
-        tweetNavigation.postValue(Event(true))
-        activeFragmentNavigation.postValue(TWEETS)
     }
 
     fun onArchiveRedirection() {
@@ -69,7 +62,6 @@ class MainViewModel(
     private fun onActiveFragmentRedirection() {
         when (activeFragmentNavigation.value) {
             UPCOMING -> onUpComingRedirection()
-            TWEETS -> onTweetRedirection()
             BOOKMARKS -> onBookmarksRedirection()
             ALERTS -> onAlertsRedirection()
         }

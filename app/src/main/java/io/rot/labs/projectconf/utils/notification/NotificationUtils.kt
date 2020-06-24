@@ -43,13 +43,13 @@ object NotificationUtils {
         }
 
         val pendingIntent =
-            PendingIntent.getActivity(appContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            PendingIntent.getActivity(appContext, Random.nextInt().absoluteValue, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         createNotificationChannel(appContext, channelId)
 
         val notification =
             NotificationCompat.Builder(appContext, channelId)
-                .setSmallIcon(R.drawable.android_logo)
+                .setSmallIcon(R.drawable.ic_alerts_notify)
                 .setContentTitle(notificationTitle)
                 .setContentText(notificationText)
                 .setStyle(
@@ -94,7 +94,7 @@ object NotificationUtils {
 
         val notification =
             NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.android_logo)
+                .setSmallIcon(R.drawable.ic_alerts_notify)
                 .setContentTitle(context.getString(R.string.cfp_reminder))
                 .setContentText("${eventEntity.topic} : ${eventEntity.event.name}")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
