@@ -7,13 +7,15 @@ import java.util.Date
 
 object AndroidTestHelper {
 
-    const val milliSecondsIn1Day = 86400000
+    const val milliSecondsIn1Day: Long = 86400000
 
     private val baseTime = System.currentTimeMillis()
     val eventDatePast = baseTime - 2 * milliSecondsIn1Day
     val eventDateFuture = baseTime + 10 * milliSecondsIn1Day
     val eventDateFuture1 = baseTime + 11 * milliSecondsIn1Day
+
     val cfpDateFuture = baseTime + 5 * milliSecondsIn1Day
+    val cfpDateFuture1: Long = baseTime + 62 * milliSecondsIn1Day
     val cfpDatePast = baseTime - 5 * milliSecondsIn1Day
 
     val fakeEventEntityList = listOf(
@@ -87,6 +89,21 @@ object AndroidTestHelper {
             ),
             "rust",
             TimeDateUtils.getYearForDate(Date(eventDateFuture))
+        ),
+        EventEntity(
+            Event(
+                "Kubecon EU",
+                "https://kubecon.tech",
+                Date(eventDateFuture),
+                Date(eventDateFuture1),
+                "San diego",
+                "U.S.A.",
+                "https://papercall.io/kubeconEU",
+                Date(cfpDateFuture1),
+                "@kubeconEU"
+            ),
+            "devops",
+            TimeDateUtils.getYearForDate(Date(eventDatePast))
         )
     )
 }

@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import io.rot.labs.projectconf.R
 import io.rot.labs.projectconf.background.cfpUrl.CFPUrlReceiver
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
-import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsViewActivity
+import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsNotificationActivity
 import io.rot.labs.projectconf.ui.eventDetails.EventDetailsActivity
 import kotlin.math.absoluteValue
 import kotlin.random.Random
@@ -36,8 +36,8 @@ object NotificationUtils {
             addAll(list)
         }
 
-        val intent = Intent(appContext, AlertsViewActivity::class.java).apply {
-            putParcelableArrayListExtra(AlertsViewActivity.ALERTS_LIST, alertsList)
+        val intent = Intent(appContext, AlertsNotificationActivity::class.java).apply {
+            putParcelableArrayListExtra(AlertsNotificationActivity.ALERTS_LIST, alertsList)
 
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }

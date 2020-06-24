@@ -14,7 +14,7 @@ import javax.inject.Inject
 import kotlinx.android.synthetic.main.activity_alerts_view.matToolBarAlerts
 import kotlinx.android.synthetic.main.activity_alerts_view.rvAlertEvents
 
-class AlertsViewActivity : BaseActivity<AlertsViewViewModel>() {
+class AlertsNotificationActivity : BaseActivity<AlertsNotificationViewModel>() {
 
     companion object {
         const val ALERTS_LIST = "alerts_list"

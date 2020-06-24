@@ -46,7 +46,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
                 val bundle = it.getBundleExtra(EventReminderDialogFragment.EVENT_BUNDLE)
                 bundle?.let {
                     val eventEntity =
-                        bundle.get(EventReminderDialogFragment.EVENT_REMINDER) as EventEntity
+                        bundle.get(EventReminderDialogFragment.ALERT_EVENT_ENTITY) as EventEntity
 
                     bookmarksRepository.insertBookmarkEvent(BookmarkedEvent(eventEntity))
                         .subscribeOn(schedulerProvider.io())
@@ -73,7 +73,7 @@ class AlarmBroadcastReceiver : BroadcastReceiver() {
         cfpReminders.forEach {
             val alarmIntent = Intent(context, AlarmBroadcastReceiver::class.java).let { intent ->
                 val bundle = Bundle()
-                bundle.putParcelable(EventReminderDialogFragment.EVENT_REMINDER, it.eventEntity)
+                bundle.putParcelable(EventReminderDialogFragment.ALERT_EVENT_ENTITY, it.eventEntity)
                 intent.putExtra(EventReminderDialogFragment.EVENT_BUNDLE, bundle)
 
                 PendingIntent.getBroadcast(

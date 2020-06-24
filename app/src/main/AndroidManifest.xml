@@ -31,7 +31,7 @@
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity android:name=".ui.eventsList.EventsListActivity" />
         <activity android:name=".ui.eventDetails.EventDetailsActivity" />
-        <activity android:name=".ui.alerts.alertsNotification.AlertsViewActivity"/>
+        <activity android:name=".ui.alerts.alertsNotification.AlertsNotificationActivity"/>
         <activity
             android:name=".ui.splash.SplashActivity"
             android:screenOrientation="portrait"

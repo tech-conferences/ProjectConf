@@ -1,5 +1,8 @@
 package io.rot.labs.projectconf.ui.eventDetails
 
+import android.app.AlarmManager
+import android.app.PendingIntent
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.provider.CalendarContract
@@ -7,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import io.rot.labs.projectconf.R
+import io.rot.labs.projectconf.background.reminders.AlarmBroadcastReceiver
 import io.rot.labs.projectconf.data.local.db.entity.BookmarkedEvent
 import io.rot.labs.projectconf.data.local.db.entity.EventEntity
 import io.rot.labs.projectconf.di.component.ActivityComponent
@@ -147,11 +151,32 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
         fabBookMark.setOnClickListener {
             if (isBookMarked) {
+                if (cfpScheduledId != -1 && eventDetail != null) {
+                    removeReminder()
+                }
                 viewModel.removeBookmarkedEvent(BookmarkedEvent(eventDetail!!))
             } else {
                 viewModel.insertBookmarkedEvent(BookmarkedEvent(eventDetail!!))
             }
         }
+    }
+
+    private fun removeReminder() {
+        val alarmManager = this.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        val alarmIntent = Intent(this, AlarmBroadcastReceiver::class.java).let {
+            val bundle = Bundle()
+            bundle.putParcelable(EventReminderDialogFragment.ALERT_EVENT_ENTITY, eventDetail!!)
+            it.putExtra(EventReminderDialogFragment.EVENT_BUNDLE, bundle)
+
+            PendingIntent.getBroadcast(
+                this,
+                cfpScheduledId,
+                it,
+                PendingIntent.FLAG_UPDATE_CURRENT
+            )
+        }
+        alarmManager.cancel(alarmIntent)
     }
 
     override fun setupObservables() {

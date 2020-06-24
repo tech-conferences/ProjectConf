@@ -35,7 +35,7 @@ class AlarmBroadcastReceiverTest {
         val intent = Intent(component.getContext(), AlarmBroadcastReceiver::class.java).apply {
             val bundle = Bundle()
             bundle.putParcelable(
-                EventReminderDialogFragment.EVENT_REMINDER,
+                EventReminderDialogFragment.ALERT_EVENT_ENTITY,
                 AndroidTestHelper.fakeEventEntityList[1]
             )
             putExtra(EventReminderDialogFragment.EVENT_BUNDLE, bundle)

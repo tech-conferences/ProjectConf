@@ -51,7 +51,7 @@ class EventReminderViewModel(
         reminderDaysList.postValue(reminderDays)
     }
 
-    fun getTimeList(period: String) {
+    fun getTimeList() {
         val timeList = mutableListOf<String>()
         timeList.add(TIME_MORNING)
         timeList.add(TIME_AFTERNOON)

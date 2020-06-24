@@ -28,7 +28,7 @@ class EventDetailsViewModel(
 
     val isBookmarked = MutableLiveData<Boolean>()
 
-    val cfpScheduledId = MutableLiveData<Int>()
+    val cfpScheduledId = MutableLiveData<Int?>()
 
     override fun onCreate() {}
 

@@ -37,7 +37,7 @@ class EventReminderDialogFragment : BaseBottomSheetDialogFragment<EventReminderV
     lateinit var eventDetailsViewModel: EventDetailsViewModel
 
     companion object {
-        const val EVENT_REMINDER = "event_reminder"
+        const val ALERT_EVENT_ENTITY = "alert_event_entity"
         const val EVENT_BUNDLE = "event_bundle"
         const val EVENT_ENTITY = "event_entity"
         const val CFP_SCHEDULED_ID = "cfp_scheduled_id"
@@ -103,7 +103,7 @@ class EventReminderDialogFragment : BaseBottomSheetDialogFragment<EventReminderV
 
                 val alarmIntent = Intent(requireContext(), AlarmBroadcastReceiver::class.java).let {
                     val bundle = Bundle()
-                    bundle.putParcelable(EVENT_REMINDER, eventEntity)
+                    bundle.putParcelable(ALERT_EVENT_ENTITY, eventEntity)
                     it.putExtra(EVENT_BUNDLE, bundle)
 
                     PendingIntent.getBroadcast(
@@ -133,7 +133,7 @@ class EventReminderDialogFragment : BaseBottomSheetDialogFragment<EventReminderV
             (eventEntity.event.cfpEndDate!!.time or Random.nextLong(0, Long.MAX_VALUE)).toInt()
         val alarmIntent = Intent(requireContext(), AlarmBroadcastReceiver::class.java).let {
             val bundle = Bundle()
-            bundle.putParcelable(EVENT_REMINDER, eventEntity)
+            bundle.putParcelable(ALERT_EVENT_ENTITY, eventEntity)
             it.putExtra(EVENT_BUNDLE, bundle)
 
             PendingIntent.getBroadcast(
@@ -231,7 +231,7 @@ class EventReminderDialogFragment : BaseBottomSheetDialogFragment<EventReminderV
             EventReminderViewModel.PERIOD_2_DAYS -> {
                 reminderDayPeriod = item
                 timeSpinner.isEnabled = true
-                viewModel.getTimeList(item)
+                viewModel.getTimeList()
             }
 
             EventReminderViewModel.TIME_MORNING,

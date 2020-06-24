@@ -8,7 +8,7 @@ import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.EventsRepository
-import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsViewViewModel
+import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsNotificationViewModel
 import io.rot.labs.projectconf.ui.allTech.AllTechAdapter
 import io.rot.labs.projectconf.ui.allTech.AllTechViewModel
 import io.rot.labs.projectconf.ui.archive.ArchiveAdapter
@@ -160,16 +160,14 @@ class ActivityModule(private val activity: BaseActivity<*>) {
     fun provideAlertsViewViewModel(
         schedulerProvider: SchedulerProvider,
         compositeDisposable: CompositeDisposable,
-        networkDBHelper: NetworkDBHelper,
-        eventsRepository: EventsRepository
-    ): AlertsViewViewModel {
-        return ViewModelProvider(activity, ViewModelProviderFactory(AlertsViewViewModel::class) {
-            AlertsViewViewModel(
+        networkDBHelper: NetworkDBHelper
+    ): AlertsNotificationViewModel {
+        return ViewModelProvider(activity, ViewModelProviderFactory(AlertsNotificationViewModel::class) {
+            AlertsNotificationViewModel(
                 schedulerProvider,
                 compositeDisposable,
-                networkDBHelper,
-                eventsRepository
+                networkDBHelper
             )
-        }).get(AlertsViewViewModel::class.java)
+        }).get(AlertsNotificationViewModel::class.java)
     }
 }

@@ -3,7 +3,7 @@ package io.rot.labs.projectconf.di.component
 import dagger.Component
 import io.rot.labs.projectconf.di.ActivityScope
 import io.rot.labs.projectconf.di.module.ActivityModule
-import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsViewActivity
+import io.rot.labs.projectconf.ui.alerts.alertsNotification.AlertsNotificationActivity
 import io.rot.labs.projectconf.ui.allTech.AllTechActivity
 import io.rot.labs.projectconf.ui.archive.ArchiveActivity
 import io.rot.labs.projectconf.ui.eventDetails.EventDetailsActivity
@@ -33,5 +33,5 @@ interface ActivityComponent {
 
     fun inject(activity: AllTechActivity)
 
-    fun inject(activity: AlertsViewActivity)
+    fun inject(activity: AlertsNotificationActivity)
 }
