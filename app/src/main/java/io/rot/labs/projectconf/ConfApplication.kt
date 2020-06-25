@@ -10,10 +10,10 @@ import androidx.work.ListenableWorker
 import androidx.work.NetworkType
 import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
+import io.rot.labs.projectconf.background.work.AllEventsFetchWorker
+import io.rot.labs.projectconf.background.work.UserTopicBiWeeklyAlertWorker
+import io.rot.labs.projectconf.background.work.UserTopicNewAlertsWorker
 import io.rot.labs.projectconf.data.local.prefs.ThemePreferences
-import io.rot.labs.projectconf.data.work.AllEventsFetchWorker
-import io.rot.labs.projectconf.data.work.UserTopicBiWeeklyAlertWorker
-import io.rot.labs.projectconf.data.work.UserTopicNewAlertsWorker
 import io.rot.labs.projectconf.di.component.ApplicationComponent
 import io.rot.labs.projectconf.di.component.DaggerApplicationComponent
 import io.rot.labs.projectconf.di.module.ApplicationModule

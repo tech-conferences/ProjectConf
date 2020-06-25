@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.data.work
+package io.rot.labs.projectconf.background.work
 
 import android.content.Context
 import androidx.work.RxWorker

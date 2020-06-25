@@ -9,10 +9,10 @@ import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.BuildConfig
 import io.rot.labs.projectconf.ConfApplication
+import io.rot.labs.projectconf.background.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
 import io.rot.labs.projectconf.data.local.prefs.ThemePreferences
 import io.rot.labs.projectconf.data.remote.ConfApi
-import io.rot.labs.projectconf.data.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
 import io.rot.labs.projectconf.utils.network.NetworkDBHelper

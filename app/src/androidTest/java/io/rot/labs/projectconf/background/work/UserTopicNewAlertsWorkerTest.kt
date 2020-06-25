@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.data.work
+package io.rot.labs.projectconf.background.work
 
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -40,7 +40,12 @@ class UserTopicNewAlertsWorkerTest {
         val config = Configuration.Builder()
             .setMinimumLoggingLevel(Log.DEBUG)
             .setExecutor(SynchronousExecutor())
-            .setWorkerFactory(ManagerWorkerFactory(eventsRepository, userTopicPreferences))
+            .setWorkerFactory(
+                ManagerWorkerFactory(
+                    eventsRepository,
+                    userTopicPreferences
+                )
+            )
             .build()
 
         WorkManagerTestInitHelper.initializeTestWorkManager(component.getContext(), config)

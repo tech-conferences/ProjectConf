@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable
 import io.rot.labs.projectconf.ConfApplication
+import io.rot.labs.projectconf.background.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.data.local.db.ConfDatabase
 import io.rot.labs.projectconf.data.local.db.EventsDatabaseService
 import io.rot.labs.projectconf.data.local.db.FakeEventsDatabaseService
@@ -16,7 +17,6 @@ import io.rot.labs.projectconf.data.remote.FakeNetworkService
 import io.rot.labs.projectconf.data.remote.NetworkService
 import io.rot.labs.projectconf.data.repository.BookmarksRepository
 import io.rot.labs.projectconf.data.repository.FakeBookmarksRepository
-import io.rot.labs.projectconf.data.work.ManagerWorkerFactory
 import io.rot.labs.projectconf.utils.display.ScreenResourcesHelper
 import io.rot.labs.projectconf.utils.display.ScreenUtils
 import io.rot.labs.projectconf.utils.network.FakeNetworkDBHelper

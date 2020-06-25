@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.data.work
+package io.rot.labs.projectconf.background.work
 
 import android.util.Log
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -15,8 +15,8 @@ import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
 import io.rot.labs.projectconf.TestComponentRule
 import java.util.concurrent.TimeUnit
-import org.hamcrest.CoreMatchers.`is`
-import org.junit.Assert.assertThat
+import org.hamcrest.CoreMatchers
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -24,7 +24,7 @@ import org.junit.rules.RuleChain
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class AllEventsFetchWorkerTest {
+class UserTopicBiWeeklyAlertWorkerTest {
 
     val component = TestComponentRule(InstrumentationRegistry.getInstrumentation().targetContext)
 
@@ -33,28 +33,32 @@ class AllEventsFetchWorkerTest {
 
     @Before
     fun setup() {
-
         val eventsRepository = component.testComponent!!.getEventRepository()
         val userTopicPreferences = component.testComponent!!.getUserTopicPreferences()
+        userTopicPreferences.edit(listOf("kotlin"))
 
         val config = Configuration.Builder()
             .setMinimumLoggingLevel(Log.DEBUG)
             .setExecutor(SynchronousExecutor())
-            .setWorkerFactory(ManagerWorkerFactory(eventsRepository, userTopicPreferences))
+            .setWorkerFactory(
+                ManagerWorkerFactory(
+                    eventsRepository,
+                    userTopicPreferences
+                )
+            )
             .build()
 
         WorkManagerTestInitHelper.initializeTestWorkManager(component.getContext(), config)
     }
 
     @Test
-    fun allEventsFetchWorkerTest() {
-
+    fun userTopicNewAlertsWorkerTest() {
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
             .setRequiresBatteryNotLow(true)
             .build()
 
-        val workRequest = PeriodicWorkRequestBuilder<AllEventsFetchWorker>(7, TimeUnit.DAYS)
+        val workRequest = PeriodicWorkRequestBuilder<UserTopicBiWeeklyAlertWorker>(15, TimeUnit.DAYS)
             .setInitialDelay(10, TimeUnit.MINUTES)
             .setBackoffCriteria(BackoffPolicy.LINEAR, 1, TimeUnit.HOURS)
             .setConstraints(constraints)
@@ -64,7 +68,7 @@ class AllEventsFetchWorkerTest {
         val testDriver = WorkManagerTestInitHelper.getTestDriver(component.getContext())!!
 
         workManager.enqueueUniquePeriodicWork(
-            AllEventsFetchWorker.TAG,
+            UserTopicBiWeeklyAlertWorker.TAG,
             ExistingPeriodicWorkPolicy.KEEP,
             workRequest
         ).result.get()
@@ -75,6 +79,6 @@ class AllEventsFetchWorkerTest {
 
         val workInfo = workManager.getWorkInfoById(workRequest.id).get()
 
-        assertThat(workInfo.state, `is`(WorkInfo.State.ENQUEUED))
+        Assert.assertThat(workInfo.state, CoreMatchers.`is`(WorkInfo.State.ENQUEUED))
     }
 }

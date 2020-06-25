@@ -1,4 +1,4 @@
-package io.rot.labs.projectconf.data.work
+package io.rot.labs.projectconf.background.work
 
 import androidx.work.DelegatingWorkerFactory
 import io.rot.labs.projectconf.data.local.prefs.UserTopicPreferences
@@ -13,6 +13,11 @@ class ManagerWorkerFactory @Inject constructor(
 ) :
     DelegatingWorkerFactory() {
     init {
-        addFactory(EventWorkerFactory(eventsRepository, userTopicPreferences))
+        addFactory(
+            EventWorkerFactory(
+                eventsRepository,
+                userTopicPreferences
+            )
+        )
     }
 }
