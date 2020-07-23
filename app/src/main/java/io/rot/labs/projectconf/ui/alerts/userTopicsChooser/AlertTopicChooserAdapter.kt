@@ -18,7 +18,6 @@ class AlertTopicChooserAdapter(
     fun getUserTopicList() = userTopicList
 
     override fun onBindViewHolder(holder: AlertTopicChooserItemViewHolder, position: Int) {
-        holder.itemView.topicCheckBox.setOnCheckedChangeListener(null)
         holder.itemView.topicCheckBox.setOnCheckedChangeListener { _, isChecked ->
             dataList[position] = dataList[position].first to isChecked
             holder.bind(dataList[position])
