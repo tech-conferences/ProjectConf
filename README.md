@@ -65,3 +65,6 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 
 ## Illustrations Credits
 [Icons 8 Ouch](https://icons8.com/illustrations) - Awesome free illustrations for your hobby and work projects
+
+## License
+[GNU GPL LICENSE v3.0](LICENSE.md)
