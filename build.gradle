@@ -13,6 +13,9 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:$ktlint_version"
+        classpath 'com.google.gms:google-services:4.3.4'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.4.1'
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -102,5 +105,8 @@ ext {
 
     // Test Coverage
     jacoco_version = '0.8.5'
+
+    // firebase
+    firebase_version = '26.2.0'
 
 }

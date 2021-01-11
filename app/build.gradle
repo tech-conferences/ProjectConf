@@ -4,6 +4,8 @@ plugins {
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'jacoco'
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
 
 apply from: 'jacoco.gradle'
@@ -21,7 +23,7 @@ android {
         minSdkVersion rootProject.ext.min_sdk_version
         targetSdkVersion rootProject.ext.target_sdk_version
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
@@ -40,10 +42,15 @@ android {
             buildConfigField("String", "BASE_URL", "\"https://raw.githubusercontent.com/tech-conferences/conference-data/master/conferences/\"")
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             buildConfigField("String", "BASE_URL", "\"https://raw.githubusercontent.com/tech-conferences/conference-data/master/conferences/\"")
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
     }
 
     testOptions {
@@ -155,5 +162,10 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:$mockito_version"
     debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
     kaptAndroidTest "com.google.dagger:dagger-compiler:$dagger_version"
+
+
+    // firebase dependencies
+    implementation platform("com.google.firebase:firebase-bom:$firebase_version")
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
 }

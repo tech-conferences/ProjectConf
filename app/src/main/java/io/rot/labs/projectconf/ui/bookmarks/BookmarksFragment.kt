@@ -85,7 +85,6 @@ class BookmarksFragment : BaseFragment<BookmarksViewModel>() {
 
         viewModel.cfpReminders.observe(this, Observer {
             eventsItemAdapter.updateData(it)
-
             if (it.isEmpty()) {
                 handleListIsEmptyLayout()
             } else {

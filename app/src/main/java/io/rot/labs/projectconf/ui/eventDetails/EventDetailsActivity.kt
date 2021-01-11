@@ -20,8 +20,6 @@ import io.rot.labs.projectconf.utils.common.TimeDateUtils
 import io.rot.labs.projectconf.utils.common.Toaster
 import io.rot.labs.projectconf.utils.common.URLOpener.openURL
 import io.rot.labs.projectconf.utils.display.ImageUtils
-import java.util.Date
-import java.util.Locale
 import kotlinx.android.synthetic.main.activity_event_details.appBarLayoutEventDetails
 import kotlinx.android.synthetic.main.activity_event_details.fabBookMark
 import kotlinx.android.synthetic.main.activity_event_details.ivAddToCalendar
@@ -42,6 +40,8 @@ import kotlinx.android.synthetic.main.layout_event_details.tvEventStartDate
 import kotlinx.android.synthetic.main.layout_generic_banner.ivTech
 import kotlinx.android.synthetic.main.layout_generic_banner.tvGenericSub
 import kotlinx.android.synthetic.main.layout_generic_banner.tvGenericTitle
+import java.util.Date
+import java.util.Locale
 
 class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
@@ -89,7 +89,7 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
         btnTwitter.setOnClickListener {
             eventDetail?.event?.twitter?.let {
-                val twitterUrl = "https://twitter.com/${it.apply { removePrefix("@") }}"
+                val twitterUrl = "https://twitter.com/${it.removePrefix("@")}"
                 openURL(twitterUrl, true, this)
             }
         }

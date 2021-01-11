@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "468800581492",
+    "project_id": "rotprojects-868af",
+    "storage_bucket": "rotprojects-868af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468800581492:android:2deba8fb76cac1d7780621",
+        "android_client_info": {
+          "package_name": "io.rot.labs.projectconf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468800581492-tuelcursv4kh09v3mu5c9ijr1ctc0l3e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.rot.labs.projectconf",
+            "certificate_hash": "6981a70f7677709efe42c5529d51474ac5b5dc5d"
+          }
+        },
+        {
+          "client_id": "468800581492-arj2c6jpimb6t7aeb6m5e4e2c41q5ufi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8vr2IF-JVgHGqQIoPAbQ_ykWax3urNXY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468800581492-arj2c6jpimb6t7aeb6m5e4e2c41q5ufi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
