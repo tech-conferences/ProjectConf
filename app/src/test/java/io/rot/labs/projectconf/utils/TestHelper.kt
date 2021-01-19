@@ -27,6 +27,7 @@ object TestHelper {
                 "https://pragmaconf.tech",
                 Date(eventDatePast),
                 Date(),
+                false,
                 "Allahabad",
                 "India"
             ),
@@ -38,6 +39,7 @@ object TestHelper {
                 "https://kotliners.tech",
                 Date(eventDatePast1),
                 Date(),
+                false,
                 "Austin",
                 "U.S.A."
             ),

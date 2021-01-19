@@ -19,7 +19,7 @@ import javax.inject.Singleton
 @Database(
     entities = [EventEntity::class, BookmarkedEvent::class],
     exportSchema = false,
-    version = 1
+    version = 2
 )
 @TypeConverters(DateConverters::class)
 abstract class ConfDatabase : RoomDatabase() {

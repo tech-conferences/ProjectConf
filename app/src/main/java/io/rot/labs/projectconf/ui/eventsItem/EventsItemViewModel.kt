@@ -43,10 +43,12 @@ class EventsItemViewModel @Inject constructor(
 
     val place: LiveData<String?> = Transformations.map(data) {
         if (it is EventEntity) {
-            if (it.event.country == "Online") {
-                it.event.country
-            } else {
+            if (it.event.online) {
+                "Online"
+            } else if (it.event.city != null && it.event.country != null) {
                 "${it.event.city}, ${it.event.country}"
+            } else {
+                null
             }
         } else {
             null

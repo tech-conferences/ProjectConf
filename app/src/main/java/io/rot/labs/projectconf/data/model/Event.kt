@@ -37,14 +37,19 @@ data class Event(
     val endDate: Date,
 
     @Expose
+    @ColumnInfo(name = "online")
+    @SerializedName(value = "online")
+    val online: Boolean = false,
+
+    @Expose
     @ColumnInfo(name = "city")
     @SerializedName(value = "city")
-    val city: String,
+    val city: String? = null,
 
     @Expose
     @ColumnInfo(name = "country")
     @SerializedName(value = "country")
-    val country: String,
+    val country: String? = null,
 
     @Expose
     @ColumnInfo(name = "cfpUrl")

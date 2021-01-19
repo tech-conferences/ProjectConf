@@ -21,6 +21,7 @@ class FakeNetworkService : NetworkService {
                     "https://androidmakers.fr",
                     TimeDateUtils.getCurrentDate(),
                     TimeDateUtils.getLastDateOfCurrentMonth(),
+                    true,
                     "Online",
                     "Online",
                     "https://cfp.androidmakers.fr",

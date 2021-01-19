@@ -200,10 +200,12 @@ class EventDetailsActivity : BaseActivity<EventDetailsViewModel>() {
 
             tvGenericTitle.text = it.event.name
 
-            tvGenericSub.text = if (it.event.country == "Online") {
-                it.event.country
-            } else {
+            tvGenericSub.text = if (it.event.online) {
+                "Online"
+            } else if (it.event.city != null && it.event.country != null) {
                 "${it.event.city}, ${it.event.country}"
+            } else {
+                ""
             }
 
             // Event Dates section
