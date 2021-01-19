@@ -19,7 +19,7 @@ It loads the data from **Confs.tech github repo**. There is no proper api for lo
 
 ***Download latest ConfX apk from below 👇***
 
-[![ConfX App](https://img.shields.io/badge/ConfX-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/RotBolt/ProjectConf/releases/download/1.0.0/app-release.apk)
+[![ConfX App](https://img.shields.io/badge/ConfX-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/RotBolt/ProjectConf/releases/download/1.0.1/app-release.apk)
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
